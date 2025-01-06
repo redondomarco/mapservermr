@@ -1,0 +1,17 @@
+services:
+    mapserver:
+        container_name: mapservermr
+        image: mapservermr:0.1
+        #environment:
+            #- http_proxy=$HTTP_PROXYCONF
+            #- https_proxy=$HTTPS_PROXYCONF
+        ports:
+            - 443:443
+        volumes:
+            - ./conf/informix/ld.so.conf:/etc/ld.so.conf
+            - ./conf/informix/odbc.ini:/etc/odbc.ini
+            - ./conf/informix/odbcinst.ini:/etc/odbcinst.ini
+            - ./conf/informix/sqlhosts:/var/informix/etc/sqlhosts
+            - ./conf/build.sh:/opt/build.sh
+            - /etc/localtime:/etc/localtime:ro
+            - ./data/root:/root

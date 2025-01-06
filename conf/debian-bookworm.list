@@ -1,0 +1,4 @@
+deb http://mirror.rosario.gov.ar/debian/ bookworm main contrib non-free
+deb http://mirror.rosario.gov.ar/debian/ bookworm-updates main contrib non-free
+#deb http://mirror.rosario.gov.ar/debian/ bookworm-backports main contrib non-free
+deb http://mirror.rosario.gov.ar/security/ bookworm-security main contrib non-free

@@ -1,0 +1,11 @@
+export INFORMIXSERVER=test_pri
+export INFORMIXDIR=/var/informix
+export ONCONFIG=onconfig
+export SQLHOSTS=$INFORMIXDIR/etc/sqlhosts
+export ODBCINI=/etc/odbc.ini
+export DBDATE=DMY2/
+export DBCENTURY=C
+export DBEDIT=vim
+export DBSCREENOUT=/u/tmp/${USER}.out
+export PATH=$PATH:$INFORMIXDIR/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$INFORMIXDIR/lib:$INFORMIXDIR/lib/esql:$INFORMIXDIR/lib/cli:$INFORMIXDIR/lib/tools:/lib:/lib/x86_64-linux-gnu:/usr/local/lib:/usr/local/lib/python2.7/dist-packages/clidriver/lib
