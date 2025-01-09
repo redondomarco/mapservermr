@@ -80,7 +80,7 @@ ENV LD_LIBRARY_PATH=$INFORMIXDIR/lib:$INFORMIXDIR/lib/esql:$INFORMIXDIR/lib/cli:
 
 ADD ./conf/informix/csdk.properties /root/csdk.properties
 ADD ./conf/informix/installclientsdk /root/installclientsdk
-#RUN chmod +x /root/installclientsdk
+RUN chmod +x /root/installclientsdk
 WORKDIR /root
 RUN /root/installclientsdk -i silent -f csdk.properties
 ADD ./conf/informix/ld.so.conf /etc/ld.so.conf
