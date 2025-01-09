@@ -104,7 +104,7 @@ RUN mkdir -p /opt/gdal-3.6.2/build
 WORKDIR /opt/gdal-3.6.2/build
 RUN cmake -DCMAKE_PREFIX_PATH=/var/informix/ .. > build_config.log
 RUN cmake --build . >> build_config.log
-RUN cmake --build . --target install >> > build_config.log
+RUN cmake --build . --target install >> build_config.log
 
 #RUN ogrinfo --formats | grep IDB
 
