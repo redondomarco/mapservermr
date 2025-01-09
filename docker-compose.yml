@@ -7,6 +7,7 @@ services:
             #- https_proxy=$HTTPS_PROXYCONF
         ports:
             - 443:443
+            - 80:80
         volumes:
             - ./conf/informix/ld.so.conf:/etc/ld.so.conf
             - ./conf/informix/odbc.ini:/etc/odbc.ini
