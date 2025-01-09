@@ -93,9 +93,9 @@ RUN ldconfig
 #RUN tar xvf /opt/gdal-3.10.0.tar.gz
 #RUN mkdir -p /opt/gdal-3.10.0/build
 #WORKDIR /opt/gdal-3.10.0/build
-#RUN cmake -DCMAKE_PREFIX_PATH=/var/informix/ ..
-#RUN cmake --build .
-#RUN cmake --build . --target install
+#RUN cmake -DCMAKE_PREFIX_PATH=/var/informix/ .. > build_config.log
+#RUN cmake --build . >> build_config.log
+#RUN cmake --build . --target install >> build_config.log
 
 COPY ./conf/gdal/gdal-3.6.2.tar.gz /opt/gdal-3.6.2.tar.gz
 WORKDIR /opt
