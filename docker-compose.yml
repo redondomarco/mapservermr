@@ -16,5 +16,5 @@ services:
             - ./conf/build.sh:/opt/build.sh
             - /etc/localtime:/etc/localtime:ro
             - ./data/root:/root
-            - ./conf/mapserver.conf:/etc/mapserver.conf
+            - ./conf/mapserver.conf:/opt/etc/mapserver.conf
             - ./conf/apache2.conf:/etc/apache2/apache2.conf
