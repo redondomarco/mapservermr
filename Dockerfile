@@ -10,7 +10,7 @@ htop vim zip unzip bash-completion wget git bzip2 curl locate less
 
 #for compile gdal
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
-cmake build-essential libproj-dev
+cmake build-essential libproj-dev libmariadb-dev postgresql-client libpq-dev default-mysql-client
 
 #software-properties-common g++ make \
 # openssl autoconf gtk-doc-tools \
@@ -41,11 +41,8 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 #RUN apt-get install -y --fix-missing --no-install-recommends \   
 #     libxml2-dev \
 #     libxslt1-dev \
-#     libfribidi-dev \
-#     libcairo2-dev \
 #     librsvg2-dev \
 #     libmariadb-dev-compat \
-#     libmariadb-dev \
 #     libpq-dev \
 #     libcurl4-gnutls-dev \
 #     libexempi-dev \
@@ -57,8 +54,7 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 #     libfcgi-dev \
 #     libjpeg62-turbo-dev \
 #     libcairo2-dev \
-#     libprotobuf-dev \
-#     libgdal-dev
+
 
 #for informix
 RUN apt-get install -y --fix-missing --no-install-recommends \   
@@ -91,7 +87,7 @@ WORKDIR /opt
 RUN tar xvf /opt/gdal-3.10.0.tar.gz
 RUN mkdir -p /opt/gdal-3.10.0/build
 WORKDIR /opt/gdal-3.10.0/build
-RUN cmake -DCMAKE_PREFIX_PATH=/var/informix/ -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release .. > /root/build_config.log
+RUN cmake -DCMAKE_PREFIX_PATH=/var/informix/ -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release -DPostgreSQL_INCLUDE_DIR=/usr/include/postgresql .. > /root/build_config.log
 RUN cmake --build . >> build_config.log
 RUN cmake --build . --target install >> build_config.log
 
