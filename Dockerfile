@@ -10,7 +10,7 @@ htop vim zip unzip bash-completion wget git bzip2 curl locate less
 
 #for compile gdal
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
-cmake build-essential libproj-dev libmariadb-dev postgresql-client libpq-dev default-mysql-client
+cmake build-essential libproj-dev libmariadb-dev postgresql-client libpq-dev default-mysql-client libmariadb-dev-compat
 
 #software-properties-common g++ make \
 # openssl autoconf gtk-doc-tools \
@@ -87,7 +87,7 @@ WORKDIR /opt
 RUN tar xvf /opt/gdal-3.10.0.tar.gz
 RUN mkdir -p /opt/gdal-3.10.0/build
 WORKDIR /opt/gdal-3.10.0/build
-RUN cmake -DCMAKE_PREFIX_PATH=/var/informix/ -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release -DPostgreSQL_INCLUDE_DIR=/usr/include/postgresql .. > /root/build_config.log
+RUN cmake -DCMAKE_PREFIX_PATH=/var/informix/ -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release -DPostgreSQL_INCLUDE_DIR=/usr/include/postgresql -DMYSQL_INCLUDE_DIR=/usr/include/mariadb .. > /root/build_config.log
 RUN cmake --build . >> build_config.log
 RUN cmake --build . --target install >> build_config.log
 

@@ -1,0 +1,1 @@
+test_pri_pam           onsoctcp     db13-test.pm.rosario.gov.ar     1552    s=4,pam_serv=(login),pamauth=(password)
