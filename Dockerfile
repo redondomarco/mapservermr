@@ -139,7 +139,7 @@ apache2-dev
 
 WORKDIR /opt
 
-RUN git clone https://mapserver.org/mapcache/install.html
+RUN git clone https://github.com/MapServer/mapcache.git
 
 RUN mkdir -p /opt/mapcache/build
 
