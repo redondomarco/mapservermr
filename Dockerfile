@@ -88,17 +88,8 @@ RUN tar xvf /opt/gdal-3.10.0.tar.gz
 RUN mkdir -p /opt/gdal-3.10.0/build
 WORKDIR /opt/gdal-3.10.0/build
 RUN cmake -DCMAKE_PREFIX_PATH=/var/informix/ -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release -DPostgreSQL_INCLUDE_DIR=/usr/include/postgresql -DMYSQL_INCLUDE_DIR=/usr/include/mariadb .. > /root/build_config.log
-RUN cmake --build . >> build_config.log
-RUN cmake --build . --target install >> build_config.log
-
-# COPY ./conf/gdal/gdal-3.6.2.tar.gz /opt/gdal-3.6.2.tar.gz
-# WORKDIR /opt
-# RUN tar xvf /opt/gdal-3.6.2.tar.gz
-# RUN mkdir -p /opt/gdal-3.6.2/build
-# WORKDIR /opt/gdal-3.6.2/build
-# RUN cmake -DCMAKE_PREFIX_PATH=/var/informix/ .. > /root/build_config.log
-# RUN cmake --build . >> /root/build_config.log
-# RUN cmake --build . --target install >> /root/build_config.log
+RUN cmake --build . >> /root/build_config.log
+RUN cmake --build . --target install >> /root/build_config.log
 
 #RUN ogrinfo --formats | grep IDB
 
@@ -130,7 +121,8 @@ RUN make install
 
 WORKDIR /root
 
-RUN apt install libapache2-mod-fcgid
+RUN apt-get install -y --fix-missing --no-install-recommends \
+libapache2-mod-fcgid
 
 RUN ln -s /opt/bin/mapserv /usr/lib/cgi-bin/mapserv
 
@@ -139,6 +131,26 @@ RUN ln -s /opt/bin/map2img /usr/local/bin/map2img
 #RUN a2enmod actions fastcgi alias
 
 RUN updatedb
+
+#mapcache
+
+RUN apt-get install -y --fix-missing --no-install-recommends \
+apache2-dev
+
+WORKDIR /opt
+
+RUN git clone https://mapserver.org/mapcache/install.html
+
+RUN mkdir -p /opt/mapcache/build
+
+WORKDIR /opt/mapcache/build
+
+RUN camke ..
+
+RUN make
+RUN make install
+
+
 
 EXPOSE 80
 
