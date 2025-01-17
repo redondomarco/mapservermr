@@ -145,7 +145,7 @@ RUN mkdir -p /opt/mapcache/build
 
 WORKDIR /opt/mapcache/build
 
-RUN camke ..
+RUN cmake ..
 
 RUN make
 RUN make install
