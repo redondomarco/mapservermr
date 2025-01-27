@@ -1,0 +1,108 @@
+MAP # 
+ 	STATUS ON
+	NAME "SPV"
+	EXTENT 5422163.0 6344000.0 5446837.0 6364000.0
+	SIZE 768 647
+	UNITS METERS
+	FONTSET "/etc/mapserver/fonts.list.example"
+	IMAGETYPE jpeg
+	IMAGECOLOR 242 242 242
+	RESOLUTION 75
+	SHAPEPATH "/geodata/"
+	SYMBOLSET "/etc/mapserver/infomapas.sym"
+	Symbol NAME "poligono_grueso" TYPE ELLIPSE FILLED TRUE POINTS 1 1 END END
+	SYMBOL
+	  NAME "bicicletero"
+	  TYPE PIXMAP
+	  IMAGE "/etc/mapserver/bicicletero.png"
+	END
+
+	OUTPUTFORMAT
+		NAME "jpeg"
+		DRIVER "GD/JPEG"
+		FORMATOPTION "QUALITY=90"
+		MIMETYPE "image/jpeg"
+		IMAGEMODE RGBA
+		EXTENSION "jpg"
+	END
+
+
+WEB
+	IMAGEPATH "/var/www/mapserver"
+	IMAGEURL "mapserver/"
+	METADATA
+            "wms_title"  "WMS-Çiclovias"  ##required
+            "wms_name"  "WMS-Ciclovias"           
+            "wms_abstract" "WMS-Ciclovias"        
+            "wms_onlineresource" "https://t-infomapa.rosario.gob.ar/wms/ciclovias?"
+            "wms_srs" "epsg:22185 epsg:4326"
+            "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+            'wms_feature_info_mime_type' "text/html"
+        END
+END
+PROJECTION
+  "init=epsg:22185"   ##required
+END
+
+	LAYER # Ciclovia
+		NAME "ciclovia"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+		    "wms_title"    "Ciclovía"  ##required
+		    "wms_srs" "EPSG:4326 epsg:22185"
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		END
+		PROJECTION
+		  "init=epsg:4326"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from ciclovias USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE LINE
+		POSTLABELCACHE OFF
+		TRANSPARENCY 75
+
+		CLASS
+			NAME " "
+			STYLE 
+				WIDTH 5 
+				OUTLINECOLOR  71 138 63
+				COLOR 71 138 63
+			END
+		END
+
+	END
+
+	LAYER # Bicicleteros
+	       NAME "Bicicleteros"
+	       PROCESSING "CLOSE_CONNECTION=DEFER"
+	       METADATA
+		       "wms_title"    "Bicicleteros"  ##required
+		       "wms_srs" "EPSG:4326 epsg:22185"
+		       "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+	       END
+	       PROJECTION
+	               "init=epsg:4326"
+	       END
+	       CONNECTION "@gis"
+	       CONNECTIONTYPE INFORMIXSPATIAL
+	       PROCESSING "CLOSE_CONNECTION=DEFER"
+	       DATA "the_geom from bicicleteros USING UNIQUE SE_ROW_ID FILTER"
+	       STATUS ON
+	       TYPE POINT
+	       POSTLABELCACHE OFF
+
+	       CLASS
+	               NAME " "
+		       STYLE
+		 	      SYMBOL "bicicletero"
+		              SIZE 30
+			      OUTLINECOLOR 0 0 0
+			      COLOR 255 51 153
+		      END
+	      END
+      END
+
+END

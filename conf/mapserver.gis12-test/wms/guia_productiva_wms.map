@@ -1,0 +1,186 @@
+MAP # MR
+	 STATUS ON
+	NAME "WMS-ROSARIO"
+	EXTENT 5422163.0 6344000.0 5446837.0 6364000.0
+	#SIZE 1024 765
+	UNITS METERS
+	FONTSET "/etc/mapserver/fonts.list.example"
+	IMAGETYPE jpeg
+	TRANSPARENT TRUE
+	RESOLUTION 75
+	SHAPEPATH "/geodata/"
+	SYMBOLSET "/etc/mapserver/infomapas.sym"
+	Symbol NAME "poligono_grueso" TYPE ELLIPSE FILLED TRUE POINTS 1 1 END END
+
+WEB
+	TEMPLATE index.html
+	IMAGEPATH "/var/www/mapserver"
+	IMAGEURL "mapserver/"
+        METADATA
+            "wms_title"  "WMS-Rosario-GP"  ##required
+            "wms_name"  "WMS-Rosario-GP"             
+            "wms_abstract" "WMS-Rosario-GP"       
+            "wms_onlineresource" "https://t-infomapa.rosario.gob.ar/wms/guiaproductiva?"
+            "wms_srs" "epsg:22185 epsg:4326"
+            "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+            'wms_feature_info_mime_type' "text/html"
+        END
+
+        EMPTY "https://t-infomapa.rosario.gob.ar/emapa/datosUtiles.htm"
+        ERROR "https://t-infomapa.rosario.gob.ar/emapa/error.jsp"
+
+END
+PROJECTION
+  "init=epsg:22185"   ##required
+END
+
+	LAYER 
+                NAME "construccion"
+		METADATA
+                    "wms_title"    'construccion'  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER" 
+                DATA "the_geom from guia_productiva USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POINT
+                FILTER "se_row_id in (select g.se_row_id from guia_productiva g, rubros_guia_productiva r, distritos_descentralizados d where rubro_afip >= rubro_desde and rubro_afip <= rubro_hasta and nivel = 2 and cod_madre = 'CT' and st_intersects(g.the_geom,d.the_geom) and (d.distrito = '%DISTRITO%' OR '%DISTRITO%' = '-1') AND (%FILTER_CONSTRUCCION%))" 
+		#FILTER "calsif='Construccion'"
+		TEMPLATE "content_guia_prod_template.html"
+		HEADER "header_guia_prod_template.html"
+		FOOTER "footer_guia_prod_template.html"
+
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 5
+               # TRANSPARENCY 75
+
+                CLASS
+                        NAME "Construccion"
+                        STYLE 
+				SYMBOL "circle"
+                                SIZE 10 
+                                OUTLINECOLOR 0 0 0
+                                COLOR 255 51 153 
+                        END
+                END
+
+
+        END
+
+	LAYER
+                NAME "industria"
+                METADATA
+                    "wms_title"    'industria'  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "the_geom from guia_productiva USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POINT
+                #FILTER "calsif='Industria'"
+		FILTER "se_row_id in (select g.se_row_id from guia_productiva g, rubros_guia_productiva r, distritos_descentralizados d where rubro_afip >= rubro_desde and rubro_afip <= rubro_hasta and nivel = 2 and cod_madre = 'I' and st_intersects(g.the_geom,d.the_geom) and (d.distrito = '%DISTRITO%' OR '%DISTRITO%' = '-1') AND (%FILTER_INDUSTRIA%))"
+		TEMPLATE "content_guia_prod_template.html"
+                HEADER "header_guia_prod_template.html"
+                FOOTER "footer_guia_prod_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 5
+               # TRANSPARENCY 75
+
+                CLASS
+                        NAME "Industria"
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 10 
+                                OUTLINECOLOR 255 255 255 
+                                COLOR 0 0 200 
+                        END
+                END
+
+
+        END
+
+	LAYER
+                NAME "comercios"
+                METADATA
+                    "wms_title"    'comercios'  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "the_geom from guia_productiva USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POINT
+                #FILTER "calsif='Comercios'"
+		FILTER " se_row_id in (select g.se_row_id from guia_productiva g, rubros_guia_productiva r, distritos_descentralizados d where rubro_afip >= rubro_desde and rubro_afip <= rubro_hasta and nivel = 2 and cod_madre = 'C' and st_intersects(g.the_geom,d.the_geom) and (d.distrito = '%DISTRITO%' OR '%DISTRITO%' = '-1') AND (%FILTER_COMERCIOS%) )"
+		TEMPLATE "content_guia_prod_template.html"
+                HEADER "header_guia_prod_template.html"
+                FOOTER "footer_guia_prod_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 5
+                #TRANSPARENCY 75
+
+                CLASS
+                        NAME "Comercios"
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 10 
+                                OUTLINECOLOR 0 0 0
+                                COLOR 0 255 0 
+                        END
+                END
+
+
+        END
+
+	LAYER
+                NAME "servicios"
+                METADATA
+                    "wms_title"    'servicios'  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "the_geom from guia_productiva USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POINT
+                #FILTER "calsif='Servicios'"
+		FILTER " se_row_id in (select g.se_row_id from guia_productiva g, rubros_guia_productiva r, distritos_descentralizados d where rubro_afip >= rubro_desde and rubro_afip <= rubro_hasta and nivel = 2 and cod_madre = 'S' and st_intersects(g.the_geom,d.the_geom) and (d.distrito = '%DISTRITO%' OR '%DISTRITO%' = '-1') AND (%FILTER_SERVICIOS%))"
+		TEMPLATE "content_guia_prod_template.html"
+                HEADER "header_guia_prod_template.html"
+                FOOTER "footer_guia_prod_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 5
+                #TRANSPARENCY 75
+
+                CLASS
+                        NAME "servicios"
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 10
+                                OUTLINECOLOR 0 0 0
+                                COLOR 255 153 0  
+                        END
+                END
+
+
+        END
+	
+END

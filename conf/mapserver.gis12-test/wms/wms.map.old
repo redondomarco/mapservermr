@@ -1,0 +1,1173 @@
+MAP
+NAME WMS-Rosario 
+EXTENT 5422163.0 6344000.0 5446837.0 6364000.0
+UNITS METERS
+FONTSET "/etc/mapserver/fonts.list.example"
+IMAGECOLOR 255 255 255 
+RESOLUTION 72
+TRANSPARENT ON
+SHAPEPATH "/geodata/"
+SYMBOLSET "/etc/mapserver/infomapas.sym"
+MAXSIZE 7000
+
+WEB
+	IMAGEPATH "/var/www/mapserver/"
+	IMAGEURL "mapserver/"
+        METADATA
+            "wms_title"  "WMS-Rosario"  ##required
+            "wms_name"  "WMS-Rosario"		
+            "wms_abstract" "WMS-Rosario"	
+            "wms_onlineresource" "http://t-infomapa.rosario.gov.ar/wms/planobase?"
+	    "wms_srs" "epsg:22185 epsg:4326"
+	    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+	    'wms_feature_info_mime_type' "text/html"
+        END
+
+	EMPTY "http://t-infomapa.rosario.gov.ar/emapa/datosUtiles.htm"
+	ERROR "http://t-infomapa.rosario.gov.ar/emapa/error.jsp"
+END
+
+REFERENCE
+        IMAGE "/etc/mapserver/keymap.png"
+        EXTENT 5424500 6343900 5444610 6364000
+        SIZE 100 100
+        STATUS ON
+        COLOR -1 -1 -1
+        OUTLINECOLOR 0 0 255
+END
+
+PROJECTION
+  "init=epsg:22185"   ##required
+END
+
+LAYER #Fotos 2005
+      NAME "FotosAereas2005"
+      GROUP "FotosAreas2005"
+	METADATA
+          "wms_title"    "Fotos Aereas"  ##required
+	  "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       END
+       PROJECTION
+          "init=epsg:22185"
+       END
+    STATUS ON
+    TYPE RASTER
+    TILEINDEX "/etc/mapserver/fotos2005/fotos2005.shp"
+    PHOTOINDEX "/etc/mapserver/fotos2005/center.txt"
+    TILEITEM "location"
+    MAXSCALE 2800
+    MINSCALE 150
+    #OFFSITE 0 0 0
+END
+
+LAYER #Fotos 2005
+     NAME "FotosAereas2005-overwiew10"
+     GROUP "FotosAreas2005"
+           METADATA
+           "wms_title"    "Fotos Aereas - overview10"  ##required
+           "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+     END
+     PROJECTION
+          "init=epsg:22185"
+     END
+     STATUS ON
+     TYPE RASTER
+     TILEINDEX "/etc/mapserver/fotos2005/fotos2005_10.shp"
+     TILEITEM "location"
+     MINSCALE 12000 
+     OFFSITE 0 0 0	
+END
+
+LAYER #Fotos 2005
+     NAME "FotosAereas2005-overwiew20"
+     GROUP "FotosAreas2005"
+     METADATA
+          "wms_title"    "Fotos Aereas - overview20"  ##required
+          "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+     END
+     PROJECTION
+          "init=epsg:22185"
+     END
+     STATUS ON
+     TYPE RASTER
+     TILEINDEX "/etc/mapserver/fotos2005/fotos2005_20.shp"
+     TILEITEM "location"
+     MAXSCALE 12000
+     MINSCALE 2800
+     OFFSITE 0 0 0
+END
+LAYER #Img2011 
+     NAME "ImagenesSatelitales2011" 
+     METADATA
+         "wms_title"    "Imágenes Satelitales 2011"  ##required
+         "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+     END
+     PROJECTION
+         "init=epsg:22185"
+     END
+     STATUS ON 
+     TYPE RASTER 
+     OFFSITE 0 0 0
+     PROCESSING "RESAMPLE=BILINEAR"
+     TILEINDEX /geodata/Img2011/rosario_2011.shp 
+     TILEITEM "location" 
+     MINSCALE 150 
+END 
+
+	LAYER # Sin Manzanas
+		NAME "sin_manzanas"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               	"wms_title"    "Sin Manzanas"  ##required
+         	"wms_srs" "EPSG:4326 epsg:22185"
+		"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		"gml_include_items" "seccion,manzana,grafico,sd,sp"
+		"wms_include_items" "seccion,manzana,grafico,sd,sp"
+       	END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		DATA "the_geom from sinmanzana USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		MINSCALE 0.0
+		MAXSCALE 40000.0
+		DUMP TRUE
+		TEMPLATE "."
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+		CLASS
+			NAME "Sin Manzanas"
+			SIZE 5
+			OUTLINECOLOR 147 149 152
+			COLOR 233 233 233
+		END
+
+	END
+
+	LAYER # Canteros
+		NAME "canteros"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Canteros"  ##required
+          		"wms_srs" "EPSG:4326 epsg:22185"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		DATA "the_geom from canteros USING FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		MINSCALE 0.0
+		MAXSCALE 15000.0
+		CLASS
+			NAME "Canteros"
+			SIZE 0
+			OUTLINECOLOR 43 182 115
+			COLOR 180 221 193
+		END
+
+	END
+
+	LAYER # Av. Circunvalación
+		NAME "av_circunvalacion"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Av. Circunvalación"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		DATA "the_geom from circunvalacion USING FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		MINSCALE 0.0
+		CLASS
+			NAME "Av. Circunvalación"
+			SIZE 0
+			OUTLINECOLOR 43 182 115
+			COLOR 180 221 193
+		END
+
+	END
+
+	LAYER # Manzanas
+		NAME "manzanas"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Manzanas"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_include_items" "seccion,muni_manza"
+			"wms_include_items" "seccion,muni_manza"
+		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		DATA "the_geom from manzanas USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		MAXSCALE 40000.0
+	        DUMP TRUE
+	        TEMPLATE "content_manzanas_template.html"
+                HEADER "header_plano_base_template.html"
+		FOOTER "footer_plano_base_template.html"
+		TOLERANCEUNITS PIXELS
+	        TOLERANCE 5
+
+		CLASS
+			NAME "Manzanas"
+			SIZE 5
+			OUTLINECOLOR 147 149 152
+			COLOR 220 221 222
+
+		END
+
+	END
+
+	LAYER # Manzanas no Regularizada
+		NAME "manzanas_no_regularizada"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Manzanas no Regularizada"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		DATA "the_geom from manzanas_de_proyecto USING FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		MINSCALE 0.0
+		MAXSCALE 30000.0
+		CLASS
+			NAME "Manzanas no Regularizada"
+			SIZE 5
+			OUTLINECOLOR 255 153 51
+			COLOR 255 255 204
+		END
+
+	END
+
+	LAYER # Parcelas
+		NAME "Parcelas"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Parcelas"  ##required
+                	"wms_srs" "EPSG:4326 epsg:22185"
+			"gml_include_items" "seccion,manzana,grafico,sd,sp"
+			"wms_include_items" "all" #"seccion,manzana,grafico,sd,sp"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0" 
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		MAXSCALE 6000.0
+		DUMP TRUE
+		TEMPLATE "content_parcelas_template.html"
+		HEADER "header_plano_base_template.html"
+		FOOTER "footer_plano_base_template.html"
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+		CLASS
+			NAME "Parcelas"
+			SIZE 1
+			OUTLINECOLOR 128 128 128
+			COLOR 220 221 222
+		END
+
+	END
+
+	LAYER # Espacios Verdes
+		NAME "espacios_verdes"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Espacios Verdes"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		DATA "the_geom from vespacios_verdes USING FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		MINSCALE 0.0
+		MAXSCALE 50000.0
+		CLASS
+			NAME "parques"
+			EXPRESSION ('[tipo]' = 'PARQUE')
+			SIZE 3
+			OUTLINECOLOR 0 174 98
+			COLOR 129 201 156
+		END
+
+
+		CLASS
+			NAME "plazas"
+			EXPRESSION ('[tipo]' = 'PLAZA ')
+			SIZE 3
+			OUTLINECOLOR 43 182 115
+			COLOR 180 221 193
+		END
+
+
+		CLASS
+			NAME "paseos"
+			EXPRESSION ('[tipo]' = 'PASEO ')
+			SIZE 3
+			OUTLINECOLOR 143 206 164
+			COLOR 228 242 231
+		END
+
+	END
+
+	LAYER # Hidrografía
+		NAME "hidrografia"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Hidrografía"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		DATA "the_geom from hidrografia USING FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		CLASS
+			NAME "Hidrografía"
+			SIZE 2
+			OUTLINECOLOR 98 130 193
+			COLOR 173 206 237
+		END
+
+	END
+
+	LAYER # Avenidas y Boulevares
+		NAME "avenidas_y_boulevares"		
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Avenidas y Boulevares"  ##required
+               		"wms_srs" "EPSG:4326 epsg:22185"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+			DATA "the_geom from vejes USING FILTER"
+			STATUS ON
+			TYPE LINE
+			POSTLABELCACHE OFF
+			LABELCACHE ON
+			LABELITEM "nombre_abrev"
+			FILTER "tipo = 'BV' or tipo = 'AV'"
+			#MINSCALE 10000.0
+			MAXSCALE 0
+			CLASS
+				SYMBOL "LineaGrosor"
+				SIZE 1
+				COLOR 204 153 102
+				GROUP "default"
+
+			LABEL
+				COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT lucida
+				SIZE 6
+				BUFFER 1
+				MAXSIZE 6
+				MINDISTANCE 1000
+				MINFEATURESIZE 2
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+				END
+			END
+
+		 	CLASS
+                                SYMBOL "LineaGrosor"
+                                SIZE 1
+                                COLOR 204 153 102
+				GROUP "img"
+
+                        LABEL
+                                COLOR 255 255 255 
+                                OUTLINECOLOR 0 0 0 
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 7 
+                                BUFFER 1
+                                MAXSIZE 7 
+                                MINDISTANCE 1000
+                                MINFEATURESIZE 2
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                                END
+                        END
+
+		END
+
+		LAYER # Segmentos de calle
+			NAME "segmentos_de_calle"
+			PROCESSING "CLOSE_CONNECTION=DEFER"
+			METADATA
+				"wms_title"    "Segmentos de calle"  ##required
+				"wms_srs" "EPSG:4326 epsg:22185"
+				"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+				"gml_include_items" "nombre,codcalle,altdesizq,althasizq,altdesder,althasder,altletra,bis,proye,numeracion,categoria"
+				"wms_include_items" "nombre,codcalle,altdesizq,althasizq,altdesder,althasder,altletra,bis,proye,numeracion,categoria"
+			END
+			PROJECTION
+			"init=epsg:22185"
+			END
+			CONNECTION "@gis"
+			CONNECTIONTYPE INFORMIXSPATIAL
+			DATA "the_geom from ejes USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE LINE
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		MAXSCALE 15000.0
+		DUMP TRUE
+		TEMPLATE "content_ejes_template.html"
+		HEADER "header_plano_base_template.html"
+		FOOTER "footer_plano_base_template.html"
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+		CLASS
+			NAME "Segmentos de calle"
+			STYLE
+				SIZE 2
+				OUTLINECOLOR 255 0 0
+				COLOR 128 128 128
+			END
+		END
+
+	END
+
+	LAYER # Sentidos de calle
+                NAME "sentidos_de_calle"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+		      "wms_title"    "Sentidos de calles"  ##required
+		      "wms_srs" "EPSG:4326 epsg:22185"
+		      "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from sentidos USING FILTER"
+                STATUS ON
+                TYPE LINE
+                POSTLABELCACHE OFF
+                LABELCACHE ON
+                CLASSITEM "norsen1"
+                MAXSCALE 15000.0
+                CLASS
+                        NAME "Doble"
+                        EXPRESSION ('[norsen1]' = '3')
+                        SYMBOL "arrowdoble"
+                        SIZE 14
+                        COLOR 45 45 255
+                END
+
+
+                CLASS
+                        NAME "Descendente"
+                        EXPRESSION ('[norsen1]' = '2')
+                        SYMBOL "arrowdesc"
+                        SIZE 14
+                        COLOR 45 45 255
+                END
+
+
+                CLASS
+                        NAME "Ascendente"
+                        EXPRESSION ('[norsen1]' = '1')
+                        SYMBOL "arrowasc"
+                        SIZE 14
+                        COLOR 45 45 255
+                END
+
+
+                CLASS
+                        NAME "Peatonal"
+                        EXPRESSION ('[norsen1]' = '0')
+                        SYMBOL "peatonal"
+                        SIZE 0
+                        COLOR 0 0 255
+                END
+
+        END
+
+
+	LAYER # Vía Ferroviaria
+		NAME "via_ferroviaria"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Vía Ferroviaria"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		DATA "the_geom from vias_ffcc USING FILTER"
+		STATUS ON
+		TYPE LINE
+		POSTLABELCACHE OFF
+		MINSCALE 0.0
+		MAXSCALE 50000.0
+		CLASS
+			NAME "Vía Ferroviaria"
+			STYLE
+				SYMBOL "poligono_transparente"
+				SIZE 1
+				COLOR 102 102 102
+			END
+			STYLE
+				SYMBOL "dcircle"
+				SIZE 0
+			END
+
+		END
+
+	END
+
+	LAYER # Puentes
+		NAME "puentes"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Puentes"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		DATA "the_geom from puentes_y_aliviadores USING FILTER"
+		STATUS ON
+		TYPE LINE
+		POSTLABELCACHE OFF
+		MINSCALE 0.0
+		MAXSCALE 20000.0
+		CLASS
+			NAME "Puentes"
+			STYLE
+				SYMBOL "LineaGrosor"
+				SIZE 2
+				COLOR 204 102 0
+			END
+			STYLE
+				SYMBOL "LineaGrosor"
+				SIZE 1
+				COLOR 204 102 0
+			END
+		END
+
+	END
+
+	LAYER # Islas del Paraná
+		NAME "islas_del_parana"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Islas del Paraná"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		DATA "the_geom from islas USING FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		GROUP ""
+
+		CLASS
+			NAME "Islas del Paraná"
+			SIZE 2
+			OUTLINECOLOR 184 169 143
+			COLOR 239 235 225
+		END
+
+	END
+
+	LAYER # Bancos de Arena
+		NAME "bancos_de_arena"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Bancos de Arena"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		DATA "the_geom from bancos_de_arena USING FILTER"
+		STATUS ON
+		TYPE POLYGON
+		GROUP ""
+
+		CLASS
+			NAME "Bancos de Arena"
+			SIZE 0
+			OUTLINECOLOR 153 153 0
+			COLOR 255 255 204
+		END
+
+	END
+
+	LAYER # Autopistas
+		NAME "autopistas"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Autopistas"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		DATA "the_geom from autopistas USING FILTER"
+		STATUS ON
+		TYPE POLYGON
+		MINSCALE 0.0
+		CLASS
+			NAME "Autopistas"
+			SIZE 0
+			OUTLINECOLOR 0 174 98
+			COLOR 129 201 156
+		END
+
+	END
+
+	LAYER # Nombres de Calles
+		NAME "nombres_de_calles"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Nombres de Calles"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		DATA "the_geom from ejes USING FILTER"
+		STATUS ON
+		TYPE ANNOTATION 
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		LABELITEM "nombre"
+		#MINSCALE 0.0
+		MAXSCALE 20000.0
+		#CLASSGROUP "1"	
+		CLASS
+			SIZE 0
+			COLOR 255 204 153
+			GROUP "default"
+
+		LABEL
+			COLOR 0 0 0  
+			OUTLINECOLOR 255 255 255 
+			TYPE TRUETYPE
+			ANGLE AUTO
+			ANTIALIAS ON
+			FONT lucida
+			SIZE 7
+			BUFFER 0
+			MAXSIZE 7
+			MINDISTANCE 500
+			PARTIALS OFF
+			POSITION CC
+			FORCE FALSE
+			END
+		END
+
+                CLASS
+                        SIZE 0
+                        COLOR 255 204 153
+                        GROUP "img"
+                LABEL
+                        COLOR 255 255 255
+                        OUTLINECOLOR 0 0 0
+                        TYPE TRUETYPE
+                        ANGLE AUTO
+                        ANTIALIAS ON
+                        FONT lucida
+                        SIZE 8 
+                        BUFFER 0
+                        MAXSIZE 8
+                        MINDISTANCE 500
+                        PARTIALS OFF
+                        POSITION CC
+                        FORCE FALSE
+                        END
+                END
+
+
+	END
+
+	LAYER # Numeración de Calles
+		NAME "numeracion_de_calles"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Numeración de Calles"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		DATA "the_geom from numeracion_calles USING FILTER"
+		STATUS ON
+		TYPE ANNOTATION
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		LABELITEM "etiqueta"
+		MINSCALE 0.0
+		MAXSCALE 20000.0
+		CLASS
+			SIZE 0
+			COLOR 255 204 153
+			GROUP "default"
+
+		LABEL
+			COLOR 0 0 0
+			OUTLINECOLOR 255 255 255
+			TYPE TRUETYPE
+			ANGLE AUTO
+			ANTIALIAS ON
+			FONT lucida
+			SIZE 6
+			BUFFER 0
+			MAXSIZE 6
+			MINDISTANCE 500
+			PARTIALS OFF
+			POSITION UC
+			FORCE FALSE
+			END
+		END
+
+		CLASS
+                        SIZE 0
+                        COLOR 255 204 153
+			GROUP "img"
+
+                LABEL
+                        COLOR 255 255 255 
+                        OUTLINECOLOR 0 0 0 
+                        TYPE TRUETYPE
+                        ANGLE AUTO
+                        ANTIALIAS ON
+                        FONT lucida
+                        SIZE 7 
+                        BUFFER 0
+                        MAXSIZE 7 
+                        MINDISTANCE 500
+                        PARTIALS OFF
+                        POSITION UC
+                        FORCE FALSE
+                        END
+                END
+
+	END
+
+	LAYER # Números de Manzana
+		NAME "numeros_de_manzana"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		PROCESSING 'LABEL_NO_CLIP=ON'
+		METADATA
+               		"wms_title"    "Números de Manzana"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		DATA "the_geom from manzanas USING FILTER"
+		STATUS ON
+		TYPE ANNOTATION
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		LABELITEM "trim(seccion || '-' || muni_manza)"
+		MINSCALE 0.0
+		MAXSCALE 8000.0
+		CLASS
+			NAME "Números de Manzana"
+			SIZE 0
+			COLOR 255 204 153
+		LABEL
+			COLOR 0 0 0
+			OUTLINECOLOR 255 255 255
+			TYPE TRUETYPE
+			ANGLE AUTO
+			ANTIALIAS ON
+			FONT lucida
+			SIZE 7
+			BUFFER 0
+			MAXSIZE 7
+			MINDISTANCE 0
+			PARTIALS OFF
+			POSITION CC
+			FORCE FALSE
+			END
+		END
+
+	END
+
+
+	LAYER # Limite Municipio
+        	NAME "limite_municipio"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Limite Municipio"  ##required
+			"wms_srs" "EPSG:4326 epsg:22185" 
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+        	PROJECTION
+               		"init=epsg:22185"
+        	END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		DATA "the_geom from limite_rosario USING FILTER"
+		STATUS ON
+		TYPE LINE
+		CLASS
+			NAME "Limite Municipio"
+			SIZE 3
+			OUTLINECOLOR 0 0 0
+			COLOR 0 0 0
+		END
+	END
+
+LAYER # Distritos Descentralizados
+    NAME "distritos_descentralizados"
+    METADATA
+	    "wms_title"    "Distritos Descentralizados"  ##required
+	    "wms_srs" "EPSG:4326 epsg:22185"
+	    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+    END
+    PROJECTION
+	    "init=epsg:22185"
+    END
+    CONNECTION "@gis"
+    CONNECTIONTYPE INFORMIXSPATIAL
+    PROCESSING "CLOSE_CONNECTION=DEFER" 
+    PROCESSING 'LABEL_NO_CLIP=ON'
+    DATA "the_geom from distritos_descentralizados USING FILTER"
+    STATUS ON
+    TYPE POLYGON
+    POSTLABELCACHE OFF
+    LABELCACHE ON
+    LABELITEM "'DISTRITO ' || distrito"
+
+    CLASS
+	    NAME "Distrito Oeste"
+	    EXPRESSION ('[mslink_odb]'='6')
+
+	    LABEL
+		    COLOR 0 0 0
+		    BACKGROUNDCOLOR 192 192 192
+		    TYPE TRUETYPE
+		    ANGLE AUTO
+		    ANTIALIAS ON
+		    FONT lucida
+		    SIZE 7
+		    BUFFER 0
+		    MAXSIZE 7
+		    #MINDISTANCE 150
+		    #MINFEATURESIZE 25
+		    PARTIALS OFF
+		    POSITION CC
+		    FORCE TRUE
+	    END
+
+	    STYLE 
+		    SIZE 0
+		    OUTLINECOLOR 35 31 32
+		    COLOR 253 225 139
+	    END
+    END
+
+
+    CLASS
+	    NAME "Distrito Norte"
+	    EXPRESSION ('[mslink_odb]'='1')
+
+	    LABEL
+		    COLOR 0 0 0
+		    BACKGROUNDCOLOR 192 192 192
+		    TYPE TRUETYPE
+		    ANGLE AUTO
+		    ANTIALIAS ON
+		    FONT lucida
+		    SIZE 7
+		    BUFFER 0
+		    MAXSIZE 7
+		    #MINDISTANCE 150
+		    #MINFEATURESIZE 25
+		    PARTIALS OFF
+		    POSITION CC
+		    FORCE TRUE
+	    END
+
+	    STYLE 
+		    SIZE 0
+		    OUTLINECOLOR 35 31 32
+		    COLOR 81 189 170
+	    END
+    END
+
+
+    CLASS
+	    NAME "Distrito Centro"
+	    EXPRESSION ('[mslink_odb]'='3')
+
+	    LABEL
+		    COLOR 0 0 0
+		    BACKGROUNDCOLOR 192 192 192
+		    TYPE TRUETYPE
+		    ANGLE AUTO
+		    ANTIALIAS ON
+		    FONT lucida
+		    SIZE 7
+		    BUFFER 0
+		    MAXSIZE 7
+		    #MINDISTANCE 150
+		    #MINFEATURESIZE 25
+		    PARTIALS OFF
+		    POSITION CC
+		    FORCE TRUE
+	    END
+
+	    STYLE 
+		    SIZE 0
+		    OUTLINECOLOR 35 31 32
+		    COLOR 251 189 129
+	    END
+    END
+
+
+    CLASS
+	    NAME "Distrito Suroeste"
+	    EXPRESSION ('[mslink_odb]'='5')
+
+	    LABEL
+		    COLOR 0 0 0
+		    BACKGROUNDCOLOR 192 192 192
+		    TYPE TRUETYPE
+		    ANGLE AUTO
+		    ANTIALIAS ON
+		    FONT lucida
+		    SIZE 7
+		    BUFFER 0
+		    MAXSIZE 7
+		    #MINDISTANCE 150
+		    #MINFEATURESIZE 25
+		    PARTIALS OFF
+		    POSITION CC
+		    FORCE TRUE
+	    END
+
+	    STYLE 
+		    SIZE 0
+		    OUTLINECOLOR 35 31 32
+		    COLOR 249 158 126
+	    END
+    END
+
+
+    CLASS
+	    NAME "Distrito Sur"
+	    EXPRESSION ('[mslink_odb]'='4')
+
+	    LABEL
+		    COLOR 0 0 0
+		    BACKGROUNDCOLOR 192 192 192
+		    TYPE TRUETYPE
+		    ANGLE AUTO
+		    ANTIALIAS ON
+		    FONT lucida
+		    SIZE 7
+		    BUFFER 0
+		    MAXSIZE 7
+		    #MINDISTANCE 150
+		    #MINFEATURESIZE 25
+		    PARTIALS OFF
+		    POSITION CC
+		    FORCE TRUE
+	    END
+
+	    STYLE 
+		    SIZE 0
+		    OUTLINECOLOR 35 31 32
+		    COLOR 115 137 193
+	    END
+    END
+
+
+    CLASS
+	    NAME "Distrito Noroeste"
+	    EXPRESSION ('[mslink_odb]'='2')
+
+	    LABEL
+		    COLOR 0 0 0
+		    BACKGROUNDCOLOR 192 192 192
+		    TYPE TRUETYPE
+		    ANGLE AUTO
+		    ANTIALIAS ON
+		    FONT lucida
+		    SIZE 7
+		    BUFFER 0
+		    MAXSIZE 7
+		    #MINDISTANCE 150
+		    #MINFEATURESIZE 25
+		    PARTIALS OFF
+		    POSITION CC
+		    FORCE TRUE
+	    END
+
+	    STYLE 
+		    SIZE 0
+		    OUTLINECOLOR 35 31 32
+		    COLOR 166 143 189
+	    END
+    END
+
+END
+ 
+        LAYER # Limite Metropolitana 
+                NAME "limites_metropolitana"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                        "wms_title"    "Limites Metropolitana"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from metro_limite USING FILTER"
+                STATUS ON
+                TYPE LINE
+                CLASS
+                        NAME "Limites Metropolitana"
+                        SIZE 3
+                        OUTLINECOLOR 153 153 153 
+                        COLOR 153 153 153 
+                END
+        END
+
+        LAYER # Manzanas Metropolitana
+                NAME "manzanas_metropolitana"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                        "wms_title"    "Manzanas Metropolitana"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from metro_manzanas USING FILTER"
+                STATUS ON
+                TYPE LINE
+                CLASS
+                        NAME "Manzanas Metropolitana"
+                        SIZE 3
+                        OUTLINECOLOR 192 192 192 
+                        COLOR 192 192 192 
+                END
+        END
+
+        LAYER # Rural Metropolitana
+                NAME "rural_metropolitana"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                        "wms_title"    "Rural Metropolitana"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from metro_rural USING FILTER"
+                STATUS ON
+                TYPE LINE
+                CLASS
+                        NAME "Rural Metropolitana "
+                        SIZE 3
+                        OUTLINECOLOR 204 204 204
+                        COLOR 204 204 204 
+                END
+        END
+
+
+ 
+END

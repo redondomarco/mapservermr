@@ -1,0 +1,561 @@
+MAP # MR
+	 STATUS ON
+	NAME "MR"
+	EXTENT 5422163.0 6344000.0 5446837.0 6364000.0
+	SIZE 1024 765
+	UNITS METERS
+	FONTSET "/etc/mapserver/fonts.list.example"
+	IMAGETYPE jpeg
+	TRANSPARENT TRUE
+	RESOLUTION 75
+	SHAPEPATH "/geodata/"
+	SYMBOLSET "/etc/mapserver/infomapas.sym"
+	Symbol NAME "poligono_grueso" TYPE ELLIPSE FILLED TRUE POINTS 1 1 END END
+
+WEB
+	TEMPLATE index.html
+	IMAGEPATH "/var/www/mapserver"
+	IMAGEURL "mapserver/"
+        METADATA
+            "wms_title"  "WMS-Rosario-LugaresInteres"  ##required
+            "wms_name"  "WMS-Rosario-LugaresInteres"             
+            "wms_abstract" "WMS-Rosario-LugaresInteres"       
+            "wms_onlineresource" "http://mapsrv2-test.pm.rosario.gov.ar/cgi-bin/mapserv?map=/etc/mapserver/wms/lugares_interes_wms.map&"
+            "wms_srs" "epsg:22185 epsg:4326"
+            "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+            'wms_feature_info_mime_type' "text/plain"
+        END
+END
+PROJECTION
+  "init=epsg:22185"   ##required
+END
+
+	LAYER 
+                NAME "1" #Aire Libre
+		METADATA
+                    "wms_title"    "Aire Libre"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=dbsrv06-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 1 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto 
+		
+		CLASS
+                        NAME "Aire Libre"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE 
+                                SYMBOL "consulta1"
+                                SIZE 20
+                                COLOR 0 255 255
+                        END
+                END
+	
+        
+	END
+	
+	LAYER
+                NAME "10" # Salud
+                METADATA
+                    "wms_title"    "Salud"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=dbsrv06-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 10 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto
+
+                CLASS
+                        NAME "Salud"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "consulta3"
+                                SIZE 20
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END
+
+	LAYER 
+                NAME "4" #Recreaci√n y deporte
+                METADATA
+                    "wms_title"    "Recreacion y Deporte"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=dbsrv06-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 4 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto
+
+                CLASS
+                        NAME "Recreacion_y_deporte"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "consulta4"
+                                SIZE 20
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END	
+	
+	LAYER
+                NAME "3"
+                METADATA
+                    "wms_title"    "Cultura"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=dbsrv06-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 3 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto
+
+                CLASS
+                        NAME "Cultura"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "consulta5"
+                                SIZE 20
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END
+
+	LAYER 
+                NAME "5" # Distraccion
+                METADATA
+                    "wms_title"    "Distraccion"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=dbsrv06-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 5 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto
+
+                CLASS
+                        NAME "Distraccion"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "consulta6"
+                                SIZE 20
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END
+
+	LAYER 
+                NAME "2" # Distritos
+                METADATA
+                    "wms_title"    "Entes Municipales Descentralizados"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=dbsrv06-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 2 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto
+
+                CLASS
+                        NAME "Entes Municipales Descentralizados"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "consulta7"
+                                SIZE 20
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END
+
+	LAYER
+                NAME "6" #Educacion
+                METADATA
+                    "wms_title"    "Educacion"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=dbsrv06-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 6 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto
+
+                CLASS
+                        NAME "Educacion"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "consulta8"
+                                SIZE 20
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END
+
+        LAYER
+                NAME "7" #Hospedaje
+                METADATA
+                    "wms_title"    "Hospedaje" ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=dbsrv06-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 7 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto
+
+                CLASS
+                        NAME "Hospedaje"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "consulta9"
+                                SIZE 20
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END
+
+        LAYER
+                NAME "9" #Justicia
+                METADATA
+                    "wms_title"    "Justicia"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=dbsrv06-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 9 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto
+
+                CLASS
+                        NAME "Justicia"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "consulta11"
+                                SIZE 20
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END
+
+        LAYER
+                NAME "11" # justicia
+                METADATA
+                    "wms_title"    "Seguridad"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=dbsrv06-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 11 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto
+
+                CLASS
+                        NAME "Justicia"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "consulta12"
+                                SIZE 20
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END
+
+        LAYER
+                NAME "12" # Servicios
+                METADATA
+                    "wms_title"    "Servicios"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=dbsrv06-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo in(12) and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto
+
+                CLASS
+                        NAME "Justicia"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "consulta13"
+                                SIZE 20
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END
+
+	LAYER
+                NAME "8" # Instituciones 
+                METADATA
+                    "wms_title"    "Instituciones"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=dbsrv06-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 8 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT 
+                #LABELITEM nombre_corto
+                
+                CLASS   
+                        NAME "Instituciones"
+                        
+                        LABEL   
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8 
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "pin"
+                                SIZE 30 
+             		  	COLOR 0 255 255
+                        END
+                END
+
+
+        END
+
+END

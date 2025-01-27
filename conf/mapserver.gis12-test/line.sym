@@ -1,0 +1,477 @@
+SYMBOLSET
+SYMBOL
+	NAME 'triangle'
+	TYPE VECTOR
+	FILLED TRUE
+	POINTS
+		0 1
+		.5 0
+		1 1
+		0 1
+	END
+END
+
+SYMBOL
+	NAME 'square'
+	TYPE VECTOR
+	FILLED TRUE
+	POINTS
+		0 1
+		0 0
+		1 0
+		1 1
+		0 1
+	END
+END
+
+SYMBOL
+	NAME "star"
+	TYPE vector
+	FILLED TRUE
+	POINTS
+		81 48
+		66 0
+		50 48
+		0 48
+		41 77
+		25 125
+		66 96
+		106 125
+		91 77
+		131 48
+		81 48
+	END 
+END
+
+SYMBOL
+  NAME 'LineaGrosor'
+  TYPE ELLIPSE
+  POINTS 1 1 END
+  FILLED TRUE
+#  STYLE 10 5 5 10 END
+END
+
+SYMBOL
+  NAME 'Dashed'
+  TYPE ELLIPSE
+  POINTS 1 1 END
+  FILLED TRUE
+  STYLE 15 5 2 5 END
+END
+
+SYMBOL   
+  NAME "ddfill"
+  TYPE vector
+  TRANSPARENT 0
+	FILLED false
+  POINTS
+    0 1
+    1 0
+  END   
+END
+
+SYMBOL
+  NAME "estrellaRoja"
+  TYPE PIXMAP
+  IMAGE "sol.png"
+END
+
+SYMBOL
+  NAME "geocode"
+  TYPE PIXMAP
+  IMAGE "punto8.png"
+END
+
+SYMBOL
+  NAME "consulta1" # Aire Libre
+  TYPE PIXMAP
+  IMAGE "ico_aire_libre_brdr.png"
+END
+
+SYMBOL
+  NAME "consulta1_r" # Aire Libre
+  TYPE PIXMAP
+  IMAGE "ico_aire_libre_brdr_r.png"
+END
+
+SYMBOL
+  NAME 'consulta2' # TUP
+  TYPE ELLIPSE
+  POINTS 1 1 END
+  FILLED TRUE
+#  STYLE 10 5 5 10 END
+END
+
+SYMBOL
+  NAME 'consulta2_r' # TUP
+  TYPE ELLIPSE
+  POINTS 1 1 END
+  FILLED TRUE
+#  STYLE 10 5 5 10 END
+END
+
+SYMBOL
+  NAME "consulta3" # Salud
+  TYPE PIXMAP
+  IMAGE "ico_salud_brd.png"
+END
+
+SYMBOL
+  NAME "consulta3_r" # Salud
+  TYPE PIXMAP
+  IMAGE "ico_salud_brd_r.png"
+END
+
+SYMBOL
+  NAME "consulta4" # Recreacion y Deportes
+  TYPE PIXMAP
+  IMAGE "ico_deporte_brdr.png"
+END
+
+SYMBOL
+  NAME "consulta4_r" # Recreacion y Deportes
+  TYPE PIXMAP
+  IMAGE "ico_deporte_brdr_r.png"
+END
+
+SYMBOL
+  NAME "consulta5" # Cultura
+  TYPE PIXMAP
+  IMAGE "ico_cultura_brdr.png"
+END
+
+SYMBOL
+  NAME "consulta5_r" # Cultura
+  TYPE PIXMAP
+  IMAGE "ico_cultura_brdr_r.png"
+END
+
+SYMBOL
+  NAME "consulta6" # Distraccion
+  TYPE PIXMAP
+  IMAGE "ico_distraccion_brd.png"
+END
+
+SYMBOL
+  NAME "consulta6_r" # Distraccion
+  TYPE PIXMAP
+  IMAGE "ico_distraccion_brd_r.png"
+END
+
+SYMBOL
+  NAME "consulta7" # Entes Municipales Descentralizados
+  TYPE PIXMAP
+  IMAGE "ico_descentralizado_brd.png"
+END
+
+SYMBOL
+  NAME "consulta7_r" # Entes Municipales Descentralizados
+  TYPE PIXMAP
+  IMAGE "ico_descentralizado_brd_r.png"
+END
+
+SYMBOL
+  NAME "consulta8" # Educacion
+  TYPE PIXMAP
+  IMAGE "ico_educacion_brd.png"
+END
+
+SYMBOL
+  NAME "consulta8_r" # Educacion
+  TYPE PIXMAP
+  IMAGE "ico_educacion_brd_r.png"
+END
+
+SYMBOL
+  NAME "consulta9" # Hospedaje
+  TYPE PIXMAP
+  IMAGE "ico_hospedaje_brd.png"
+END
+
+SYMBOL
+  NAME "consulta9_r" # Hospedaje
+  TYPE PIXMAP
+  IMAGE "ico_hospedaje_brd_r.png"
+END
+
+SYMBOL
+  NAME "consulta11" # Justicia
+  TYPE PIXMAP
+  IMAGE "ico_justicia_brd.png"
+END
+
+SYMBOL
+  NAME "consulta11_r" # Justicia
+  TYPE PIXMAP
+  IMAGE "ico_justicia_brd_r.png"
+END
+
+SYMBOL
+  NAME "consulta12" # Seguridad
+  TYPE PIXMAP
+  IMAGE "ico_seguridad_brd.png"
+END
+
+SYMBOL
+  NAME "consulta12_r" # Seguridad
+  TYPE PIXMAP
+  IMAGE "ico_seguridad_brd_r.png"
+END
+
+SYMBOL
+  NAME "consulta13" # Servicio
+  TYPE PIXMAP
+  IMAGE "ico_servicios_brd.png"
+END
+
+SYMBOL
+  NAME "consulta13_r" # Servicio
+  TYPE PIXMAP
+  IMAGE "ico_servicios_brd_r.png"
+END
+
+SYMBOL
+  NAME "consulta19" # Servicio
+  TYPE PIXMAP
+  IMAGE "punto8.png"
+END
+
+SYMBOL
+  NAME "consulta19_r" # Servicio
+  TYPE PIXMAP
+  IMAGE "punto8_r.png"
+END
+
+SYMBOL
+  NAME "consulta20" # Servicio
+  TYPE PIXMAP
+  IMAGE "punto8.png"
+END
+
+SYMBOL
+  NAME "consulta20_r" # Servicio
+  TYPE vector
+	FILLED TRUE
+	POINTS
+		81 48
+		66 0
+		50 48
+		0 48
+		41 77
+		25 125
+		66 96
+		106 125
+		91 77
+		131 48
+		81 48
+	END 
+END
+
+SYMBOL
+  NAME "consulta21" # Sucesos GUM
+  TYPE PIXMAP
+  IMAGE "suceso_gum.png"
+END 
+
+SYMBOL
+  NAME "consulta21_r" # Sucesos GUM
+   TYPE PIXMAP
+  IMAGE "suceso_gum_r.png"
+END
+
+SYMBOL
+  NAME "consulta22" # Proyectos
+  TYPE PIXMAP
+  IMAGE "suceso_gum.png"
+END 
+
+SYMBOL
+  NAME "consulta22_r" # Proyectos
+   TYPE PIXMAP
+  IMAGE "suceso_gum_r.png"
+END
+
+SYMBOL
+  NAME 'consulta23' # Habilitaciones
+  TYPE PIXMAP
+  IMAGE "punto8.png"
+END
+
+SYMBOL
+  NAME 'consulta23_r' # Habilitaciones
+  TYPE PIXMAP
+  IMAGE "punto8_r.png"
+END
+
+SYMBOL   
+  NAME "infoPoligono"
+  TYPE vector
+  TRANSPARENT 0
+  FILLED FALSE
+  POINTS
+    0 1
+    1 0
+  END   
+END
+
+SYMBOL
+  NAME 'infoLinea'
+  TYPE ELLIPSE
+  POINTS 1 1 END
+  FILLED TRUE
+#  STYLE 10 5 5 10 END
+END
+
+Symbol 
+	NAME 'circle' 
+	TYPE ellipse 
+	FILLED true 
+	POINTS 
+		1 1 
+	END 
+END 
+
+Symbol 
+	NAME 'circle0' 
+	TYPE ellipse 
+	FILLED true 
+	POINTS 
+		0 1 
+		1 0 
+	END 
+END 
+
+Symbol 
+	NAME 'dcircle' 
+	TYPE Ellipse 
+	FILLED TRUE 
+	POINTS
+		1 1
+	END 
+	STYLE
+		1 3
+	END 
+END 
+
+
+SYMBOL
+	NAME 'cross'
+	TYPE VECTOR
+	POINTS
+		2 0
+		2 4
+		-99 -99
+		0 2
+		4 2
+	END
+	STYLE 1 16 END
+END
+
+Symbol
+	NAME "poligono_transparente"
+	Type VECTOR
+	TRANSPARENT 0
+	Points
+		0 0
+		1 1
+	END
+END
+
+SYMBOL 
+	NAME "star"
+	TYPE vector
+	FILLED TRUE
+	POINTS
+		81 48
+		66 0
+		50 48
+		0 48
+		41 77
+		25 125
+		66 96
+		106 125
+		91 77
+		131 48
+		81 48
+	END 
+END 
+
+SYMBOL
+	ANTIALIAS true
+	FILLED true
+	NAME "arrow"
+	TYPE truetype
+	FONT wd
+	CHARACTER "&#61672;"
+	GAP -40
+	#TRANSPARENT OFF
+END
+
+SYMBOL
+	ANTIALIAS true
+	FILLED true
+	NAME "arrow1"
+	TYPE truetype
+	FONT wd
+	CHARACTER "&#61660;"
+	GAP -40
+	#TRANSPARENT OFF
+END
+
+SYMBOL
+	NAME "arrow3"
+	TYPE truetype
+	FONT flecha
+	CHARACTER ">"
+	GAP -50
+END
+
+SYMBOL
+  NAME "agenteGumApie" # agente gum a pie
+  TYPE PIXMAP
+  IMAGE "guardia.png"
+END
+
+SYMBOL
+  NAME "agenteGumApie_r" # agente gum a pie borde rojo
+  TYPE PIXMAP
+  IMAGE "guardia2.png"
+END
+
+SYMBOL
+  NAME "agenteGumBici" # agente gum en bici
+  TYPE PIXMAP
+  IMAGE "bici.png"
+END
+
+SYMBOL
+  NAME "agenteGumBici_r" # agente gum en bici borde rojo
+  TYPE PIXMAP
+  IMAGE "bici2.png"
+END
+
+SYMBOL
+  NAME "agenteGumMoto" # agente gum en moto
+  TYPE PIXMAP
+  IMAGE "moto.png"
+END
+
+SYMBOL
+  NAME "agenteGumMoto_r" # agente gum en moto borde rojo
+  TYPE PIXMAP
+  IMAGE "moto2.png"
+END
+
+SYMBOL
+  NAME "agenteGumCamioneta" # agente gum en comioneta
+  TYPE PIXMAP
+  IMAGE "camioneta.png"
+END
+
+SYMBOL
+  NAME "agenteGumCamioneta_r" # agente gum en comioneta borde rojo
+  TYPE PIXMAP
+  IMAGE "camioneta2.png"
+END
+
+# END OF FILE

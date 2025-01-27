@@ -1,0 +1,701 @@
+MAP # 
+	 STATUS ON
+	NAME "CATASTRO"
+	EXTENT 5422163.0 6344000.0 5446837.0 6364000.0
+	SIZE 768 647
+	UNITS METERS
+	FONTSET "/etc/mapserver/fonts.list.example"
+	IMAGETYPE jpeg
+	IMAGECOLOR 242 242 242
+	RESOLUTION 75
+	SHAPEPATH "/geodata/"
+	SYMBOLSET "/etc/mapserver/infomapas.sym"
+	Symbol NAME "poligono_grueso" TYPE ELLIPSE FILLED TRUE POINTS 1 1 END END
+	OUTPUTFORMAT
+		NAME "jpeg"
+		DRIVER "GD/JPEG"
+		FORMATOPTION "QUALITY=90"
+		MIMETYPE "image/jpeg"
+		IMAGEMODE RGBA
+		EXTENSION "jpg"
+	END
+
+
+WEB
+	IMAGEPATH "/var/www/mapserver"
+	IMAGEURL "mapserver/"
+	METADATA
+            "wms_title"  "WMS-Catastro"  ##required
+            "wms_name"  "WMS-Catastro"           
+            "wms_abstract" "WMS-Catastro"        
+            "wms_onlineresource" "https://t-infomapa.rosario.gob.ar/wms/catastro?"
+            "wms_srs" "epsg:22185 epsg:4326"
+            "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+            'wms_feature_info_mime_type' "text/html"
+        END
+
+        EMPTY "http://infomapa.rosario.gov.ar/emapa/datosUtiles.htm"
+        ERROR "http://infomapa.rosario.gov.ar/emapa/error.jsp"
+
+END
+PROJECTION
+  "init=epsg:22185"   ##required
+END
+
+	LAYER # Sin Manzanas Fotos
+		NAME "sin_manzanas_fotos"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+		    "wms_title"    "Sin Manzanas contorno"  ##required
+		    "wms_srs" "EPSG:4326 epsg:22185"
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		END
+		PROJECTION
+		  "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from sinmanzana USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		MINSCALE 0.0
+		MAXSCALE 40000.0
+		CLASS
+			NAME "Sin Manzanas"
+			STYLE 
+				SIZE 5
+				OUTLINECOLOR 255 255 255
+			END
+		END
+
+	END
+
+	LAYER # Manzanas Fotos
+		NAME "manzanas_fotos"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+		    "wms_title"    "Manzanas contorno"  ##required
+		    "wms_srs" "EPSG:4326 epsg:22185"
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		END
+		PROJECTION
+		  "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from manzanas USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		MAXSCALE 40000.0
+		CLASS
+			NAME "Manzanas"
+			STYLE 
+				SIZE 5
+				OUTLINECOLOR 255 255 255
+			END
+		END
+
+	END
+
+	LAYER # Baldios
+		NAME "baldios"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+		    "wms_title"    "Baldí­os"  ##required
+		    "wms_srs" "EPSG:4326 epsg:22185"
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		END
+		PROJECTION
+		  "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from v_baldios USING FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		MAXSCALE 6000.0		
+		TRANSPARENCY 90
+
+		CLASS
+			NAME "Baldíos"
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 1
+				OUTLINECOLOR 255 255 255
+				COLOR 73 44 211
+			END
+		END
+
+	END
+
+	LAYER # Indice Edificado (Sup Mej/Sup Terr)
+		NAME "indice_edificado"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+		    "wms_title"    "Indice Edificado (Sup Mej/Sup Terr)"  ##required
+		    "wms_srs" "EPSG:4326 epsg:22185"
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		END
+		PROJECTION
+		  "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from v_parcelas USING FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		MAXSCALE 4000.0
+		TRANSPARENCY 75
+
+		CLASS
+			NAME "0 a 0.5"
+			EXPRESSION ('[indice_edif]'>= '0' AND '[indice_edif]' < '0.5' AND '[tipo]'='1')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 254 252 188
+			END
+		END
+
+
+		CLASS
+			NAME "0.5 a 1"
+			EXPRESSION ('[indice_edif]'>= '0.5' AND '[indice_edif]' < '1' AND '[tipo]'='1')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 253 249 102
+			END
+		END
+
+
+		CLASS
+			NAME "1 a 2"
+			EXPRESSION ('[indice_edif]'>= '1' AND '[indice_edif]' < '2' AND '[tipo]'='1')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 252 245 10
+			END
+		END
+
+
+		CLASS
+			NAME "2 a 3"
+			EXPRESSION ('[indice_edif]'>= '2' AND '[indice_edif]' < '3' AND '[tipo]'='1')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 159 255 149
+			END
+		END
+
+
+		CLASS
+			NAME "3 a 5"
+			EXPRESSION ('[indice_edif]'>= '3' AND '[indice_edif]' < '5' AND '[tipo]'='1')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 101 254 84
+			END
+		END
+
+
+		CLASS
+			NAME "5 a 7"
+			EXPRESSION ('[indice_edif]'>= '5' AND '[indice_edif]' < '7' AND '[tipo]'='1')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 17 158 1
+			END
+		END
+
+
+		CLASS
+			NAME "7 a 10"
+			EXPRESSION ('[indice_edif]'>= '7' AND '[indice_edif]' < '10' AND '[tipo]'='1')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 129 157 254
+			END
+		END
+
+
+		CLASS
+			NAME "10 a 15"
+			EXPRESSION ('[indice_edif]'>= '10' AND '[indice_edif]' < '15' AND '[tipo]'='1')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 63 106 254
+			END
+		END
+
+
+		CLASS
+			NAME "más de 15"
+			EXPRESSION ('[indice_edif]'>= '15' AND '[tipo]'='1')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 1 49 214
+			END
+		END
+
+
+		CLASS
+			NAME "PH"
+			EXPRESSION ('[tipo]'= '3' OR '[tipo]'= '5' OR '[tipo]'= '6' OR '[tipo]'= '7')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 213 13 2
+			END
+		END
+
+
+		CLASS
+			NAME "Baldíos"
+			EXPRESSION ('[tipo]' = '2')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 128 128 128
+			END
+		END
+
+	END
+
+	LAYER # Superficies de Mejoras
+		NAME "superficies_mejoras"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+		    "wms_title"    "Superficies de Mejoras"  ##required
+		    "wms_srs" "EPSG:4326 epsg:22185"
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		END
+		PROJECTION
+		  "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from v_parcelas USING FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		MAXSCALE 4000.0
+		TRANSPARENCY 75
+
+		CLASS
+			NAME "mayor que 20000"
+			EXPRESSION ('[sup_mejora]'> '20000' AND '[tipo]'='1')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 252 245 10
+			END
+		END
+
+
+		CLASS
+			NAME "15000 a 20000"
+			EXPRESSION ('[sup_mejora]'>= '15000' AND '[sup_mejora]'< '20000' AND '[tipo]'='1')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 253 249 102
+			END
+		END
+
+
+		CLASS
+			NAME "10000 a 15000"
+			EXPRESSION ('[sup_mejora]'>= '10000' AND '[sup_mejora]'< '15000' AND '[tipo]'='1')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 254 252 188
+			END
+		END
+
+
+		CLASS
+			NAME "5000 a 10000"
+			EXPRESSION ('[sup_mejora]'>= '5000' AND '[sup_mejora]'< '10000' AND '[tipo]'='1')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 17 158 1
+			END
+		END
+
+
+		CLASS
+			NAME "2500 a 5000"
+			EXPRESSION ('[sup_mejora]'>= '2500' AND '[sup_mejora]'< '5000' AND '[tipo]'='1')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 101 254 84
+			END
+		END
+
+
+		CLASS
+			NAME "1000 a 2500"
+			EXPRESSION ('[sup_mejora]'>= '1000' AND '[sup_mejora]'< '2500' AND '[tipo]'='1')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 159 255 149
+			END
+		END
+
+
+		CLASS
+			NAME "500 a 1000"
+			EXPRESSION ('[sup_mejora]'>= '500' AND '[sup_mejora]'< '1000' AND '[tipo]'='1')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 155 185 255
+			END
+		END
+
+
+		CLASS
+			NAME "300 a 500"
+			EXPRESSION ('[sup_mejora]'>= '300' AND '[sup_mejora]'< '500' AND '[tipo]'='1')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 89 139 255
+			END
+		END
+
+
+		CLASS
+			NAME "150 a 300"
+			EXPRESSION ('[sup_mejora]'>= '150' AND '[sup_mejora]'< '300' AND '[tipo]'='1')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 21 91 255
+			END
+		END
+
+
+		CLASS
+			NAME "0 a 150"
+			EXPRESSION ('[sup_mejora]'>= '0' AND '[sup_mejora]'< '150' AND '[tipo]'='1')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 0 55 183
+			END
+		END
+
+
+		CLASS
+			NAME "PH"
+			EXPRESSION ('[tipo]'= '3' OR '[tipo]'= '5' OR '[tipo]'= '6' OR '[tipo]'= '7')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 213 13 2
+			END
+		END
+
+
+		CLASS
+			NAME "Baldíos"
+			EXPRESSION ('[tipo]'= '2')
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 192 192 192
+				COLOR 128 128 128
+			END
+		END
+
+	END
+
+	LAYER # Asentamientos Irregulares
+		NAME "asentamientos_irregulares"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+		    "wms_title"    "Asentamientos Irregulares"  ##required
+		    "wms_srs" "EPSG:4326 epsg:22185"
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		END
+		PROJECTION
+		  "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from asentamientos_irregulares USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		TRANSPARENCY 75
+
+		CLASS
+			NAME "Asentamientos Irregulares)"
+			STYLE 
+				SYMBOL "poligono_transparente"
+				SIZE 3
+				OUTLINECOLOR 255 51 51
+				COLOR 255 51 51
+			END
+		END
+
+	END
+	LAYER # Curvas de Nivel
+		NAME "curvas_de_nivel"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+		    "wms_title"    "Curvas de Nivel"  ##required
+		    "wms_srs" "EPSG:4326 epsg:22185"
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		END
+		PROJECTION
+		  "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from curvas_nivel USING FILTER"
+		STATUS ON
+		TYPE LINE
+		POSTLABELCACHE OFF
+		CLASS
+			NAME "Curvas de Nivel"
+			STYLE 
+				SYMBOL "LineaGrosor"
+				SIZE 2
+				COLOR 153 102 51
+			END
+		END
+
+	END
+
+	LAYER # Cotas Curvas de Nivel
+		NAME "cotas_curvas_de_nivel"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+		    "wms_title"    "Cotas Curvas de Nivel"  ##required
+		    "wms_srs" "EPSG:4326 epsg:22185"
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		END
+		PROJECTION
+		  "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from cotas USING FILTER"
+		STATUS ON
+		TYPE ANNOTATION
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		LABELITEM "text"
+		CLASS
+			NAME "Cotas Curvas de Nivel"
+
+			LABEL
+				COLOR 153 102 51
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS OFF
+				FONT arialbd
+				SIZE 7
+				BUFFER 0
+				MAXSIZE 7
+				MINDISTANCE 0
+				PARTIALS OFF
+				POSITION CC
+				FORCE TRUE
+			END
+
+			STYLE 
+				SIZE 20
+				COLOR 0 0 192
+			END
+		END
+
+	END
+
+        LAYER # Secciones Electorales 
+                NAME "secciones_electorales"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+		PROCESSING 'LABEL_NO_CLIP=ON'
+                METADATA
+                    "wms_title"    "Secciones electorales"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "the_geom from secciones_electorales USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON
+                POSTLABELCACHE OFF
+                LABELCACHE ON
+		LABELITEM "secc_e"
+                CLASS
+                        NAME "Secciones electorales"
+                        STYLE
+                                SIZE 5 
+				SYMBOL "poligono_grueso"
+                                OUTLINECOLOR 0 0 255
+                        END
+
+			 LABEL
+                                COLOR 0 0 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS OFF
+                                FONT arialbd
+                                SIZE 10 
+                                BUFFER 0
+                                MAXSIZE 10 
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE TRUE
+                        END
+
+                END
+
+        END
+	
+        LAYER # Circuitos Electorales  
+                NAME "circuitos_electorales"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+		PROCESSING 'LABEL_NO_CLIP=ON'
+                METADATA
+                    "wms_title"    "Circuitos electorales"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from circuitos_electorales USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON
+                POSTLABELCACHE OFF
+                LABELCACHE ON
+                LABELITEM "circuito"
+
+                CLASS
+                        NAME "Circuitos electorales"
+                        STYLE
+				SYMBOL "poligono_grueso"
+                                SIZE 3  
+                                OUTLINECOLOR 0 0 128 
+                        END
+			
+			 LABEL
+                                COLOR 0 0 192 
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS OFF
+                                FONT arial
+                                SIZE 8 
+                                BUFFER 0
+                                MAXSIZE 8 
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE TRUE
+                        END
+		
+                END
+
+        END
+
+	LAYER 
+                NAME "precios_basicos"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                METADATA
+                    "wms_title"    "Precios Basicos"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from precios_basicos USING FILTER"
+                STATUS ON
+                TYPE LINE 
+                POSTLABELCACHE OFF
+                LABELCACHE ON
+                LABELITEM "trim(etiqueta)"
+		MAXSCALE 2300.0
+                CLASS
+                        NAME "2008-2013-orient"
+                        LABEL
+                                COLOR 0 0 200 
+				SHADOWCOLOR 255 255 255
+				SHADOWSIZE 1 1  
+                                TYPE TRUETYPE
+				ANGLE FOLLOW
+                                FONT arialbd 
+                                SIZE 9 
+                                MAXSIZE 9 
+                                PARTIALS OFF
+                                POSITION uc 
+				FORCE TRUE
+                        END
+
+                END
+		
+        END
+END

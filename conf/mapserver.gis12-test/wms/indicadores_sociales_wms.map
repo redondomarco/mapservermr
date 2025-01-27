@@ -1,0 +1,132 @@
+MAP # MR
+	 STATUS ON
+	NAME "MR"
+	EXTENT 5422163.0 6344000.0 5446837.0 6364000.0
+	SIZE 1024 765
+	UNITS METERS
+	FONTSET "/etc/mapserver/fonts.list.example"
+	IMAGETYPE jpeg
+	TRANSPARENT TRUE
+	RESOLUTION 75
+	SHAPEPATH "/geodata/"
+	SYMBOLSET "/etc/mapserver/infomapas.sym"
+	Symbol NAME "poligono_grueso" TYPE ELLIPSE FILLED TRUE POINTS 1 1 END END
+
+WEB
+	TEMPLATE index.html
+	IMAGEPATH "/var/www/mapserver"
+	IMAGEURL "mapserver/"
+        METADATA
+            "wms_title"  "WMS-Rosario-OS"  ##required
+            "wms_name"  "WMS-Rosario-OS"             
+            "wms_abstract" "WMS-Rosario-OS"       
+            "wms_onlineresource" "https://t-infomapa.rosario.gob.ar/wms/indicadoressociales?"
+            "wms_srs" "epsg:22185 epsg:4326"
+            "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+            'wms_feature_info_mime_type' "text/html"
+        END
+	
+        EMPTY "http://infomapa.rosario.gov.ar/emapa/datosUtiles.htm"
+        ERROR "http://infomapa.rosario.gov.ar/emapa/error.jsp"
+
+END
+PROJECTION
+  "init=epsg:22185"   ##required
+END
+
+	LAYER #indicador social 
+                NAME "indicador_social" #
+		METADATA
+                    "wms_title"    'indicador_social'  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER" 
+                DATA "the_geom from v_indicadores_os USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON
+                FILTER "codigo=%ID_INDICADOR_SOCIAL%"
+                CLASSITEM "valor"
+                TEMPLATE "content_indicador_social_template.html"
+	        HEADER "header_guia_prod_template.html"
+	        FOOTER "footer_guia_prod_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 5
+                GROUP "OBSERVATORIO SOCIAL"
+                TRANSPARENCY 75
+
+                CLASS
+                        NAME " 0,00 - 999999,00"
+                        EXPRESSION ([valor] >=0.0 AND [valor] <=999999.0)
+                        STYLE 
+                                SIZE 1
+                                OUTLINECOLOR 0 0 0
+                                COLOR 192 192 192 
+                        END
+                END
+
+
+        END
+	
+	LAYER #indicador social puntos
+                NAME "indicador_social_puntos" #
+                METADATA
+                    "wms_title"    'indicador_social_puntos'  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "the_geom from %TABLA_INDICADOR% USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POINT
+		TEMPLATE "content_indicador_%TABLA_INDICADOR%_template.html"
+                HEADER "header_guia_prod_template.html"
+                FOOTER "footer_guia_prod_template.html"
+                GROUP "OBSERVATORIO SOCIAL"
+                TRANSPARENCY 75
+
+		CLASS
+                        NAME "Ubicacion"
+                        STYLE 
+                                SYMBOL "circle"
+                                SIZE 6 
+                                OUTLINECOLOR 0 0 255
+                                COLOR 0 0 255
+                        END
+                END
+
+
+        END
+
+	
+	LAYER # Radios Censales
+                NAME "Radios Censales"
+            METADATA
+                    "wms_title"    "Radios Censales"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+            END
+            PROJECTION
+                    "init=epsg:22185"
+            END
+		TEMPLATE "content_radios_censales_template.html"
+                HEADER "header_guia_prod_template.html"
+                FOOTER "footer_guia_prod_template.html"
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER" 
+                DATA "the_geom from radios_censales USING UNIQUE SE_ROW_ID FILTER"
+		TOLERANCEUNITS PIXELS
+                TOLERANCE 5
+                STATUS ON
+                TYPE POLYGON
+	END	
+END

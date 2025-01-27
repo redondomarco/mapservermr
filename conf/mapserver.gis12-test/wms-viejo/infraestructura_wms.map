@@ -1,0 +1,650 @@
+MAP # MR
+	 STATUS ON
+	NAME "MR"
+	EXTENT 5422163.0 6344000.0 5446837.0 6364000.0
+	SIZE 1024 765
+	UNITS METERS
+	FONTSET "/etc/mapserver/fonts.list.example"
+	IMAGETYPE jpeg
+	IMAGECOLOR 242 242 242
+	RESOLUTION 75
+	SHAPEPATH "/geodata/"
+	SYMBOLSET "/etc/mapserver/infomapas.sym"
+Symbol NAME "poligono_grueso" TYPE ELLIPSE FILLED TRUE POINTS 1 1 END END
+	OUTPUTFORMAT
+		NAME "jpeg"
+		DRIVER "GD/JPEG"
+     FORMATOPTION "QUALITY=90"
+		MIMETYPE "image/jpeg"
+		IMAGEMODE RGBA
+		EXTENSION "jpg"
+	END
+
+ QUERYMAP
+ 	SIZE 1024 765
+ 	STATUS ON
+ 	STYLE HILITE
+ 	COLOR 255 0 0
+ END
+
+ REFERENCE
+ 	IMAGE "/etc/mapserver/keymap.png"
+ 	EXTENT 5424500 6343900 5444610 6364000
+ 	SIZE 100 100
+ 	STATUS ON
+ 	COLOR -1 -1 -1
+ 	OUTLINECOLOR 0 0 255
+ END
+
+ LEGEND
+ 	KEYSIZE 16 16
+ 	TRANSPARENT ON
+ 	LABEL
+ 		TYPE BITMAP
+ 		FONT "lucida"
+ 		SIZE 8
+ 		COLOR 0 0 89
+ 	END
+ 	STATUS ON
+ END
+
+ SCALEBAR
+ 	BACKGROUNDCOLOR 253 250 207
+ 	COLOR 0 0 0
+ 	OUTLINECOLOR 0 0 0
+ 	IMAGECOLOR 253 250 207
+ 	LABEL
+ 		COLOR 0 0 0
+ 		SIZE SMALL
+ 	END
+ 	STYLE 0
+ 	SIZE 250 4
+ 	UNITS METERS
+ 	INTERVALS 5
+ 	STATUS ON
+ END 
+
+WEB
+		TEMPLATE index.html
+	IMAGEPATH "/var/www/mapserver"
+	IMAGEURL "mapserver/"
+        METADATA
+            "wms_title"  "WMS-Rosario-Infraestructura"  ##required
+            "wms_name"  "WMS-Rosario-Infraestructura"             
+            "wms_abstract" "WMS-Rosario-Infraestructura"       
+            "wms_onlineresource" "http://mapsrv2-test.pm.rosario.gov.ar/cgi-bin/mapserv?map=/etc/mapserver/wms/infraestructura_wms.map&"
+            "wms_srs" "epsg:22185 epsg:4326"
+            "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+            'wms_feature_info_mime_type' "text/plain"
+        END
+END
+PROJECTION
+  "init=epsg:22185"   ##required
+END
+
+	LAYER # Antenas
+		NAME "Antenas"
+		METADATA
+                    "wms_title"    "Antenas"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		    #"wms_layer_group" "/nivel 1/nivel 2"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from antenas USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POINT
+		POSTLABELCACHE OFF
+		LABELCACHE OFF
+		TEMPLATE "template.html"
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5	
+
+		CLASS
+			NAME "Antenas"
+			STYLE 
+				SYMBOL "antena"
+				SIZE 20
+				OUTLINECOLOR 0 0 0
+				COLOR 205 0 0
+			END
+		END
+
+	END
+
+	LAYER # Cruces con Semaforos
+		NAME "cruces_con_semaforos"
+		METADATA
+                    "wms_title"    "Cruces con Semaforos"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "st_centroid(the_geom) from esquinas_semaforos USING FILTER"
+		STATUS ON
+		TYPE POINT
+		POSTLABELCACHE OFF
+		LABELCACHE OFF		
+
+		CLASS
+			NAME "Semáforos"
+			STYLE 
+				SYMBOL "circle"
+				SIZE 8
+				OUTLINECOLOR 0 0 0
+				COLOR 255 255 0
+			END
+		END
+
+	END
+
+	LAYER # Columnas
+		NAME "Columnas"
+		CONNECTION "@gis"
+		METADATA
+                    "wms_title"    "Columnas"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from columnas USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POINT
+		POSTLABELCACHE OFF
+		LABELCACHE OFF
+		TEMPLATE "template.html"
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+		GROUP "Alumbrado Publico"
+
+		CLASS
+			NAME "Columnas"
+			STYLE 
+				SYMBOL "circle"
+				SIZE 8
+				OUTLINECOLOR 0 0 0
+				COLOR 205 0 0
+			END
+		END
+
+	END
+
+	LAYER # Transversales
+		NAME "Transversales"
+		METADATA
+                    "wms_title"    "Transversales"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from transversales USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POINT
+		POSTLABELCACHE OFF
+		LABELCACHE OFF
+		TEMPLATE "template.html"
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+		GROUP "Alumbrado Publico"
+
+		CLASS
+			NAME "Transversales"
+			STYLE 
+				SYMBOL "square"
+				SIZE 8
+				OUTLINECOLOR 0 0 0
+				COLOR 255 0 0
+			END
+		END
+
+	END
+
+	LAYER # Tableros
+		NAME "Tableros"
+		METADATA
+                    "wms_title"    "Tableros"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from tableros USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POINT
+		POSTLABELCACHE OFF
+		LABELCACHE OFF
+		TEMPLATE "template.html"
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+		GROUP "Alumbrado Publico"
+
+		CLASS
+			NAME "Tableros"
+			STYLE 
+				SYMBOL "triangle"
+				SIZE 10
+				OUTLINECOLOR 0 0 0
+				COLOR 0 0 255
+			END
+		END
+
+	END
+
+	LAYER # Tipos de pavimento
+		NAME "Tipos_de_pavimento"
+		METADATA
+                    "wms_title"    "Tipos de Pavimento"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from ejes USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE LINE
+		MAXSCALE 30000.0
+		GROUP "Pavimentos"		
+
+		CLASS
+			NAME "Nivel Definitivo"
+			EXPRESSION ('[T_PAVI_08]' = '3' OR '[T_PAVI_08]' = '4' OR '[T_PAVI_08]' = '5' OR '[T_PAVI_08]' = '6' OR '[T_PAVI_08]' = '7' OR '[T_PAVI_08]' = '99')
+			STYLE 
+				SYMBOL "LineaGrosor"
+				SIZE 2
+				COLOR 223 63 63
+			END
+		END
+
+
+		CLASS
+			NAME "Carpeta Asfaltica"
+			EXPRESSION ('[T_PAVI_08]' = '2')
+			STYLE 
+				SYMBOL "LineaGrosor"
+				SIZE 2
+				COLOR 84 84 223
+			END
+		END
+
+
+		CLASS
+			NAME "Estabilizado"
+			EXPRESSION ('[T_PAVI_08]'= '9')
+			STYLE 
+				SYMBOL "LineaGrosor"
+				SIZE 2
+				COLOR 162 141 79
+			END
+		END
+
+
+		CLASS
+			NAME "Tierra"
+			EXPRESSION ('[T_PAVI_08]'= '8' OR '[T_PAVI_08]'='11')
+			STYLE 
+				SYMBOL "LineaGrosor"
+				SIZE 2
+				COLOR 84 223 84
+			END
+		END
+
+	END
+
+	LAYER # Plan Pavimento
+		NAME "Plan_Pavimento"
+		METADATA
+                    "wms_title"    "Plan Pavimento"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from zona_pavimento USING FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELITEM "texto"
+		GROUP "Pavimentos"
+		TRANSPARENCY 65
+
+		CLASS
+			NAME "Plan Pavimento"
+
+			LABEL
+				COLOR 255 255 255
+				OUTLINECOLOR 0 0 255
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT lucida
+				SIZE 8
+				BUFFER 0
+				MAXSIZE 8
+				MINDISTANCE 0
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 3
+				OUTLINECOLOR 0 0 0
+				BACKGROUNDCOLOR 0 0 255
+				COLOR 0 0 255
+			END
+		END
+
+	END
+
+	LAYER # Drenaje a Cielo Abierto
+		NAME "Drenaje_a_Cielo_Abierto"
+		METADATA
+                    "wms_title"    "Drenaje a Cielo Abierto"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from cuencas USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELITEM "texto"
+		TEMPLATE "template.html"
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+		GROUP "Hidraulica"
+
+		CLASS
+			NAME "Drenaje a Cielo Abierto"
+
+			LABEL
+				COLOR 0 0 0
+				OUTLINECOLOR 51 153 255
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT lucida
+				SIZE 8
+				BUFFER 0
+				MAXSIZE 8
+				MINDISTANCE 0
+				PARTIALS OFF
+				POSITION CC
+				FORCE TRUE
+			END
+
+			STYLE 
+				SYMBOL "poligono_grueso"
+				SIZE 3
+				OUTLINECOLOR 51 153 255
+			END
+		END
+
+	END
+
+	LAYER # Captaciones Zanjas
+		NAME "Captaciones Zanjas"
+		METADATA
+                    "wms_title"    "Captaciones Zanjas"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from v_captaciones USING FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		GROUP "Hidraulica"
+
+		CLASS
+			NAME "Simples"
+			EXPRESSION ('[tipo]'= 'simple')
+			STYLE 
+				SIZE 1
+				OUTLINECOLOR 128 255 0
+				BACKGROUNDCOLOR 128 255 0
+				COLOR 128 255 0
+			END
+		END
+
+
+		CLASS
+			NAME "Dobles"
+			EXPRESSION ('[tipo]'= 'doble')
+			STYLE 
+				SIZE 1
+				OUTLINECOLOR 46 91 0
+				BACKGROUNDCOLOR 46 91 0
+				COLOR 46 91 0
+			END
+		END
+
+	END
+
+	LAYER # Conductos Plan Integral
+		NAME "Conductos_Plan_Integral"
+		METADATA
+                    "wms_title"    "Conductos Plan Integral"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from conductos USING FILTER"
+		STATUS ON
+		TYPE LINE
+		POSTLABELCACHE OFF
+		GROUP "Hidraulica"
+
+		CLASS
+			NAME "Conductos Plan Integral"
+			STYLE 
+				SYMBOL "LineaGrosor"
+				SIZE 3
+				OUTLINECOLOR 128 128 128
+			END
+			STYLE 
+					SYMBOL "arrowasc"
+					SIZE 14
+				COLOR 255 0 0
+			END
+		END
+
+	END
+
+	LAYER # Sumideros
+		NAME "Sumideros"
+		METADATA
+                    "wms_title"    "Sumideros"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from sumideros_s USING FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		GROUP "Hidraulica"
+
+		CLASS
+			NAME "Sumideros"
+			STYLE 
+				SIZE 1
+				OUTLINECOLOR 252 159 67
+				BACKGROUNDCOLOR 255 0 0
+				COLOR 252 159 67
+			END
+		END
+
+	END
+
+	LAYER # Camaras
+		NAME "Camaras"
+		METADATA
+                    "wms_title"    "Cámaras"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from v_camaras USING FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		GROUP "Hidraulica"
+
+		CLASS
+			NAME "Bocas de Acceso"
+			EXPRESSION ('[tipo_eleme]' = 'boca registro')
+			STYLE 
+				SIZE 1
+				OUTLINECOLOR 255 0 0
+				BACKGROUNDCOLOR 255 0 0
+				COLOR 255 0 0
+			END
+		END
+
+
+		CLASS
+			NAME "De Ventilacion"
+			EXPRESSION ('[tipo_eleme]' = 'rejilla')
+			STYLE 
+				SIZE 1
+				OUTLINECOLOR 0 0 255
+				BACKGROUNDCOLOR 0 0 255
+				COLOR 0 0 255
+			END
+		END
+
+	END
+
+	LAYER # Infraestructura Cloacal
+		NAME "Infraestructura_Cloacal"
+		METADATA
+                    "wms_title"    "Infraestructura Cloacal"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from cloacas_zonas USING FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELITEM "tipo_proye"
+		GROUP "Hidraulica"
+		TRANSPARENCY 60
+
+		CLASS
+			NAME "Sistema Unitario (Radio Antiguo)"
+			EXPRESSION ('[tipo]'= '1' AND '[n_proyecto]'= '0')
+			STYLE 
+				SIZE 3
+				OUTLINECOLOR 255 88 9
+				COLOR 255 88 9
+			END
+		END
+
+
+		CLASS
+			NAME "Sistema Separativo (Resto Ciudad)"
+			EXPRESSION ('[tipo]'= '3' AND '[n_proyecto]'= '0')
+			STYLE 
+				SIZE 3
+				OUTLINECOLOR 0 255 1
+				COLOR 0 255 1
+			END
+		END
+
+
+		CLASS
+			NAME "Redes Domiciliaria (En Ejecucion)"
+			EXPRESSION ('[n_proyecto]'= '1')
+			STYLE 
+				SIZE 3
+				OUTLINECOLOR 255 255 0
+				COLOR 255 255 0
+			END
+		END
+
+	END
+
+	LAYER # Colectores(En Ejecucion)
+		NAME "Colectores_En_Ejecucion"
+		METADATA
+                    "wms_title"    "Colectores(En Ejecucion)"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from cloacas_troncales USING FILTER"
+		STATUS ON
+		TYPE LINE
+		POSTLABELCACHE OFF
+		GROUP "Hidraulica"
+
+		CLASS
+			NAME "Troncales(En Ejecucion)"
+			EXPRESSION ('[n_proyecto]'= '4')
+			STYLE 
+				SYMBOL "LineaGrosor"
+				SIZE 3
+				OUTLINECOLOR 0 0 255
+			END
+		END
+
+	END
+
+END

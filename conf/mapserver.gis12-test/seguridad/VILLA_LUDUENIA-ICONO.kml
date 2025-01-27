@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+	<name>VILLA LUDUENIA-ICONO.kmz</name>
+	<Style id="sh_triangle">
+		<IconStyle>
+			<color>ff00ff00</color>
+			<scale>1.4</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/triangle.png</href>
+			</Icon>
+		</IconStyle>
+	</Style>
+	<StyleMap id="msn_triangle">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_triangle</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_triangle</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_triangle">
+		<IconStyle>
+			<color>ff00ff00</color>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/triangle.png</href>
+			</Icon>
+		</IconStyle>
+	</Style>
+	<Placemark>
+		<name>VILLA LUDUENIA</name>
+		<LookAt>
+			<longitude>-60.72408757863429</longitude>
+			<latitude>-32.89285054855882</latitude>
+			<altitude>0</altitude>
+			<range>1237.096077297736</range>
+			<tilt>16.54533779051977</tilt>
+			<heading>-0.001364217440684106</heading>
+			<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+		</LookAt>
+		<styleUrl>#msn_triangle</styleUrl>
+		<Point>
+			<coordinates>-60.72408757863429,-32.89285054855882,0</coordinates>
+			<gx:drawOrder>1</gx:drawOrder>
+		</Point>
+	</Placemark>
+</Document>
+</kml>

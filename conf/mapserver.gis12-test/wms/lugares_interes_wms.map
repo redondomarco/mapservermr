@@ -1,0 +1,820 @@
+MAP # MR
+	 STATUS ON
+	NAME "MR"
+	EXTENT 5422163.0 6344000.0 5446837.0 6364000.0
+	SIZE 1024 765
+	UNITS METERS
+	FONTSET "/etc/mapserver/fonts.list.example"
+	IMAGETYPE jpeg
+	TRANSPARENT TRUE
+	RESOLUTION 75
+	SHAPEPATH "/geodata/"
+	SYMBOLSET "/etc/mapserver/infomapas.sym"
+	Symbol NAME "poligono_grueso" TYPE ELLIPSE FILLED TRUE POINTS 1 1 END END
+
+WEB
+	TEMPLATE index.html
+	IMAGEPATH "/var/www/mapserver"
+	IMAGEURL "mapserver/"
+        METADATA
+            "wms_title"  "WMS-Rosario-LugaresInteres"  ##required
+            "wms_name"  "WMS-Rosario-LugaresInteres"             
+            "wms_abstract" "WMS-Rosario-LugaresInteres"       
+            "wms_onlineresource" "https://t-infomapa.rosario.gob.ar/wms/lugaresinteres?"
+            "wms_srs" "epsg:22185 epsg:4326 epsg:900913"
+            "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+            'wms_feature_info_mime_type' "text/html"
+	    "wms_encoding" "UTF-8"
+        END
+
+
+        EMPTY "https://t-infomapa.rosario.gob.ar/emapa/datosUtiles.htm"
+        ERROR "https://t-infomapa.rosario.gob.ar/emapa/error.jsp"
+
+END
+
+PROJECTION
+  "init=epsg:22185"   ##required
+END
+
+	LAYER 
+                NAME "T1" #Aire Libre
+		GROUP "TREEVIEW"
+		METADATA
+                    "wms_title"    "Aire Libre"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"wms_include_items" "all"
+			"wms_encoding" "latin1"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis,charset=latin1,encoding=latin1'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 1 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto 
+                DUMP TRUE
+                TEMPLATE "content_lugaresinteres_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10 
+
+		
+		CLASS
+                        NAME "Aire Libre"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE 
+                                SYMBOL "consulta1"
+                                SIZE 30
+                                COLOR 0 255 255
+                        END
+                END
+	
+        
+	END
+	
+	LAYER
+                NAME "T10" # Salud
+		GROUP "TREEVIEW"
+                METADATA
+                    "wms_title"    "Salud"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 10 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto
+                DUMP TRUE
+                TEMPLATE "content_lugaresinteres_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10 
+
+
+                CLASS
+                        NAME "Salud"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "consulta3"
+                                SIZE 30
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END
+
+	LAYER 
+                NAME "T4" #RecreaciÃn y deporte
+		GROUP "TREEVIEW"
+                METADATA
+                    "wms_title"    "Recreacion y Deporte"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 4 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto
+                DUMP TRUE
+                TEMPLATE "content_lugaresinteres_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10 
+
+
+                CLASS
+                        NAME "Recreacion_y_deporte"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "consulta4"
+                                SIZE 30
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END	
+	
+	LAYER
+                NAME "T3"
+		GROUP "TREEVIEW"
+                METADATA
+                    "wms_title"    "Cultura"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 3 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto
+                DUMP TRUE
+                TEMPLATE "content_lugaresinteres_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10 
+
+
+                CLASS
+                        NAME "Cultura"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "consulta5"
+                                SIZE 30
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END
+
+	LAYER 
+                NAME "T5" # Distraccion
+		GROUP "TREEVIEW"
+                METADATA
+                    "wms_title"    "Distraccion"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 5 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto
+                DUMP TRUE
+                TEMPLATE "content_lugaresinteres_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10 
+
+
+                CLASS
+                        NAME "Distraccion"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "consulta6"
+                                SIZE 30
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END
+
+	LAYER 
+                NAME "T2" # Distritos
+		GROUP "TREEVIEW"
+                METADATA
+                    "wms_title"    "Entes Municipales Descentralizados"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 2 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto
+                DUMP TRUE
+                TEMPLATE "content_lugaresinteres_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10 
+
+
+                CLASS
+                        NAME "Entes Municipales Descentralizados"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "consulta7"
+                                SIZE 30
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END
+
+	LAYER
+                NAME "T6" #Educacion
+		GROUP "TREEVIEW"
+                METADATA
+                    "wms_title"    "Educacion"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 6 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto
+                DUMP TRUE
+                TEMPLATE "content_lugaresinteres_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10 
+
+
+                CLASS
+                        NAME "Educacion"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "consulta8"
+                                SIZE 30
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END
+
+        LAYER
+                NAME "T7" #Hospedaje
+		GROUP "TREEVIEW"
+                METADATA
+                    "wms_title"    "Hospedaje" ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 7 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto
+                DUMP TRUE
+                TEMPLATE "content_lugaresinteres_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10 
+
+
+                CLASS
+                        NAME "Hospedaje"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "consulta9"
+                                SIZE 30
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END
+
+        LAYER
+                NAME "T9" #Justicia
+		GROUP "TREEVIEW"
+                METADATA
+                    "wms_title"    "Justicia"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 9 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto
+                DUMP TRUE
+                TEMPLATE "content_lugaresinteres_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10 
+
+
+                CLASS
+                        NAME "Justicia"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "consulta11"
+                                SIZE 30
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END
+
+        LAYER
+                NAME "T11" # justicia
+		GROUP "TREEVIEW"
+                METADATA
+                    "wms_title"    "Seguridad"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 11 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto
+                DUMP TRUE
+                TEMPLATE "content_lugaresinteres_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10 
+
+
+                CLASS
+                        NAME "Justicia"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "consulta12"
+                                SIZE 30
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END
+
+        LAYER
+                NAME "T12" # Servicios
+		GROUP "TREEVIEW"
+                METADATA
+                    "wms_title"    "Servicios"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo in(12) and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT
+                #LABELITEM nombre_corto
+                DUMP TRUE
+                TEMPLATE "content_lugaresinteres_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10 
+
+
+                CLASS
+                        NAME "Servicios"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "consulta13"
+                                SIZE 30
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END
+
+	LAYER
+                NAME "T8" # Instituciones 
+		GROUP "TREEVIEW"
+                METADATA
+                    "wms_title"    "Instituciones"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 8 and id_lugar_sub_tipo in ( %ID_SUB_TIPO%)"
+                TYPE POINT 
+                #LABELITEM nombre_corto
+                DUMP TRUE
+                TEMPLATE "content_lugaresinteres_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10 
+
+                
+                CLASS   
+                        NAME "Instituciones"
+                        
+                        LABEL   
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8 
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "pin"
+                                SIZE 30 
+             		  	COLOR 0 255 255
+                        END
+                END
+
+
+        END
+
+        LAYER
+                NAME "lugares" # 
+                METADATA
+                    "wms_title"    "Lugares de Interés"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where (id_lugar_tipo = %ID_TIPO% OR %ID_TIPO% = -1) and (id_lugar_sub_tipo = %ID_SUB_TIPO% OR %ID_SUB_TIPO% = -1) and ( id_titular = %ID_TITULAR% OR %ID_TITULAR% = -1) and ( distrito = '%DISTRITO%' OR '%DISTRITO%' = -1 ) "
+                TYPE POINT
+                #LABELITEM nombre_corto
+                DUMP TRUE
+                TEMPLATE "content_lugaresinteres_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+
+
+                CLASS
+                        NAME "Lugares"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+
+                        STYLE
+                                SYMBOL "pin"
+                                SIZE 30
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END
+	
+        LAYER
+                NAME "T99" # Servicios
+                GROUP "TREEVIEW"
+                METADATA
+                    "wms_title"    "T99"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+		CONNECTION "PG:dbname='gesu' host='pg2-test.pm.rosario.gov.ar' port='5432' user='dgis1' password='gis123' sslmode='require' tables=gesu.equipamiento_gis"
+                DATA "SELECT id,tipo,clasificacion,descripcionresumida as nombre, E'' as telefonos, distrito, responsable,calle,altura,letra,bis,coordenadax,coordenaday,the_geom FROM gesu.equipamiento_gis where idtipo = 14 AND idclasificacion in ( %ID_SUB_TIPO%) AND estado = 5"
+                TYPE POINT
+                #LABELITEM nombre_corto
+                DUMP TRUE
+                TEMPLATE "content_lugaresinteres_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+
+
+                CLASS
+                        NAME "Servicios"
+
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 8
+                                BUFFER 0
+                                MAXSIZE 8
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION UC
+                                FORCE TRUE
+                        END
+
+                        STYLE
+                                SYMBOL "consulta13"
+                                SIZE 30
+                                COLOR 0 255 255
+                        END
+                END
+
+
+        END
+
+
+        LAYER # Residuos Voluminosos
+                NAME "zonas_residuos_voluminosos"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                METADATA
+                    "wms_title"    "Zonas Residuos Voluminosos"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "the_geom from zonas_residuos_vol USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON
+                POSTLABELCACHE OFF
+                LABELCACHE ON
+                LABELITEM "NOMBRE"
+                CLASS
+                        NAME "Zonas Recoleccion"
+                        STYLE
+                                SIZE 5
+                                SYMBOL "poligono_grueso"
+                                OUTLINECOLOR 0 0 255
+                        END
+
+                         LABEL
+                                COLOR 0 0 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS OFF
+                                FONT arialbd
+                                SIZE 10
+                                BUFFER 0
+                                MAXSIZE 10
+                                MINDISTANCE 0
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE TRUE
+                        END
+
+                END
+
+        END
+
+
+END

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+	<name>VILLA GOB GALVEZ-ICONO.kmz</name>
+	<StyleMap id="msn_triangle">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_triangle</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_triangle</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sh_triangle">
+		<IconStyle>
+			<color>ff00ff00</color>
+			<scale>1.4</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/triangle.png</href>
+			</Icon>
+		</IconStyle>
+	</Style>
+	<Style id="sn_triangle">
+		<IconStyle>
+			<color>ff00ff00</color>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/triangle.png</href>
+			</Icon>
+		</IconStyle>
+	</Style>
+	<Placemark>
+		<name>VILLA GOB GALVEZ</name>
+		<LookAt>
+			<longitude>-60.63741280881871</longitude>
+			<latitude>-33.02881688758711</latitude>
+			<altitude>0</altitude>
+			<range>4435.014358178829</range>
+			<tilt>14.57624367816247</tilt>
+			<heading>15.7263963170267</heading>
+			<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+		</LookAt>
+		<styleUrl>#msn_triangle</styleUrl>
+		<Point>
+			<coordinates>-60.63351638741632,-33.0222432177767,0</coordinates>
+			<gx:drawOrder>1</gx:drawOrder>
+		</Point>
+	</Placemark>
+</Document>
+</kml>

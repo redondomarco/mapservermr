@@ -1,0 +1,81 @@
+ <!-- MapServer Template -->
+
+     <tr style='background-color: #00ACEC;'>
+       <td colspan="2" style='color:#FFFFFF;'>[metadata_wms_title] : [lrn]</td>
+      </tr>
+
+     <tr>
+       <td>C&oacute;digo de Calle</td>
+       <td>[item name=CODIGO format=$value escape=none]</td>
+     </tr>
+     <tr>
+       <td>Nombre</td>
+       <td>[item name=NOMBRE format=$value escape=none]</td>
+     </tr>
+     <tr>
+       <td>Tipo</td>
+       <td>[item name=CATEGORIA format=$value escape=none]</td>
+     </tr>
+     <tr>
+       <td>Num.derecha</td>
+       <td>[item name=ALTDESDER format=$value escape=none]-[item name=ALTHASDER format=$value escape=none]</td>
+     </tr>
+     <tr>
+       <td>Num.izquierda</td>
+       <td>[item name=ALTDESIZQ format=$value escape=none]-[item name=ALTHASIZQ format=$value escape=none]</td>
+     </tr>
+     <tr>
+       <td>Letra</td>
+       <td>[item name=LETRA format=$value escape=none]</td>
+     </tr>
+     <tr>
+       <td>Bis</td>
+       <td>[item name=BIS pattern="1" format="SI" nullformat="NO"  escape="none"]</td>
+     </tr>
+     <tr>
+       <td>RED JERARQUICA</td>
+       <td>[item name=RED_JERARQ pattern="1" format="SI" escape=none nullformat="NO"]</td>
+     </tr>
+     <tr>
+       <td>Proyecto</td>
+       <td>[item name=PROYECTO format=$value escape=none]</td>
+     </tr>
+     <tr>
+      <td style='background-color: #00ACEC; color:#FFFFFF;' >Anchos Oficiales </td>
+      <td><a href="resources/images/lectura-calles-info.jpg" target="_blank">Instructivo de lectura </a> </td>
+     </tr>
+     <tr>
+       <td>Ancho Oficial</td>
+       <td>[item name=ANCHO_OF_1 format=$value escape=none]
+        &nbsp; [item name=ANCHO_OF_2 format=$value escape=none]</td>
+     </tr>
+     <tr>
+       <td>Parciales 1</td>
+       <td>[item name=PARCIALES_1 format=$value escape=none]</td>
+     </tr>
+     <tr>
+       <td>Parciales 2</td>
+       <td>[item name=PARCIALES_2 format=$value escape=none]</td>
+     </tr>
+     <tr>
+       <td colspan="1" style='background-color: #00ACEC; color:#FFFFFF;' >Precios B&aacute;sicos</td>
+       <td></td>
+     </tr>
+     <tr>
+       <td>2008</td>
+       <td>[item name=PB_2008 format=$value escape=none]</td>
+     </tr>
+     <tr>
+       <td>Mslink</td>
+       <td>[item name=MSLINK format=$value escape=none]</td>
+     </tr>
+     <tr>
+     <td colspan="2">
+<!--[if IE]> <iframe src='infoSegmentos.htm?cod_calle=[item name=CODIGO format=$value escape=none]' frameborder='0' height='100%' width='100%'>El menu solicitado no ha podido ser cargado</iframe> <![endif]-->
+<!--[if !IE]> <-->
+<object type='text/html' data='infoSegmentos.htm?cod_calle=[item name=CODIGO format=$value escape=none]' style='height:100%;width:100%;'>
+<p>El menu solicitado no ha podido ser cargado</p>
+</object>
+<!--> <![endif]-->
+	</td> 
+     </tr>

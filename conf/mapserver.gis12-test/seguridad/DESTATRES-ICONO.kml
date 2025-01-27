@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+	<name>DESTATRES-ICONO.kmz</name>
+	<Style id="sn_polygon">
+		<IconStyle>
+			<color>ffffff55</color>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/polygon.png</href>
+			</Icon>
+		</IconStyle>
+	</Style>
+	<Style id="sh_polygon">
+		<IconStyle>
+			<color>ffffff55</color>
+			<scale>1.4</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/polygon.png</href>
+			</Icon>
+		</IconStyle>
+	</Style>
+	<StyleMap id="msn_polygon">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_polygon</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_polygon</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark>
+		<name>DESTATRES</name>
+		<LookAt>
+			<longitude>-60.63185707862488</longitude>
+			<latitude>-33.00724295179404</latitude>
+			<altitude>0</altitude>
+			<range>11980.79403365598</range>
+			<tilt>23.83477232161516</tilt>
+			<heading>-0.7461503485530211</heading>
+			<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+		</LookAt>
+		<styleUrl>#msn_polygon</styleUrl>
+		<Point>
+			<coordinates>-60.62450197829127,-32.9963382728073,0</coordinates>
+			<gx:drawOrder>1</gx:drawOrder>
+		</Point>
+	</Placemark>
+</Document>
+</kml>

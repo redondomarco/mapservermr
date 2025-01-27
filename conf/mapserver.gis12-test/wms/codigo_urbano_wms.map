@@ -1,0 +1,2090 @@
+MAP
+NAME WMS-Rosario-CODIGO_URBANO
+EXTENT 5422163.0 6344000.0 5446837.0 6364000.0
+UNITS METERS
+FONTSET "/etc/mapserver/fonts.list.example"
+IMAGECOLOR 255 255 255 
+RESOLUTION 72
+TRANSPARENT ON
+SHAPEPATH "/geodata/"
+SYMBOLSET "/etc/mapserver/infomapas.sym"
+MAXSIZE 7000
+CONFIG "MS_ERRORFILE" "/tmp/ms_error.txt"
+DEBUG 5
+
+OUTPUTFORMAT
+                NAME "png"
+                DRIVER "GD/PNG"
+                MIMETYPE "image/png"
+                IMAGEMODE RGBA 
+                EXTENSION "png"
+        END
+
+WEB
+	IMAGEPATH "/var/www/mapserver/"
+	IMAGEURL "mapserver/"
+        METADATA
+            "wms_title"  "WMS-Rosario-Codigo Urbano"  ##required
+            "wms_name"  "WMS-Rosario-Codigo Urbano"		
+            "wms_abstract" "WMS-Rosario-Codigo Urbano"	
+            "wms_onlineresource" "https://t-infomapa.rosario.gob.ar/wms/codigourbano?"
+	    "wms_srs" "epsg:22185 epsg:4326"
+	    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+	    'wms_feature_info_mime_type' "text/html"
+        END
+	EMPTY "https://t-infomapa.rosario.gob.ar/emapa/datosUtiles.htm"
+	 ERROR "https://t-infomapa.rosario.gob.ar/emapa/error.jsp"
+
+END
+
+REFERENCE
+        IMAGE "/etc/mapserver/keymap.png"
+        EXTENT 5424500 6343900 5444610 6364000
+        SIZE 100 100
+        STATUS ON
+        COLOR -1 -1 -1
+        OUTLINECOLOR 0 0 255
+END
+
+PROJECTION
+  "init=epsg:22185"   ##required
+END
+
+	LAYER # Zonas Urbanísticas
+		NAME "Zonas Urbanisticas"
+		METADATA
+		    "wms_title"    "Áreas Urbanísticas"  ##required
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		    "wms_include_items" "all"
+		END
+		PROCESSING 'LABEL_NO_CLIP=ON'
+		PROJECTION
+		    "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from zonas_urbanisticas USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON		
+		LABELITEM "nombre_zon"
+		CLASS
+			NAME "Zonas Urbanísticas"
+		LABEL
+                                COLOR 0 0 120 
+				BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 10 
+                                BUFFER 0
+                                MAXSIZE 10 
+                                MINDISTANCE 200 
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE TRUE 
+                        END
+			STYLE 
+				SYMBOL "poligono_grueso"
+				SIZE 4
+				OUTLINECOLOR 0 0 120				
+			END
+		END
+
+	END
+
+	LAYER # Clasificación urbanística 
+		NAME "Distritos Urbanos"
+		METADATA
+		    "wms_title"    "Clasificación urbanística"  ##required
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_include_items" "all"
+		END
+		DEBUG 5
+		PROJECTION
+		    "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from v_codigo_urbano USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		DUMP TRUE
+                TEMPLATE "content_distritos_template.html"
+                HEADER "header_codigo_urbano_template.html"
+                FOOTER "footer_plano_base_template.html"
+		LABELITEM "etiqueta"
+		FILTER "tipo in (1,2)"
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+		TRANSPARENCY 75
+
+		CLASS
+			NAME "AG - Área general"
+			EXPRESSION ('[color]' = 'AG')
+
+			LABEL
+				COLOR 0 0 0
+				BACKGROUNDCOLOR 255 255 255
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT arialbd
+				SIZE 7
+				BUFFER 0
+				MAXSIZE 12
+				MINDISTANCE 0
+				MINFEATURESIZE 30
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 5
+				OUTLINECOLOR 0 0 0
+				COLOR 205 205 205 
+			END
+		END
+
+		CLASS
+                        NAME "AT1 - Área de tejido 1"
+                        EXPRESSION ('[color]' = 'AT 1')
+
+                        LABEL
+                                COLOR 0 0 0
+                                BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT arialbd
+                                SIZE 7
+                                BUFFER 0
+                                MAXSIZE 12
+                                MINDISTANCE 0
+                                MINFEATURESIZE 30
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SIZE 5
+                                OUTLINECOLOR 0 0 0
+                                COLOR 240 80 35 
+                        END
+                END
+
+		CLASS
+                        NAME "AT2 - Área de tejido 2"
+                        EXPRESSION ('[color]' = 'AT 2')
+                
+                        LABEL
+                                COLOR 0 0 0
+                                BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT arialbd
+                                SIZE 7
+                                BUFFER 0
+                                MAXSIZE 12
+                                MINDISTANCE 0
+                                MINFEATURESIZE 30
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SIZE 5
+                                OUTLINECOLOR 0 0 0
+                                COLOR 245 110 30 
+                        END
+                END
+		
+		CLASS
+                        NAME "AT3 - Área de tejido 3"
+                        EXPRESSION ('[color]' = 'AT 3')
+                
+                        LABEL
+                                COLOR 0 0 0
+                                BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT arialbd
+                                SIZE 7
+                                BUFFER 0
+                                MAXSIZE 12
+                                MINDISTANCE 0
+                                MINFEATURESIZE 30
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SIZE 5
+                                OUTLINECOLOR 0 0 0
+                                COLOR 250 165 50 
+                        END
+                END
+
+		CLASS
+                        NAME "AT4 - Área de tejido 4"
+                        EXPRESSION ('[color]' = 'AT 4')
+                
+                        LABEL
+                                COLOR 0 0 0
+                                BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT arialbd
+                                SIZE 7
+                                BUFFER 0
+                                MAXSIZE 12
+                                MINDISTANCE 0
+                                MINFEATURESIZE 30
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SIZE 5
+                                OUTLINECOLOR 0 0 0
+                                COLOR 255 205 100 
+                        END
+                END
+
+		CLASS
+                        NAME "AT5 - Área de tejido 5"
+                        EXPRESSION ('[color]' = 'AT 5')
+                
+                        LABEL
+                                COLOR 0 0 0
+                                BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT arialbd
+                                SIZE 7
+                                BUFFER 0
+                                MAXSIZE 12
+                                MINDISTANCE 0
+                                MINFEATURESIZE 30
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SIZE 5
+                                OUTLINECOLOR 0 0 0
+                                COLOR 255 235 105 
+                        END
+                END
+
+		CLASS
+                        NAME "AT6 - Área de tejido 6"
+                        EXPRESSION ('[color]' = 'AT 6')
+                
+                        LABEL
+                                COLOR 0 0 0
+                                BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT arialbd
+                                SIZE 7
+                                BUFFER 0
+                                MAXSIZE 12
+                                MINDISTANCE 0
+                                MINFEATURESIZE 30
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SIZE 5
+                                OUTLINECOLOR 0 0 0
+                                COLOR 140 90 165 
+                        END
+                END
+
+		CLASS
+                        NAME "AT7 - Área de tejido 7"
+                        EXPRESSION ('[color]' = 'AT 7')
+                
+                        LABEL
+                                COLOR 0 0 0
+                                BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT arialbd
+                                SIZE 7
+                                BUFFER 0
+                                MAXSIZE 12
+                                MINDISTANCE 0
+                                MINFEATURESIZE 30
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SIZE 5
+                                OUTLINECOLOR 0 0 0
+                                COLOR 85 60 120 
+                        END
+                END
+
+		CLASS
+			NAME "CUA - Corredor urbano A"
+			EXPRESSION ('[color]' = 'CUA')
+
+			LABEL
+				COLOR 0 0 0
+				BACKGROUNDCOLOR 255 255 255
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT arialbd
+				SIZE 7
+				BUFFER 0
+				MAXSIZE 12
+				MINDISTANCE 0
+				MINFEATURESIZE 30
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 5
+				OUTLINECOLOR 0 0 0
+				COLOR 145 25 30 
+			END
+		END
+
+
+		CLASS
+			NAME "CUB - Corredor urbano B"
+			EXPRESSION ('[color]' = 'CUB')
+
+			LABEL
+				COLOR 0 0 0
+				BACKGROUNDCOLOR 255 255 255
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT arialbd
+				SIZE 7
+				BUFFER 0
+				MAXSIZE 12
+				MINDISTANCE 0
+				MINFEATURESIZE 30
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 5
+				OUTLINECOLOR 0 0 0
+				COLOR 215 25 30 
+			END
+		END
+
+
+		CLASS
+			NAME "CUC - Corredor urbano C"
+			EXPRESSION ('[color]' = 'CUC')
+
+			LABEL
+				COLOR 0 0 0
+				BACKGROUNDCOLOR 255 255 255
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT arialbd
+				SIZE 7
+				BUFFER 0
+				MAXSIZE 12
+				MINDISTANCE 0
+				MINFEATURESIZE 30
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 5
+				OUTLINECOLOR 0 0 0
+				COLOR 240 90 100 
+			END
+		END
+
+                CLASS
+                        NAME "CUC (15) - Corredor urbano C (15M)"
+                        EXPRESSION ('[color]' = 'CUC (15)')
+
+                        LABEL
+                                COLOR 0 0 0
+                                BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT arialbd
+                                SIZE 7
+                                BUFFER 0
+                                MAXSIZE 12
+                                MINDISTANCE 0
+                                MINFEATURESIZE 30
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SIZE 5
+                                OUTLINECOLOR 0 0 0
+                                COLOR 200 120 150
+                        END
+                END
+
+		CLASS
+                        NAME "CUD - Corredor urbano D"
+                        EXPRESSION ('[color]' = 'CUD')
+
+                        LABEL
+                                COLOR 0 0 0
+                                BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT arialbd
+                                SIZE 7
+                                BUFFER 0
+                                MAXSIZE 12
+                                MINDISTANCE 0
+                                MINFEATURESIZE 30
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SIZE 5
+                                OUTLINECOLOR 0 0 0
+                                COLOR 225 160 170 
+                        END
+                END
+
+		CLASS
+			NAME "FC - Frente Costero"
+			EXPRESSION ('[color]' = 'FC')
+
+			LABEL
+				COLOR 0 0 0
+				BACKGROUNDCOLOR 255 255 255
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT arialbd
+				SIZE 7
+				BUFFER 0
+				MAXSIZE 12
+				MINDISTANCE 0
+				MINFEATURESIZE 30
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 5
+				OUTLINECOLOR 0 0 0
+				COLOR 85 0 20 
+			END
+		END
+
+              	CLASS
+                        NAME "FU - Frente Urbano"
+                        EXPRESSION ('[color]' = 'FU')
+
+                        LABEL
+                                COLOR 0 0 0
+                                BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT arialbd
+                                SIZE 7
+                                BUFFER 0
+                                MAXSIZE 12
+                                MINDISTANCE 0
+                                MINFEATURESIZE 30
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SIZE 5
+                                OUTLINECOLOR 0 0 0
+                                COLOR 160 0 90 
+                        END
+                END
+
+		CLASS
+			NAME "FRU - Frente de renovación urbana"
+			EXPRESSION ('[color]' = 'FRU')
+
+			LABEL
+				COLOR 0 0 0
+				BACKGROUNDCOLOR 255 255 255
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT arialbd
+				SIZE 7
+				BUFFER 0
+				MAXSIZE 12
+				MINDISTANCE 0
+				MINFEATURESIZE 30
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 5
+				OUTLINECOLOR 0 0 0
+				COLOR 225 125 130 
+			END
+		END
+
+		CLASS
+			NAME "ARPH - Área de protección histórica"
+			EXPRESSION ('[color]' = 'ARPH')
+
+			LABEL
+				COLOR 0 0 0
+				BACKGROUNDCOLOR 255 255 255
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT arialbd
+				SIZE 7
+				BUFFER 0
+				MAXSIZE 12
+				MINDISTANCE 0
+				MINFEATURESIZE 30
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 5
+				OUTLINECOLOR 0 0 0
+				COLOR 5 60 120
+			END
+		END
+
+		CLASS
+                        NAME "ARE - Área de reserva Plan Especial"
+                        EXPRESSION ('[color]' = 'ARE')
+
+                        LABEL
+                                COLOR 0 0 0
+                                BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT arialbd
+                                SIZE 7
+                                BUFFER 0
+                                MAXSIZE 12
+                                MINDISTANCE 0
+                                MINFEATURESIZE 30
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SIZE 5
+                                OUTLINECOLOR 0 0 0
+                                COLOR 0 100 150 
+                        END
+                END
+
+		CLASS
+                        NAME "ARD - Área de reserva Plan de Detalle"
+                        EXPRESSION ('[color]' = 'ARD')
+
+                        LABEL
+                                COLOR 0 0 0
+                                BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT arialbd
+                                SIZE 7
+                                BUFFER 0
+                                MAXSIZE 12
+                                MINDISTANCE 0
+                                MINFEATURESIZE 30
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SIZE 5
+                                OUTLINECOLOR 0 0 0
+                                COLOR 0 145 190 
+                        END
+                END
+		
+		CLASS
+                        NAME "ARUD - Área de reserva para reord. urb. y regularización dominal" 
+                        EXPRESSION ('[color]' = 'ARUD')
+
+                        LABEL
+                                COLOR 0 0 0
+                                BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT arialbd
+                                SIZE 7
+                                BUFFER 0
+                                MAXSIZE 12
+                                MINDISTANCE 0
+                                MINFEATURESIZE 30
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SIZE 5
+                                OUTLINECOLOR 0 0 0
+                                COLOR 95 175 220 
+                        END
+                END
+
+		CLASS
+			NAME "APH - Área de protección histórica"
+			EXPRESSION ('[color]' = 'APH')
+
+			LABEL
+				COLOR 0 0 0
+				BACKGROUNDCOLOR 255 255 255
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT arialbd
+				SIZE 7
+				BUFFER 0
+				MAXSIZE 12
+				MINDISTANCE 0
+				MINFEATURESIZE 30
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 5
+				OUTLINECOLOR 0 0 0
+				COLOR 155 205 225 
+			END
+		END
+
+                CLASS
+                        NAME "APEA - Área de protección ecológica y Ambiental"
+                        EXPRESSION ('[color]' = 'APEA')
+
+                        LABEL
+                                COLOR 0 0 0
+                                BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT arialbd
+                                SIZE 7
+                                BUFFER 0
+                                MAXSIZE 12
+                                MINDISTANCE 0
+                                MINFEATURESIZE 30
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SIZE 5
+                                OUTLINECOLOR 0 0 0
+                                COLOR 50 190 170 
+                        END
+                END
+
+                CLASS
+                        NAME "APF - Área de protección frutohortícola"
+                        EXPRESSION ('[color]' = 'APF')
+
+                        LABEL
+                                COLOR 0 0 0
+                                BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT arialbd
+                                SIZE 7
+                                BUFFER 0
+                                MAXSIZE 12
+                                MINDISTANCE 0
+                                MINFEATURESIZE 30
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SIZE 5
+                                OUTLINECOLOR 0 0 0
+                                COLOR 0 150 140  
+                        END
+                END
+
+                CLASS
+                        NAME "ARGR - Área de reserva para gestión de residuos"
+                        EXPRESSION ('[color]' = 'ARGR')
+
+                        LABEL
+                                COLOR 0 0 0
+                                BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT arialbd
+                                SIZE 7
+                                BUFFER 0
+                                MAXSIZE 12
+                                MINDISTANCE 0
+                                MINFEATURESIZE 30
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SIZE 5
+                                OUTLINECOLOR 0 0 0
+                                COLOR 165 215 190 
+                        END
+                END
+
+                CLASS
+                        NAME "AnU - Área no urbanizables"
+                        EXPRESSION ('[color]' = 'ANU')
+
+                        LABEL
+                                COLOR 0 0 0
+                                BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT arialbd
+                                SIZE 7
+                                BUFFER 0
+                                MAXSIZE 12
+                                MINDISTANCE 0
+                                MINFEATURESIZE 30
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SIZE 5
+                                OUTLINECOLOR 0 0 0
+                                COLOR 220 230 180 
+                        END
+                END
+
+		CLASS
+                        NAME "PE - Planes Especiales"
+                        EXPRESSION ('[color]' = 'PE')
+
+                        LABEL
+                                COLOR 0 0 0
+                                BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT arialbd
+                                SIZE 7
+                                BUFFER 0
+                                MAXSIZE 12
+                                MINDISTANCE 0
+                                MINFEATURESIZE 30
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SIZE 5
+                                OUTLINECOLOR 0 0 0
+                                COLOR 240 230 195 
+                        END
+                END
+
+		CLASS
+			NAME "PD - Planes de Detalle"
+			EXPRESSION ('[color]' = 'PD')
+
+			LABEL
+				COLOR 0 0 0
+				BACKGROUNDCOLOR 255 255 255
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT arialbd
+				SIZE 7
+				BUFFER 0
+				MAXSIZE 12
+				MINDISTANCE 0
+				MINFEATURESIZE 30
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 5
+				OUTLINECOLOR 0 0 0
+				COLOR 200 200 160 
+			END
+		END
+
+
+
+                CLASS
+                        NAME "IDyR (instalaciones deportivas y recreativas)"
+                        EXPRESSION ('[color]' = 'Inst. Dep.')
+                        
+                        LABEL
+                                COLOR 0 0 0
+                                BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT arialbd
+                                SIZE 7
+                                BUFFER 0
+                                MAXSIZE 12
+                                MINDISTANCE 0
+                                MINFEATURESIZE 30
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SIZE 5
+                                OUTLINECOLOR 0 0 0
+                                COLOR 165 185 60 
+                        END
+                END
+
+		CLASS
+			NAME "CH - Conjuntos habitacionales"
+			EXPRESSION ('[color]' = 'Conj. Hab.')
+
+			LABEL
+				COLOR 0 0 0
+				BACKGROUNDCOLOR 255 255 255
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT arialbd
+				SIZE 7
+				BUFFER 0
+				MAXSIZE 12
+				MINDISTANCE 0
+				MINFEATURESIZE 30
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 5
+				OUTLINECOLOR 0 0 0
+				COLOR 145 145 90 
+			END
+		END
+
+		CLASS
+                        NAME "GEU - Grandes Equipamientos Urbanos"
+                        EXPRESSION ('[color]' = 'GEU')
+                
+                        LABEL
+                                COLOR 0 0 0
+                                BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT arialbd
+                                SIZE 7
+                                BUFFER 0
+                                MAXSIZE 12
+                                MINDISTANCE 0
+                                MINFEATURESIZE 30
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SIZE 5
+                                OUTLINECOLOR 0 0 0
+                                COLOR 230 190 145
+                        END
+                END
+
+		CLASS
+			NAME "Parque Plazas y Paseos Públicos"
+#			EXPRESSION ('[color]' = 'completar')
+			EXPRESSION ('[color]' = 'Parques, P y EP')
+
+			LABEL
+				COLOR 0 0 0
+				BACKGROUNDCOLOR 255 255 255
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT lucida
+				SIZE 7
+				BUFFER 0
+				MAXSIZE 12
+				MINDISTANCE 0
+				MINFEATURESIZE 20
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 5
+				OUTLINECOLOR 0 0 0
+				COLOR 65 145 65 
+			END
+		END
+
+		CLASS
+			NAME "A. Ferroviarios"
+			EXPRESSION ('[color]' = 'Distrito K')
+
+			LABEL
+				COLOR 0 0 0
+				BACKGROUNDCOLOR 255 255 255
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT lucida
+				SIZE 7
+				BUFFER 0
+				MAXSIZE 12
+				MINDISTANCE 0
+				MINFEATURESIZE 20
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 5
+				OUTLINECOLOR 0 0 0
+				COLOR 255 255 255 
+			END
+		END
+
+
+                CLASS
+                        NAME "Barrios Cerrados"
+                        EXPRESSION ('[color]' = 'B Cerrados')
+
+                        LABEL
+                                COLOR 0 0 0
+                                BACKGROUNDCOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 7
+                                BUFFER 0
+                                MAXSIZE 12
+                                MINDISTANCE 0
+                                MINFEATURESIZE 20
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SIZE 5
+                                OUTLINECOLOR 0 0 0
+                                COLOR 140 155 205 
+                        END
+                END
+	END
+
+	LAYER # Grados de Proteccion
+		NAME "Grados de Proteccion"
+		METADATA
+		    "wms_title"    "Catálogo e inventario"  ##required
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_include_items" "aph,gs Areas inundables
+      Urbanizaci??n y Subdivision de la tierra
+      Inventario y Catalorado,categoria,denomina,direccion,ucronologia,periodoarq,proyectista,fecproyecto,constructor,fecconst,propietario"
+		END
+		PROJECTION
+		    "init=epsg:22185"
+		END
+
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from catalogo_cu USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		DUMP TRUE
+                TEMPLATE "content_grado_proteccion_template.html"
+		HEADER "header_codigo_urbano_template.html"
+                FOOTER "footer_plano_base_template.html"
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		LABELITEM "grado"
+		TRANSPARENCY 75
+		TOLERANCEUNITS PIXELS
+                TOLERANCE 5
+
+		CLASS
+			NAME "1a"
+			EXPRESSION ('[grado]' = '1a')
+
+			LABEL
+				COLOR 0 0 0
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT lucida
+				SIZE 6
+				BUFFER 0
+				MAXSIZE 6
+				MINDISTANCE 0
+				MINFEATURESIZE 15
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 0 0 0
+				COLOR 115 10 30
+			END
+		END
+
+
+		CLASS
+			NAME "1b"
+			EXPRESSION ('[grado]' = '1b')
+
+			LABEL
+				COLOR 0 0 0
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT lucida
+				SIZE 6
+				BUFFER 0
+				MAXSIZE 6
+				MINDISTANCE 0
+				MINFEATURESIZE 15
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 0 0 0
+				COLOR 155 45 70
+			END
+		END
+
+
+		CLASS
+			NAME "2a"
+			EXPRESSION ('[grado]' = '2a')
+
+			LABEL
+				COLOR 0 0 0
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT lucida
+				SIZE 6
+				BUFFER 0
+				MAXSIZE 6
+				MINDISTANCE 0
+				MINFEATURESIZE 15
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 0 0 0
+				COLOR 85 60 150
+			END
+		END
+
+
+		CLASS
+			NAME "2b"
+			EXPRESSION ('[grado]' = '2b')
+
+			LABEL
+				COLOR 0 0 0
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT lucida
+				SIZE 6
+				BUFFER 0
+				MAXSIZE 6
+				MINDISTANCE 0
+				MINFEATURESIZE 15
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 0 0 0
+				COLOR 150 150 200
+			END
+		END
+
+
+		CLASS
+			NAME "2c"
+			EXPRESSION ('[grado]' = '2c')
+
+			LABEL
+				COLOR 0 0 0
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT lucida
+				SIZE 6
+				BUFFER 0
+				MAXSIZE 6
+				MINDISTANCE 0
+				MINFEATURESIZE 15
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 0 0 0
+				COLOR 220 220 235
+			END
+		END
+
+
+		CLASS
+			NAME "3a-De referencia"
+			EXPRESSION ('[grado]' = '3a')
+
+			LABEL
+				COLOR 0 0 0
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT lucida
+				SIZE 6
+				BUFFER 0
+				MAXSIZE 6
+				MINDISTANCE 0
+				MINFEATURESIZE 15
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 0 0 0
+				COLOR 130 130 130
+			END
+		END
+
+
+		CLASS
+			NAME "3c-Del paisaje"
+			EXPRESSION ('[grado]' = '3c')
+
+			LABEL
+				COLOR 0 0 0
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT lucida
+				SIZE 6
+				BUFFER 0
+				MAXSIZE 6
+				MINDISTANCE 0
+				MINFEATURESIZE 15
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 0 0 0
+				COLOR 255 177 54
+			END
+		END
+
+
+		CLASS
+			NAME "3b-Del entorno"
+			EXPRESSION ('[grado]' = '3b')
+
+			LABEL
+				COLOR 0 0 0
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT lucida
+				SIZE 6
+				BUFFER 0
+				MAXSIZE 6
+				MINDISTANCE 0
+				MINFEATURESIZE 15
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 0 0 0
+				COLOR 180 180 180
+			END
+		END
+
+
+		CLASS
+			NAME "4-Específica"
+			EXPRESSION ('[grado]' = '4')
+
+			LABEL
+				COLOR 0 0 0
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT lucida
+				SIZE 6
+				BUFFER 0
+				MAXSIZE 6
+				MINDISTANCE 0
+				MINFEATURESIZE 15
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 0 0 0
+				COLOR 140 190 215
+			END
+		END
+
+
+		CLASS
+			NAME "5-Ambiental"
+			EXPRESSION ('[grado]' = '5')
+
+			LABEL
+				COLOR 0 0 0
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT lucida
+				SIZE 6
+				BUFFER 0
+				MAXSIZE 6
+				MINDISTANCE 0
+				MINFEATURESIZE 15
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 0 0 0
+				COLOR 45 130 100
+			END
+		END
+
+	END
+
+	LAYER # Recovas
+		NAME "Recovas"
+		METADATA
+		    "wms_title"    "Recovas"  ##required
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		    "wms_layer_group" "/Afectaciones y Restricciones"
+		END
+		PROJECTION
+		    "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from recovas USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		TEMPLATE "template.html"
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+		TRANSPARENCY 75
+
+		CLASS
+			NAME "Recova"
+			EXPRESSION ('[TIPO]'=' ')
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 0 0 255
+				COLOR 0 0 255
+			END
+		END
+
+
+		CLASS
+			NAME "TIPO A"
+			EXPRESSION ('[TIPO]'='A')
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 128 0 128
+				COLOR 128 0 128
+			END
+		END
+
+
+		CLASS
+			NAME "TIPO B"
+			EXPRESSION ('[TIPO]'='B')
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 153 102 255
+				COLOR 153 102 255
+			END
+		END
+
+
+		CLASS
+			NAME "TIPO C"
+			EXPRESSION ('[TIPO]'='C')
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 204 204 255
+				COLOR 204 204 255
+			END
+		END
+
+	END
+
+	LAYER # Afectaciones Especiales
+		NAME "Afectaciones Especiales"
+		METADATA
+		    "wms_title"    "Afectaciones Especiales"  ##required
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		    "wms_layer_group" "/Afectaciones y Restricciones/Retiros"
+		END
+		PROJECTION
+		    "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from servidumbres_cu_esp USING UNIQUE SE_ROW_ID FILTER"
+		STATUS OFF 
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		TEMPLATE "template.html"
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+		TRANSPARENCY 75
+
+		CLASS
+			NAME "Afectaciones Especiales"
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 204 51 0
+				COLOR 204 51 0
+			END
+		END
+
+	END
+	
+
+	LAYER # Servidumbre de Jardin
+		NAME "Servidumbre de Jardin"
+		METADATA
+		    "wms_title"    "Servidumbre de Jardí­n"  ##required
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		    "wms_layer_group" "/Afectaciones y Restricciones/Retiros"
+		END
+		PROJECTION
+		    "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from servidumbres_cu USING UNIQUE SE_ROW_ID FILTER"
+		STATUS OFF 
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		LABELITEM "trim(valor) || ' mts'"
+		FILTER "tipo_serv = 1"
+		TEMPLATE "template.html"
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+		TRANSPARENCY 75
+
+		CLASS
+			NAME "Serv.Jardín"
+
+			LABEL
+				COLOR 0 0 0
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT lucida
+				SIZE 6
+				BUFFER 0
+				MAXSIZE 6
+				MINDISTANCE 0
+				MINFEATURESIZE 15
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 153 255 0
+				COLOR 153 255 0
+			END
+		END
+
+	END
+
+	LAYER # Servidumbre Industrial
+		NAME "Servidumbre Industrial"
+		METADATA
+		    "wms_title"    "Servidumbre Industrial"  ##required
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		    "wms_layer_group" "/Afectaciones y Restricciones/Retiros"
+		END
+		PROJECTION
+		    "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from servidumbres_cu USING UNIQUE SE_ROW_ID FILTER"
+		STATUS OFF 
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		LABELITEM "trim(valor) || ' mts'"
+		FILTER "tipo_serv = 2"
+		TEMPLATE "template.html"
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+		TRANSPARENCY 75
+
+		CLASS
+			NAME "Serv.Industrial"
+
+			LABEL
+				COLOR 0 0 0
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT lucida
+				SIZE 6
+				BUFFER 0
+				MAXSIZE 6
+				MINDISTANCE 0
+				MINFEATURESIZE 15
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 255 153 51
+				COLOR 255 153 51
+			END
+		END
+
+	END
+
+	LAYER # Servidumbre Distrito G2
+		NAME "Servidumbre Distrito G2"
+		METADATA
+		    "wms_title"    "Servidumbre Distrito G2"  ##required
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		    "wms_layer_group" "/Afectaciones y Restricciones/Retiros"
+		END
+		PROJECTION
+		    "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from servidumbres_cu USING UNIQUE SE_ROW_ID FILTER"
+		STATUS OFF 
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		LABELITEM "trim(valor) || ' mts'"
+		FILTER "tipo_serv = 3"
+		TEMPLATE "template.html"
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+		TRANSPARENCY 75
+
+		CLASS
+			NAME "Serv.Distrito G2"
+
+			LABEL
+				COLOR 0 0 0
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT lucida
+				SIZE 6
+				BUFFER 0
+				MAXSIZE 6
+				MINDISTANCE 0
+				MINFEATURESIZE 15
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 241 233 0
+				COLOR 241 233 0
+			END
+		END
+
+	END
+
+	LAYER # Trazado Oficial Aprobado
+		NAME "Trazado Oficial Aprobado"
+		METADATA
+		    "wms_title"    "Trazado Oficial Aprobado"  ##required
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		    "wms_include_items" "all"
+		    "wms_layer_group" "/Afectaciones y Restricciones/Trazados"
+		END
+		PROJECTION
+		    "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from trazado_of USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		TEMPLATE "content_trazado_of_template.html"
+                HEADER "header_codigo_urbano_template.html"
+                FOOTER "footer_plano_base_template.html"
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+		TRANSPARENCY 75
+
+		CLASS
+			NAME "Trazado Oficial Aprobado"
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 0 0 0
+				COLOR 220 0 130
+			END
+		END
+
+	END
+
+	LAYER # Trazado desafectado publico
+		NAME "Trazado desafectado publico"
+		METADATA
+		    "wms_title"    "Trazado desafectado público"  ##required
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		    "wms_include_items" "all"
+		    "wms_layer_group" "/Afectaciones y Restricciones/Trazados"
+		END
+		PROJECTION
+		    "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from trazado_of_desafec USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		TEMPLATE "content_trazado_des_publico_template.html"
+                HEADER "header_codigo_urbano_template.html"
+                FOOTER "footer_plano_base_template.html"
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+		TRANSPARENCY 75
+
+		CLASS
+			NAME "Trazado desafectado público"
+			STYLE 
+				SYMBOL "Dashed"
+				SIZE 2
+				OUTLINECOLOR 0 0 0
+				COLOR 220 0 230
+			END
+		END
+
+	END
+
+	LAYER # Trazado con inscripcion dominal		
+		NAME "Trazado con inscripcion dominal"
+		METADATA
+		    "wms_title"    "Trazado con inscripción dominal"  ##required
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		    "wms_include_items" "all"
+		    "wms_layer_group" "/Afectaciones y Restricciones/Trazados"
+		END
+		PROJECTION
+		    "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from calles_publicas USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		TEMPLATE "content_trazado_insc_dominial_template.html"
+                HEADER "header_codigo_urbano_template.html"
+                FOOTER "footer_plano_base_template.html"
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+
+		CLASS
+			NAME "Trazado con inscripción dominal"
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 0 255 255
+				COLOR 0 255 255
+			END
+		END
+
+	END
+
+	LAYER # Centro de Manzanas
+		GROUP "Indicadores"
+		NAME "Centro de Manzanas"
+		METADATA
+		    "wms_title"    "Centro de manzana"  ##required
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		END
+		PROJECTION
+		    "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from v_centro_de_manzanas USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE LINE
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		LABELITEM "valor"
+		MAXSCALE 10000.0
+		LABELITEMPOSITION "etiqueta"
+
+		CLASS
+			NAME "Centro de manzana"
+
+			LABEL
+				COLOR 0 0 255
+				BACKGROUNDCOLOR 220 221 222
+				TYPE TRUETYPE
+				ANGLE 0.0
+				ANTIALIAS ON
+				FONT lucida
+				SIZE 7
+				BUFFER 0
+				MAXSIZE 7
+				MINDISTANCE 0
+				MINFEATURESIZE 50
+				PARTIALS OFF
+				POSITION UC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SYMBOL "LineaGrosor"
+				SIZE 1
+				OUTLINECOLOR 0 0 0
+			END
+		END
+
+	END
+
+	LAYER # Red Jerarquica
+		NAME "Red Jerarquica"
+		METADATA
+		    "wms_title"    "Red Jerárquica"  ##required
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		END
+		PROJECTION
+		    "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from ejes USING FILTER"
+		STATUS ON
+		TYPE LINE
+		POSTLABELCACHE ON
+		FILTER "red_jerarq = 1"		
+
+		CLASS
+			NAME "Red Jerárquica"
+			STYLE 
+				SYMBOL "LineaGrosor"
+				SIZE 3
+				OUTLINECOLOR 128 128 128
+			END
+		END
+
+	END
+
+	LAYER # Zonas Inundables de A.Saladillo (Ord.N 7336/02) y A.Ludueña (Ord.N 8876/11)
+		NAME "Zonas_Areas_Inundables_Saladillo_Luduena"
+		METADATA
+		    "wms_title"    "Zonas inundables de A.Saladillo (Ord.Nº7336/02) y A.Ludueña (Ord.Nº8876/11)"  ##required
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		END
+		PROJECTION
+		    "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from zona_inundacion USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		TEMPLATE "template.html"
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+		TRANSPARENCY 75
+		LABELITEM "sector"
+		CLASS
+			NAME "ZONA 1 / ZONA A"
+			EXPRESSION ('[ZONA]'='1' OR '[ZONA]'='A')
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 128 128 128 
+				COLOR 204 153 0
+			END
+                        LABEL
+                                COLOR 0 0 0
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 6
+                                BUFFER 0
+                                MAXSIZE 6
+                                MINDISTANCE 0
+                                MINFEATURESIZE 15
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+		END
+
+
+		CLASS
+			NAME "ZONA 2 / ZONA B"
+			EXPRESSION ('[ZONA]'='2' OR '[ZONA]'='B')
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 128 128 128 
+				COLOR 204 204 0
+			END
+                        LABEL
+                                COLOR 0 0 0
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 6
+                                BUFFER 0
+                                MAXSIZE 6
+                                MINDISTANCE 0
+                                MINFEATURESIZE 15
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+		END
+
+
+		CLASS
+			NAME "ZONA 3 / ZONA C"
+			EXPRESSION ('[ZONA]'='3' OR '[ZONA]'='C')
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 128 128 128 
+				COLOR 255 255 0
+			END
+                        LABEL
+                                COLOR 0 0 0
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 6
+                                BUFFER 0
+                                MAXSIZE 6
+                                MINDISTANCE 500
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE TRUE
+                        END
+
+		END
+
+
+		CLASS
+			NAME "ZONA D"
+			EXPRESSION ('[ZONA]'='D')
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 128 128 128 
+				COLOR 153 51 0
+			END
+                        LABEL
+                                COLOR 0 0 0
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 6
+                                BUFFER 0
+                                MAXSIZE 6
+                                MINDISTANCE 0
+                                MINFEATURESIZE 15
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+		END
+
+	END
+
+	LAYER # Zonas Urbanizacion y Subdivision de la tierra (ORD. Nº6492/97)
+		NAME "Urbanizacion_Subdivision_tierra"
+		METADATA
+		    "wms_title"    "Zonas urbanización y subdivisión de la tierra (ORD. Nº6492/97)"  ##required
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		END
+		PROJECTION
+		    "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from zonas_urbanizacion USING FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		LABELITEM "zona_distr"
+		TEMPLATE "template.html"
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+		TRANSPARENCY 75
+
+		CLASS
+			NAME "Zonas I - AREA INTERIOR"
+			EXPRESSION ('[zona]' = '1')
+
+			LABEL
+				COLOR 0 0 0
+				BACKGROUNDCOLOR 255 255 255
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT arialbd
+				SIZE 7
+				BUFFER 0
+				MAXSIZE 12
+				MINDISTANCE 0
+				PARTIALS OFF
+				POSITION CC
+				FORCE TRUE
+			END
+
+			STYLE 
+				SIZE 5
+				OUTLINECOLOR 0 0 0
+				COLOR 255 255 204
+			END
+		END
+
+
+		CLASS
+			NAME "Zonas II - AREA DE BORDE Y POTENCIAL EXPANSION DE LA PLANTA URBANA"
+			EXPRESSION ('[zona]' = '2')
+
+			LABEL
+				COLOR 0 0 0
+				BACKGROUNDCOLOR 255 255 255
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT arialbd
+				SIZE 7
+				BUFFER 0
+				MAXSIZE 12
+				MINDISTANCE 0
+				PARTIALS OFF
+				POSITION CC
+				FORCE TRUE
+			END
+
+			STYLE 
+				SIZE 5
+				OUTLINECOLOR 0 0 0
+				COLOR 99 204 153
+			END
+		END
+
+
+		CLASS
+			NAME "Zonas III - AREA DE INTEGRACION URBANO - RURAL"
+			EXPRESSION ('[zona]' = '3')
+
+			LABEL
+				COLOR 0 0 0
+				BACKGROUNDCOLOR 255 255 255
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT arialbd
+				SIZE 7
+				BUFFER 0
+				MAXSIZE 12
+				MINDISTANCE 0
+				PARTIALS OFF
+				POSITION CC
+				FORCE TRUE
+			END
+
+			STYLE 
+				SIZE 5
+				OUTLINECOLOR 0 0 0
+				COLOR 204 255 255
+			END
+		END
+
+
+		CLASS
+			NAME "Zonas IV - SUELO NO URBANIZABLE"
+			EXPRESSION ('[zona]' = '4')
+
+			LABEL
+				COLOR 0 0 0
+				BACKGROUNDCOLOR 255 255 255
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT arialbd
+				SIZE 7
+				BUFFER 0
+				MAXSIZE 12
+				MINDISTANCE 0
+				PARTIALS OFF
+				POSITION CC
+				FORCE TRUE
+			END
+
+			STYLE 
+				SIZE 5
+				OUTLINECOLOR 0 0 0
+				COLOR 255 204 255
+			END
+		END
+	END
+
+END

@@ -1,0 +1,776 @@
+MAP
+NAME WMS-Rosario-DivisionesAdministrativas 
+EXTENT 5422163.0 6344000.0 5446837.0 6364000.0
+UNITS METERS
+FONTSET "/etc/mapserver/fonts.list.example"
+IMAGECOLOR 255 255 255 
+RESOLUTION 72
+TRANSPARENT ON
+SHAPEPATH "/geodata/"
+SYMBOLSET "/etc/mapserver/infomapas.sym"
+
+WEB
+	IMAGEPATH "/var/www/mapserver/"
+	IMAGEURL "mapserver/"
+        METADATA
+            "wms_title"  "WMS-Rosario-DivisionesAdministrativas"  ##required
+            "wms_name"  "WMS-Rosario-DivisionesAdministrativas"		
+            "wms_abstract" "WMS-Rosario-DivisionesAdministrativas"	
+            "wms_onlineresource" "https://t-infomapa.rosario.gob.ar/wms/divisionesAdministrativas?"
+	    "wms_srs" "epsg:22185 epsg:4326"
+	    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+	    'wms_feature_info_mime_type' "text/plain"
+        END
+
+        EMPTY "http://infomapa.rosario.gov.ar/emapa/datosUtiles.htm"
+        ERROR "http://infomapa.rosario.gov.ar/emapa/error.jsp"
+
+END
+
+REFERENCE
+        IMAGE "/etc/mapserver/keymap.png"
+        EXTENT 5424500 6343900 5444610 6364000
+        SIZE 100 100
+        STATUS ON
+        COLOR -1 -1 -1
+        OUTLINECOLOR 0 0 255
+END
+
+PROJECTION
+  "init=epsg:22185"   ##required
+END
+
+
+LAYER # Distritos Descentralizados
+    NAME "distritos_descentralizados"
+    METADATA
+	    "wms_title"    "Distritos Descentralizados"  ##required
+	    "wms_srs" "EPSG:4326 epsg:22185"
+	    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+    END
+    PROJECTION
+	    "init=epsg:22185"
+    END
+    CONNECTION "@gis"
+    CONNECTIONTYPE INFORMIXSPATIAL
+    PROCESSING "CLOSE_CONNECTION=DEFER" 
+    PROCESSING 'LABEL_NO_CLIP=ON' 
+    DATA "the_geom from distritos_descentralizados USING FILTER"
+    STATUS ON
+    TYPE POLYGON
+    POSTLABELCACHE OFF 
+    LABELCACHE ON
+    LABELITEM "'DISTRITO ' || distrito"
+    CLASS
+	    NAME "Distrito Oeste"
+	    EXPRESSION ('[mslink_odb]'='6')
+
+	    LABEL
+		    COLOR 0 0 0
+		    BACKGROUNDCOLOR 192 192 192
+		    TYPE TRUETYPE
+		    ANGLE AUTO
+		    ANTIALIAS ON
+		    FONT lucida
+		    SIZE 7
+		    BUFFER 200 
+		    MAXSIZE 7
+		    #MINDISTANCE 500 
+		    #MINFEATURESIZE 25
+		    PARTIALS OFF
+		    POSITION CC
+		    FORCE  TRUE 
+	    END
+
+	    STYLE 
+		    SIZE 0
+		    OUTLINECOLOR 35 31 32
+		    COLOR 253 225 139
+	    END
+    END
+
+
+    CLASS
+	    NAME "Distrito Norte"
+	    EXPRESSION ('[mslink_odb]'='1')
+
+	    LABEL
+		    COLOR 0 0 0
+		    BACKGROUNDCOLOR 192 192 192
+		    TYPE TRUETYPE
+		    ANGLE AUTO
+		    ANTIALIAS ON
+		    FONT lucida
+		    SIZE 7
+		    BUFFER 200 
+		    MAXSIZE 7
+		    #MINDISTANCE 500 
+		    #MINFEATURESIZE 25
+		    PARTIALS OFF
+		    POSITION CC
+		    FORCE  TRUE 
+	    END
+
+	    STYLE 
+		    SIZE 0
+		    OUTLINECOLOR 35 31 32
+		    COLOR 81 189 170
+	    END
+    END
+
+
+    CLASS
+	    NAME "Distrito Centro"
+	    EXPRESSION ('[mslink_odb]'='3')
+
+	    LABEL
+		    COLOR 0 0 0
+		    BACKGROUNDCOLOR 192 192 192
+		    TYPE TRUETYPE
+		    ANGLE AUTO
+		    ANTIALIAS ON
+		    FONT lucida
+		    SIZE 7
+		    BUFFER 200 
+		    MAXSIZE 7
+		    #MINDISTANCE 500
+		    #MINFEATURESIZE 500 
+		    PARTIALS ON 
+		    POSITION AUTO 
+		    FORCE TRUE 
+	    END
+
+	    STYLE 
+		    SIZE 0
+		    OUTLINECOLOR 35 31 32
+		    COLOR 251 189 129
+	    END
+    END
+
+
+    CLASS
+	    NAME "Distrito Suroeste"
+	    EXPRESSION ('[mslink_odb]'='5')
+
+	    LABEL
+		    COLOR 0 0 0
+		    BACKGROUNDCOLOR 192 192 192
+		    TYPE TRUETYPE
+		    ANGLE AUTO
+		    ANTIALIAS ON
+		    FONT lucida
+		    SIZE 7
+		    BUFFER 200 
+		    MAXSIZE 7
+		    #MINDISTANCE 500 
+		    #MINFEATURESIZE 25
+		    PARTIALS OFF
+		    POSITION CC
+		    FORCE TRUE 
+	    END
+
+	    STYLE 
+		    SIZE 0
+		    OUTLINECOLOR 35 31 32
+		    COLOR 249 158 126
+	    END
+    END
+
+
+    CLASS
+	    NAME "Distrito Sur"
+	    EXPRESSION ('[mslink_odb]'='4')
+
+	    LABEL
+		    COLOR 0 0 0
+		    BACKGROUNDCOLOR 192 192 192
+		    TYPE TRUETYPE
+		    ANGLE AUTO
+		    ANTIALIAS ON
+		    FONT lucida
+		    SIZE 7
+		    BUFFER 0
+		    MAXSIZE 7
+		    #MINDISTANCE 150
+		    #MINFEATURESIZE 25
+		    PARTIALS OFF
+		    POSITION CC
+		    FORCE TRUE 
+	    END
+
+	    STYLE 
+		    SIZE 0
+		    OUTLINECOLOR 35 31 32
+		    COLOR 115 137 193
+	    END
+    END
+
+
+    CLASS
+	    NAME "Distrito Noroeste"
+	    EXPRESSION ('[mslink_odb]'='2')
+
+	    LABEL
+		    COLOR 0 0 0
+		    BACKGROUNDCOLOR 192 192 192
+		    TYPE TRUETYPE
+		    ANGLE AUTO
+		    ANTIALIAS ON
+		    FONT lucida
+		    SIZE 7
+		    BUFFER 0
+		    MAXSIZE 7
+		    #MINDISTANCE 150
+		    #MINFEATURESIZE 25
+		    PARTIALS OFF
+		    POSITION CC
+		    FORCE TRUE
+	    END
+
+	    STYLE 
+		    SIZE 0
+		    OUTLINECOLOR 35 31 32
+		    COLOR 166 143 189
+	    END
+    END
+
+END
+
+
+    LAYER # Vecinales
+    NAME "Vecinales"
+    METADATA
+	    "wms_title"    "Vecinales"  ##required
+	    "wms_srs" "EPSG:4326 epsg:22185"
+	    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+    END
+    PROJECTION
+	    "init=epsg:22185"
+    END
+    CONNECTION "@gis"
+    CONNECTIONTYPE INFORMIXSPATIAL
+    PROCESSING 'LABEL_NO_CLIP=ON'
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "the_geom from vecinales USING FILTER"
+    STATUS ON
+    TYPE POLYGON
+    POSTLABELCACHE OFF
+    LABELCACHE ON
+    LABELITEM "nombre"
+
+    CLASS
+	    NAME "Vecinales"
+
+#	    LABEL
+#		    COLOR 0 0 0
+#		    OUTLINECOLOR 153 255 51
+#		    TYPE TRUETYPE
+#		    ANGLE AUTO
+#		    ANTIALIAS ON
+#		    FONT lucida
+#		    SIZE 7
+#		    BUFFER 0
+#		    MAXSIZE 7
+#		    #MINDISTANCE 0
+#		    PARTIALS OFF
+#		    POSITION CC
+#		    FORCE FALSE
+#	    END
+
+	    STYLE 
+		    SYMBOL "poligono_grueso"
+		    SIZE 4
+		    OUTLINECOLOR 153 255 51
+	    END
+    END
+
+END
+
+
+    LAYER # Barrios
+	    NAME "Barrios"
+	    METADATA
+		    "wms_title"    "Barrios"  ##required
+		    "wms_srs" "EPSG:4326 epsg:22185"
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+	    END
+	    PROJECTION
+		    "init=epsg:22185"
+	    END
+	    CONNECTION "@gis"
+	    CONNECTIONTYPE INFORMIXSPATIAL
+	    PROCESSING "CLOSE_CONNECTION=DEFER" 
+	    PROCESSING 'LABEL_NO_CLIP=ON'	
+	    DATA "the_geom from barrios USING FILTER"
+	    STATUS ON
+	    TYPE POLYGON
+	    POSTLABELCACHE OFF
+	    LABELITEM "barrio"
+
+	    CLASS
+		    NAME "Barrios"
+
+		    LABEL
+			    COLOR 0 0 0
+			    OUTLINECOLOR 255 153 51
+			    TYPE TRUETYPE
+			    ANGLE AUTO
+			    ANTIALIAS ON
+			    FONT lucida
+			    SIZE 8
+			    BUFFER 0
+			    MAXSIZE 8
+			    MINDISTANCE 0
+			    PARTIALS OFF
+			    POSITION CC
+			    FORCE TRUE
+		    END
+
+		    STYLE 
+			    SYMBOL "poligono_grueso"
+			    SIZE 3
+			    OUTLINECOLOR 255 153 51
+		    END
+	    END
+
+    END
+
+LAYER # Seccionales Policiales
+    NAME "Seccionales_policiales"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROCESSING 'LABEL_NO_CLIP=ON'
+    METADATA
+	    "wms_title"    "Seccionales Policiales"  ##required
+	    "wms_srs" "EPSG:4326 epsg:22185"
+	    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+    END
+    PROJECTION
+	    "init=epsg:22185"
+    END
+    CONNECTION "@gis"
+    CONNECTIONTYPE INFORMIXSPATIAL
+    DATA "the_geom from secciones_policiales USING FILTER"
+    STATUS ON
+    TYPE POLYGON
+    POSTLABELCACHE OFF
+    LABELITEM "nombre"
+    CLASS
+	    NAME "Seccionales Policiales"
+	    LABEL
+		    COLOR 0 0 0
+		    OUTLINECOLOR 51 153 255
+		    TYPE TRUETYPE
+		    ANGLE AUTO
+		    ANTIALIAS ON
+		    FONT lucida
+		    SIZE 7
+		    BUFFER 10
+		    MAXSIZE 7
+		    MINDISTANCE 25
+		    PARTIALS OFF
+		    POSITION CC
+		    FORCE FALSE
+	    END
+	    STYLE
+		    SYMBOL "poligono_grueso"
+		    SIZE 3
+		    OUTLINECOLOR 51 153 255
+	    END
+    END
+END
+
+    LAYER # Secciones Registro Civil
+	    NAME "Secciones_registro_civil"
+	    METADATA
+		    "wms_title"    "Secciones Registro Civil"  ##required
+		    "wms_srs" "EPSG:4326 epsg:22185"
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+	    END
+	    PROJECTION
+		    "init=epsg:22185"
+	    END
+	    CONNECTION "@gis"
+	    CONNECTIONTYPE INFORMIXSPATIAL
+	    PROCESSING "CLOSE_CONNECTION=DEFER" 
+	    PROCESSING 'LABEL_NO_CLIP=ON'
+	    DATA "the_geom from registro_civil USING FILTER"
+	    STATUS ON
+	    TYPE POLYGON
+	    POSTLABELCACHE OFF
+	    LABELITEM "seccion"
+
+	    CLASS
+		    NAME "Secciones Registro Civil"
+
+		    LABEL
+			    COLOR 255 255 255
+			    OUTLINECOLOR 153 51 255
+			    TYPE TRUETYPE
+			    ANGLE AUTO
+			    ANTIALIAS ON
+			    FONT lucida
+			    SIZE 7
+			    BUFFER 10
+			    MAXSIZE 7
+			    MINDISTANCE 25
+			    PARTIALS OFF
+			    POSITION CC
+			    FORCE TRUE
+		    END
+
+		    STYLE 
+			    SYMBOL "poligono_grueso"
+			    SIZE 3
+			    OUTLINECOLOR 153 51 255
+		    END
+	    END
+
+    END
+
+    LAYER # Secciones Catastrales
+	    NAME "Secciones Catastrales"
+	    METADATA
+		    "wms_title"    "Secciones Catastrales"  ##required
+		    "wms_srs" "EPSG:4326 epsg:22185"
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+	    END
+	    PROJECTION
+		    "init=epsg:22185"
+	    END
+	    CONNECTION "@gis"
+	    CONNECTIONTYPE INFORMIXSPATIAL
+	    PROCESSING "CLOSE_CONNECTION=DEFER" 
+	    PROCESSING 'LABEL_NO_CLIP=ON'
+	    DATA "the_geom from secciones_catastrales USING FILTER"
+	    STATUS ON
+	    TYPE POLYGON
+	    POSTLABELCACHE OFF
+	    LABELITEM "seccion"
+
+	    CLASS
+		    NAME "Secciones Catastrales"
+
+		    LABEL
+			    COLOR 0 0 0
+			    OUTLINECOLOR 153 51 255
+			    TYPE TRUETYPE
+			    ANGLE AUTO
+			    ANTIALIAS ON
+			    FONT lucida
+			    SIZE 8
+			    BUFFER 0
+			    MAXSIZE 8
+			    MINDISTANCE 0
+			    PARTIALS OFF
+			    POSITION CC
+			    FORCE FALSE
+		    END
+
+		    STYLE 
+			    SYMBOL "poligono_grueso"
+			    SIZE 3
+			    OUTLINECOLOR 153 51 255
+		    END
+	    END
+
+    END
+
+	LAYER # Radios Tributarios
+		NAME "Radios_tributarios"
+		METADATA
+                    "wms_title"    "Radios Tributarios"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+            END
+            PROJECTION
+                    "init=epsg:22185"
+            END
+
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		PROCESSING 'LABEL_NO_CLIP=ON'
+		DATA "the_geom from radios_tributarios USING FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+
+		CLASS
+			NAME "Radio 1"
+			EXPRESSION ('[radio]'='1')
+			STYLE 
+				SYMBOL "poligono_grueso"
+				SIZE 4
+				OUTLINECOLOR 0 0 0
+				COLOR 255 0 0
+			END
+		END
+
+
+		CLASS
+			NAME "Radio 2"
+			EXPRESSION ('[radio]'='2')
+			STYLE 
+				SYMBOL "poligono_grueso"
+				SIZE 4
+				OUTLINECOLOR 0 0 0
+				COLOR 51 153 255
+			END
+		END
+
+
+		CLASS
+			NAME "Radio 3"
+			EXPRESSION ('[radio]'='3')
+			STYLE 
+				SYMBOL "poligono_grueso"
+				SIZE 4
+				OUTLINECOLOR 0 0 0
+				COLOR 255 255 255
+			END
+		END
+
+
+		CLASS
+			NAME "Radio 4"
+			EXPRESSION ('[radio]'='4')
+			STYLE 
+				SYMBOL "poligono_grueso"
+				SIZE 4
+				OUTLINECOLOR 0 0 0
+				COLOR 255 255 0
+			END
+		END
+
+
+		CLASS
+			NAME "Radio 5"
+			EXPRESSION ('[radio]'='5')
+			STYLE 
+				SYMBOL "poligono_grueso"
+				SIZE 4
+				OUTLINECOLOR 0 0 0
+				COLOR 0 255 0
+			END
+		END
+
+
+		CLASS
+			NAME "Radio 6"
+			EXPRESSION ('[radio]'='6')
+			STYLE 
+				SYMBOL "poligono_grueso"
+				SIZE 4
+				OUTLINECOLOR 0 0 0
+				COLOR 255 105 248
+			END
+		END
+
+	END
+
+	LAYER # Radios Censales
+		NAME "Radios Censales"
+            METADATA
+                    "wms_title"    "Radios Censales 2001"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+            END
+            PROJECTION
+                    "init=epsg:22185"
+            END
+
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		PROCESSING 'LABEL_NO_CLIP=ON'
+		DATA "the_geom from radios_censales USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POLYGON
+		LABELITEM "radio_cens"
+		LABELMAXSCALEDENOM 20000
+		GROUP "Censo 2001"
+
+		CLASS
+			NAME "Radios Censales"
+			LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 153 51 
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 7
+                                BUFFER 10
+                                MAXSIZE 7
+                                MINDISTANCE 100
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+			STYLE 
+				SYMBOL "poligono_grueso"
+				SIZE 3 
+				OUTLINECOLOR 0 0 0
+				COLOR 255 153 51
+				BACKGROUNDCOLOR 255 153 51
+			END
+		END
+
+	END
+
+	LAYER # Fracciones Censales
+		NAME "Fracciones Censales"
+            METADATA
+                    "wms_title"    "Fracciones Censales 2001"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+            END
+            PROJECTION
+                    "init=epsg:22185"
+            END
+
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		PROCESSING 'LABEL_NO_CLIP=ON'
+		DATA "the_geom from fracciones_censales"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELITEM "frac"
+		GROUP "Censo 2001"
+
+		CLASS
+			NAME "Fracciones Censales"
+
+			LABEL
+				COLOR 0 0 0
+				OUTLINECOLOR 51 153 255
+				TYPE TRUETYPE
+				ANGLE AUTO
+				ANTIALIAS ON
+				FONT lucida
+				SIZE 7
+				BUFFER 10
+				MAXSIZE 7
+				MINDISTANCE 100 
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE
+			END
+
+			STYLE 
+				SYMBOL "poligono_grueso"
+				SIZE 3 
+				OUTLINECOLOR 0 0 0 
+				BACKGROUNDCOLOR 51 153 255
+				COLOR 51 153 255
+			END
+		END
+
+	END
+
+        LAYER # Radios Censales
+            NAME "Radios Censales 2010"
+            METADATA
+                    "wms_title"    "Radios Censales 2010"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+            END
+            PROJECTION
+                    "init=epsg:22185"
+            END
+
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                DATA "the_geom from radios_censales_2010 USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON
+                LABELITEM "radio_cens"
+                LABELMAXSCALEDENOM 20000
+                GROUP "Censo 2010"
+
+                CLASS
+                        NAME "Radios Censales"
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 153 51
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 7
+                                BUFFER 10
+                                MAXSIZE 7
+                                MINDISTANCE 100
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE
+                        END
+
+                        STYLE
+                                SYMBOL "poligono_grueso"
+                                SIZE 3
+                                OUTLINECOLOR 0 0 0
+                                COLOR 255 153 51
+                                BACKGROUNDCOLOR 255 153 51
+                        END
+                END
+
+        END
+
+
+	LAYER # Zonas notificaciones 
+            NAME "zonas_notificaciones"
+            METADATA
+                    "wms_title"    "Zonas Notificaciones"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+            END
+            PROJECTION
+                    "init=epsg:22185"
+            END
+
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                #PROCESSING 'LABEL_NO_CLIP=ON'
+                DATA "the_geom from zonas_notificaciones USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON
+                LABELITEM "dato"
+
+                CLASS
+                        NAME "Zonas Notificaciones"
+                        LABEL
+                                COLOR 0 0 0
+				BACKGROUNDCOLOR 192 192 192 
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 9 
+                                #BUFFER 50
+                                MAXSIZE 9 
+                                MINDISTANCE 500
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE 
+                        END
+
+                        STYLE
+                                SYMBOL "poligono_grueso"
+                                SIZE 5 
+                                OUTLINECOLOR 0 0 0
+                                COLOR 192 192 192 
+                                BACKGROUNDCOLOR 192 192 192 
+                        END
+                END
+
+        END
+
+
+END

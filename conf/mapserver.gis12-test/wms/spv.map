@@ -1,0 +1,140 @@
+MAP # 
+	 STATUS ON
+	NAME "SPV"
+	EXTENT 5422163.0 6344000.0 5446837.0 6364000.0
+	SIZE 768 647
+	UNITS METERS
+	FONTSET "/etc/mapserver/fonts.list.example"
+	IMAGETYPE jpeg
+	IMAGECOLOR 242 242 242
+	RESOLUTION 75
+	SHAPEPATH "/geodata/"
+	SYMBOLSET "/etc/mapserver/infomapas.sym"
+	Symbol NAME "poligono_grueso" TYPE ELLIPSE FILLED TRUE POINTS 1 1 END END
+	OUTPUTFORMAT
+		NAME "jpeg"
+		DRIVER "GD/JPEG"
+		FORMATOPTION "QUALITY=90"
+		MIMETYPE "image/jpeg"
+		IMAGEMODE RGBA
+		EXTENSION "jpg"
+	END
+
+
+WEB
+	IMAGEPATH "/var/www/mapserver"
+	IMAGEURL "mapserver/"
+	METADATA
+            "wms_title"  "WMS-SPV"  ##required
+            "wms_name"  "WMS-SPV"           
+            "wms_abstract" "WMS-SPV"        
+            "wms_onlineresource" "https://t-infomapa.rosario.gob.ar/wms/spv?"
+            "wms_srs" "epsg:22185 epsg:4326"
+            "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+            'wms_feature_info_mime_type' "text/html"
+        END
+END
+PROJECTION
+  "init=epsg:22185"   ##required
+END
+
+        LAYER # servicio gis
+                NAME "barrios"
+                METADATA
+                    "wms_title"    "Servicio Higiene Urbana"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTION 'MYSQL:gesu,host=lamp1-test,user=dgesu,password=dgesu1234,tables=servicio_gis'
+                CONNECTIONTYPE OGR
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "SELECT * FROM servicio_gis"
+                STATUS ON
+                TYPE LINE
+                POSTLABELCACHE OFF
+                LABELCACHE OFF
+		TEMPLATE "content_servicio_urbano_template.html"
+          	HEADER "header_plano_base_template.html"
+               	FOOTER "footer_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 5
+
+                CLASS
+                        NAME "Servicio"
+                        STYLE
+                                SYMBOL "LineaGrosor"
+                                SIZE 8
+                                OUTLINECOLOR 0 0 0
+                                COLOR 205 0 0
+                        END
+                END
+
+        END
+
+        LAYER # quipamiento gis
+                NAME "asentamientos_irregulares"
+                METADATA
+                    "wms_title"    "Equipamiento Higiene Urbana"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTION 'MYSQL:gesu,host=lamp1-test,user=dgesu,password=dgesu1234,tables=equipamiento_gis'
+                CONNECTIONTYPE OGR
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "SELECT * FROM equipamiento_gis"
+                STATUS ON
+                TYPE POINT
+                POSTLABELCACHE OFF
+                LABELCACHE OFF
+                TEMPLATE "content_equipamiento_urbano_template.html"
+                HEADER "header_plano_base_template.html"
+                FOOTER "footer_template.html"
+               	TOLERANCEUNITS PIXELS
+               	TOLERANCE 5
+
+                CLASS
+                        NAME "Equipamiento"
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 8
+                                OUTLINECOLOR 0 0 0
+                              COLOR 205 0 0
+                        END
+                END
+
+        END
+
+       LAYER # quipamiento gis
+                NAME "arboles"
+                METADATA
+                    "wms_title"    "Arboles"  ##required
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "soloArboles.shp"
+                STATUS ON
+                TYPE POINT
+                POSTLABELCACHE OFF
+                LABELCACHE OFF
+
+                CLASS
+                        NAME "Equipamiento"
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 8
+                                OUTLINECOLOR 0 0 0
+                              COLOR 0 205 0
+                        END
+                END
+
+        END
+
+
+END

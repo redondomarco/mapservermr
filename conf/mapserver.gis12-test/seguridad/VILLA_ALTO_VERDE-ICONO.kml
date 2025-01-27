@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+	<name>VILLA ALTO VERDE-ICONO.kmz</name>
+	<Style id="sh_triangle">
+		<IconStyle>
+			<color>ff00ff00</color>
+			<scale>1.4</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/triangle.png</href>
+			</Icon>
+		</IconStyle>
+	</Style>
+	<StyleMap id="msn_triangle">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_triangle</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_triangle</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_triangle">
+		<IconStyle>
+			<color>ff00ff00</color>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/triangle.png</href>
+			</Icon>
+		</IconStyle>
+	</Style>
+	<Placemark>
+		<name>VILLA ALTO VERDE</name>
+		<LookAt>
+			<longitude>-60.63236059651105</longitude>
+			<latitude>-32.98954622991022</latitude>
+			<altitude>0</altitude>
+			<range>1409.759230170583</range>
+			<tilt>29.93491287467228</tilt>
+			<heading>-0.07484398312457243</heading>
+			<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+		</LookAt>
+		<styleUrl>#msn_triangle</styleUrl>
+		<Point>
+			<coordinates>-60.63461877444341,-32.98783536674321,0</coordinates>
+			<gx:drawOrder>1</gx:drawOrder>
+		</Point>
+	</Placemark>
+</Document>
+</kml>

@@ -1,0 +1,76 @@
+MAP
+NAME WMS-Rosario 
+EXTENT 5422163.0 6344000.0 5446837.0 6364000.0
+UNITS METERS
+IMAGECOLOR 255 255 255 
+RESOLUTION 72
+TRANSPARENT ON
+MAXSIZE 7000
+
+WEB
+	IMAGEPATH "/var/www/mapserver/"
+	IMAGEURL "mapserver/"
+        METADATA
+            "wms_title"  "WMS-Rosario"  ##required
+            "wms_name"  "WMS-Rosario"		
+            "wms_abstract" "WMS-Rosario"	
+            "wms_onlineresource" "http://mapsrv2-test.pm.rosario.gov.ar/cgi-bin/mapserv?map=/etc/mapserver/wms/wms_info.map&"
+	    "wms_srs" "epsg:22185 epsg:4326"
+	    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+	    'wms_feature_info_mime_type' "text/html"
+            
+
+	    "wfs_title"  "WFS-Rosario"  ##required
+            "wfs_abstract" "WFS-Rosario"        
+            "wfs_onlineresource" "http://mapsrv2-test.pm.rosario.gov.ar/cgi-bin/mapserv?map=/etc/mapserver/wms/wms_info.map&"
+            "wfs_srs" "epsg:22185"
+            "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+
+        END
+
+END
+
+PROJECTION
+  "init=epsg:22185"   ##required
+END
+
+	LAYER # Manzanas
+		NAME "manzanas"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Manzanas"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_include_items" "all"
+			"wms_include_items" "all"
+			"gml_geometries"        "THE_GEOM"
+
+			"gml_[the_geom]_type"   "polygon"
+
+                       "wfs_title"    "manzanas" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+  
+
+		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		DATA "the_geom from manzanas USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POLYGON
+	        DUMP TRUE
+	        TEMPLATE "content_template.html"
+		HEADER "header_template.html"
+		FOOTER "footer_template.html"
+	        TOLERANCEUNITS PIXELS
+	        TOLERANCE 5
+
+	END
+
+
+END

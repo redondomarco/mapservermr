@@ -1,0 +1,3794 @@
+MAP # 
+	STATUS ON
+	NAME "SEGURIDAZADAS"
+	EXTENT 5422163.0 6344000.0 5446837.0 6364000.0
+	SIZE 768 647
+	UNITS METERS
+	FONTSET "/etc/mapserver/fonts.list.example"
+	IMAGETYPE jpeg
+	IMAGECOLOR 242 242 242
+	RESOLUTION 75
+	SHAPEPATH "/geodata/"
+	SYMBOLSET "/etc/mapserver/infomapas.sym"
+	TRANSPARENT ON
+	Symbol NAME "poligono_grueso" TYPE ELLIPSE FILLED TRUE POINTS 1 1 END END
+	OUTPUTFORMAT
+		NAME "jpeg"
+		DRIVER "GD/JPEG"
+		FORMATOPTION "QUALITY=90"
+		MIMETYPE "image/jpeg"
+		IMAGEMODE RGBA
+		EXTENSION "jpg"
+	END
+
+
+WEB
+	IMAGEPATH "/var/www/mapserver"
+	IMAGEURL "mapserver/"
+	METADATA
+            "wms_title"  "WMS-SEGURIDAZADAS"  ##required
+            "wms_name"  "WMS-SEGURIDAZADAS"           
+            "wms_abstract" "WMS-SEGURIDAZADAS"        
+            "wms_onlineresource" "http://infomapa.rosario.gov.ar/wms/internas?"
+            "wms_srs" "epsg:22185 epsg:4326"
+            "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+            'wms_feature_info_mime_type' "text/html"
+        END
+
+        EMPTY "http://infomapa.rosario.gov.ar/emapa/datosUtiles.htm"
+        ERROR "http://infomapa.rosario.gov.ar/emapa/error.jsp"
+
+END
+PROJECTION
+  "init=epsg:22185"   ##required
+END
+
+        LAYER # Dengue
+                NAME "300"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                    "wms_title"    "Dengue 2009"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "the_geom from dengue USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POINT
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 5
+                TEMPLATE "content_dengue_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                GROUP "Salud"
+
+                CLASS
+                        NAME "Importados por laboratorio (Actual)"
+                        EXPRESSION ('[DENGUE]' = 'IMPORTADO POR LABORATORIO')
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 9
+                                OUTLINECOLOR 0 0 0
+                                COLOR 0 255 0
+                        END
+                END
+
+
+                CLASS
+                        NAME "Autoctonos por nexo epidemiologico (Actual)"
+                        EXPRESSION ('[DENGUE]' = 'CONFIRMADO POR NEXO')
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 9
+                                OUTLINECOLOR 0 0 0
+                                COLOR 255 255 0
+                        END
+                END
+
+
+                CLASS
+                        NAME "Autoctonos por laboratorio (Actual)"
+                        EXPRESSION ('[DENGUE]' = 'AUTOCTONO POR LABORATORIO')
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 9
+                                OUTLINECOLOR 0 0 0
+                                COLOR 255 0 0
+                        END
+                END
+
+	END	
+
+        LAYER # Dengue 2016
+                NAME "307"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                    "wms_title"    "Dengue 2016"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "the_geom from dengue2016 USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POINT
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 5
+                TEMPLATE "content_dengue2016_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                GROUP "Salud"
+
+                CLASS
+                        NAME "Importados por laboratorio (Actual)"
+                        EXPRESSION ('[DENGUE]' = 'IMPORTADO POR LABORATORIO')
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 11 
+                                OUTLINECOLOR 0 0 0
+                                COLOR 0 255 0
+                        END
+                END
+
+
+                CLASS
+                        NAME "Autoctonos por nexo epidemiologico (Actual)"
+                        EXPRESSION ('[DENGUE]' = 'CONFIRMADO POR NEXO')
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 11 
+                                OUTLINECOLOR 0 0 0
+                                COLOR 255 255 0
+                        END
+                END
+
+
+                CLASS
+                        NAME "Autoctonos por laboratorio (Actual)"
+                        EXPRESSION ('[DENGUE]' = 'AUTOCTONO POR LABORATORIO')
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 11 
+                                OUTLINECOLOR 0 0 0
+                                COLOR 255 0 0
+                        END
+                END
+
+	END
+
+        LAYER # Dengue 2017
+                NAME "311"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                    "wms_title"    "Dengue 2017"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "the_geom from dengue2017 USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POINT
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 5
+                TEMPLATE "content_dengue2017_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                GROUP "Salud"
+
+                CLASS
+                        NAME "Importados por laboratorio (Actual)"
+                        EXPRESSION ('[DENGUE]' = 'IMPORTADO POR LABORATORIO')
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 11
+                                OUTLINECOLOR 0 0 0
+                                COLOR 0 255 0
+                        END
+                END
+
+
+                CLASS
+                        NAME "Autoctonos por nexo epidemiologico (Actual)"
+                        EXPRESSION ('[DENGUE]' = 'CONFIRMADO POR NEXO')
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 11
+                                OUTLINECOLOR 0 0 0
+                                COLOR 255 255 0
+                        END
+                END
+
+
+                CLASS
+                        NAME "Autoctonos por laboratorio (Actual)"
+                        EXPRESSION ('[DENGUE]' = 'AUTOCTONO POR LABORATORIO')
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 11
+                                OUTLINECOLOR 0 0 0
+                                COLOR 255 0 0
+                        END
+                END
+
+        END
+
+        LAYER # Dengue Merenguita 2016
+                NAME "309"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                    "wms_title"    "Dengue Merenguita 2016"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "the_geom from dengue_merenguita2016 USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POINT
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 5
+                TEMPLATE "content_dengue_merenguita2016_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                GROUP "Salud"
+
+                CLASS
+                        NAME "Realizada"
+                        EXPRESSION ('[OBSERVACIO]' = 'REALIZADA')
+                        STYLE
+                                SYMBOL "cross"
+                                SIZE 15 
+				WIDTH 4 
+                                #OUTLINECOLOR 0 0 0
+				#OUTLINEWIDTH 4
+                                COLOR 61 145 64 
+                        END
+                END
+                CLASS
+                        NAME "Programada"
+                        EXPRESSION ('[OBSERVACIO]' = 'PROGRAMADA')
+                        STYLE
+                                SYMBOL "cross"
+                                SIZE 15
+                                WIDTH 4
+                                #OUTLINECOLOR 0 0 0
+                                #OUTLINEWIDTH 4
+                                COLOR 238 154 0 
+                        END
+                END
+                CLASS
+                        NAME "Rechazada"
+                        EXPRESSION ('[OBSERVACIO]' = 'RECHAZADA')
+                        STYLE
+                                SYMBOL "cross"
+                                SIZE 15
+                                WIDTH 4
+                                #OUTLINECOLOR 0 0 0
+                                #OUTLINEWIDTH 4
+                                COLOR 255 0 0 
+                        END
+                END
+                CLASS
+                        NAME "Sin Dato"
+                        EXPRESSION ('[OBSERVACIO]' = 'SIN DATOS')
+                        STYLE
+                                SYMBOL "cross"
+                                SIZE 15
+                                WIDTH 4
+                                #OUTLINECOLOR 0 0 0
+                                #OUTLINEWIDTH 4
+                                COLOR 0 0 255 
+                        END
+                END
+
+	END
+
+        LAYER # Dengue Merenguita 2017
+                NAME "314"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                    "wms_title"    "Dengue Merenguita 2017"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "the_geom from dengue_merenguita2017 USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POINT
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 5
+                TEMPLATE "content_dengue_merenguita2017_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                GROUP "Salud"
+
+                CLASS
+                        NAME "Realizada"
+                        EXPRESSION ('[OBSERVACIO]' = 'REALIZADA')
+                        STYLE
+                                SYMBOL "cross"
+                                SIZE 15
+                                WIDTH 4
+                                #OUTLINECOLOR 0 0 0
+                                #OUTLINEWIDTH 4
+                                COLOR 61 145 64
+                        END
+                END
+                CLASS
+                        NAME "Programada"
+                        EXPRESSION ('[OBSERVACIO]' = 'PROGRAMADA')
+                        STYLE
+                                SYMBOL "cross"
+                                SIZE 15
+                                WIDTH 4
+                                #OUTLINECOLOR 0 0 0
+                                #OUTLINEWIDTH 4
+                                COLOR 238 154 0
+                        END
+                END
+                CLASS
+                        NAME "Rechazada"
+                        EXPRESSION ('[OBSERVACIO]' = 'RECHAZADA')
+                        STYLE
+                                SYMBOL "cross"
+                                SIZE 15
+                                WIDTH 4
+                                #OUTLINECOLOR 0 0 0
+                                #OUTLINEWIDTH 4
+                                COLOR 255 0 0
+                        END
+                END
+                CLASS
+                        NAME "Sin Dato"
+                        EXPRESSION ('[OBSERVACIO]' = 'SIN DATOS')
+                        STYLE
+                                SYMBOL "cross"
+                                SIZE 15
+                                WIDTH 4
+                                #OUTLINECOLOR 0 0 0
+                                #OUTLINEWIDTH 4
+                                COLOR 0 0 255
+                        END
+                END
+
+        END
+
+        LAYER # Dengue Sospechosos 2016
+                NAME "310"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                    "wms_title"    "Dengue Sospechosos 2016"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "the_geom from dengue_sospechosos2016 USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POINT
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 5
+                TEMPLATE "content_dengue_sospechosos2016_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                GROUP "Salud"
+
+                CLASS
+                        NAME "Sospechosos"
+                        STYLE
+                                SYMBOL "star"
+                                SIZE 15
+                                WIDTH 4
+				OUTLINECOLOR 0 0 0
+                                COLOR 255 255 0 
+                        END
+                END
+	END
+
+	LAYER # Dengue Sospechosos 2017
+                NAME "315"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                    "wms_title"    "Dengue Sospechosos 2017"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "the_geom from dengue_sospechosos2017 USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POINT
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 5
+                TEMPLATE "content_dengue_sospechosos2017_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                GROUP "Salud"
+
+                CLASS
+                        NAME "Sospechosos"
+                        STYLE
+                                SYMBOL "star"
+                                SIZE 15
+                                WIDTH 4
+                                OUTLINECOLOR 0 0 0
+                                COLOR 255 255 0
+                        END
+                END
+        END
+
+
+	LAYER # Dengue Areas Trabajadas
+		NAME "301"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+		    "wms_title"    "Dengue Areas Trabajadas 2009"  ##required
+		    "wms_srs" "EPSG:4326 epsg:22185"
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		END
+		PROJECTION
+		  "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from dengue_areas USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+                TEMPLATE "content_dengue_areas_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+		GROUP "Salud"
+		TRANSPARENCY 60
+
+		CLASS
+			NAME "Descacharrado, Busqueda de Febriles y Fumigacion "
+			EXPRESSION ('[ACCION]' = 'DBF')
+			SYMBOL 'poligono_grueso'
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 0 0 0
+				COLOR 0 255 0
+			END
+		END
+
+		
+		CLASS
+			NAME "Descacharrado y Busqueda de Febriles"
+			EXPRESSION ('[ACCION]' = 'DB')
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 0 0 0
+				COLOR 255 255 0
+			END
+		END
+
+
+		CLASS
+			NAME "Fumigacion "
+			EXPRESSION ('[ACCION]' = 'D')
+			STYLE 
+				SIZE 2
+				OUTLINECOLOR 0 0 0
+				COLOR 255 0 0
+			END
+		END
+
+	END
+
+        LAYER # Dengue Areas Trabajadas 2016
+                NAME "308"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+                    "wms_title"    "Dengue Areas Trabajadas 2016"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "the_geom from dengue_areas2016 USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON
+                POSTLABELCACHE OFF
+                LABELCACHE ON
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 5
+                TEMPLATE "content_dengue_areas2016_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+
+                GROUP "Salud"
+                TRANSPARENCY 60
+
+                CLASS
+                        NAME "Descacharrizacion, Busqueda de Febriles y Fumigacion "
+                        EXPRESSION ('[ACCION]' = 'DBF')
+			SYMBOL 'poligono_grueso'
+                        STYLE
+                                SIZE 2
+                                OUTLINECOLOR 0 0 0
+                                COLOR 0 255 0
+                        END
+                END
+
+
+                CLASS
+                        NAME "Descacharrizacion y Busqueda de Febriles"
+                        EXPRESSION ('[ACCION]' = 'DB')
+                        STYLE
+                                SIZE 2
+                                OUTLINECOLOR 0 0 0
+                                COLOR 255 255 0
+                        END
+                END
+
+
+                CLASS
+                        NAME "Fumigacion "
+                        EXPRESSION ('[ACCION]' = 'D')
+                        STYLE
+                                SIZE 2
+                                OUTLINECOLOR 0 0 0
+                                COLOR 255 0 0
+                        END
+                END
+
+        END
+	
+	LAYER # Dengue Areas Trabajadas 2017
+                NAME "312"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                    "wms_title"    "Dengue Areas Trabajadas 2017"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "the_geom from dengue_areas2017 USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON
+                POSTLABELCACHE OFF
+                LABELCACHE ON
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 5
+                TEMPLATE "content_dengue_areas2017_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+
+                GROUP "Salud"
+                TRANSPARENCY 60
+
+                CLASS
+                        NAME "Realizado"
+                        EXPRESSION ('[ESTADO]' = 'Realizado')
+                        SYMBOL 'poligono_grueso'
+                        STYLE
+                                SIZE 2
+                                OUTLINECOLOR 0 0 0
+                                COLOR 0 255 0 
+                        END
+                END
+
+
+                CLASS
+                        NAME "En proceso"
+                        EXPRESSION ('[ESTADO]' = 'En proceso')
+                        STYLE
+                                SIZE 2
+                                OUTLINECOLOR 0 0 0
+                                COLOR 0 0 255 
+                        END
+                END
+
+
+        END
+
+        LAYER # Dengue Areas Trabajadas 2017 COmunicacion
+                NAME "313"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                    "wms_title"    "Dengue Areas Trabajadas 2017-Comunicacion"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "the_geom from dengue_areas2017 USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON
+                POSTLABELCACHE OFF
+                LABELCACHE ON
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 5
+                TEMPLATE "content_dengue_areas2017_comunicacion_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+
+                GROUP "Salud"
+                TRANSPARENCY 60
+
+                CLASS
+                        NAME "Realizado"
+                        EXPRESSION ('[ESTADO]' = 'Realizado')
+                        SYMBOL 'poligono_grueso'
+                        STYLE
+                                SIZE 2
+                                OUTLINECOLOR 0 0 0
+                                COLOR 0 255 0
+                        END
+                END
+
+
+                CLASS
+                        NAME "En proceso"
+                        EXPRESSION ('[ESTADO]' = 'En proceso')
+                        STYLE
+                                SIZE 2
+                                OUTLINECOLOR 0 0 0
+                                COLOR 0 0 255
+
+                        END
+                END
+
+
+        END
+
+
+	LAYER # Gripe A
+		NAME "gripe_a"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+		    "wms_title"    "Gripe A"  ##required
+		    "wms_srs" "EPSG:4326 epsg:22185"
+		    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		END
+		PROJECTION
+		  "init=epsg:22185"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		PROCESSING "CLOSE_CONNECTION=DEFER" 
+		DATA "the_geom from gripe_a USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POINT
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+		GROUP "Salud"
+
+		CLASS
+			NAME "Confirmado H1N1"
+			EXPRESSION ('[CLAS]' = 'CONFIRMADO H1N1')
+			STYLE 
+				SYMBOL "square"
+				SIZE 6
+				OUTLINECOLOR 0 0 0
+				COLOR 255 0 0
+			END
+		END
+
+
+		CLASS
+			NAME "Confirmado por nexo"
+			EXPRESSION ('[CLAS]' = 'CONFIRMADO POR NEXO')
+			STYLE 
+				SYMBOL "square"
+				SIZE 6
+				OUTLINECOLOR 0 0 0
+				COLOR 255 153 51
+			END
+		END
+
+
+		CLASS
+			NAME "Sospechoso"
+			EXPRESSION ('[CLAS]' = 'SOSPECHOSO')
+			STYLE 
+				SYMBOL "square"
+				SIZE 6
+				OUTLINECOLOR 0 0 0
+				COLOR 255 255 0
+			END
+		END
+
+
+		CLASS
+			NAME "Descartado"
+			EXPRESSION ('[CLAS]' = 'DESCARTADO' OR '[CLAS]' = 'INFLUEZA ESTACIONAL' OR '[CLAS]' = 'ADV' OR '[CLAS]' = 'VSR')
+			STYLE 
+				SYMBOL "square"
+				SIZE 6
+				OUTLINECOLOR 0 0 0
+				COLOR 0 0 255
+			END
+		END
+
+	END
+
+	LAYER # Comercios Ord 8869/2011
+		NAME "58"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                    "wms_title"    "Comercios Ord 8869/2011"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		    "wms_include_items" "all"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		DATA "the_geom from v_comercios USING UNIQUE NRO_COM"
+		STATUS ON
+		TYPE POINT
+		POSTLABELCACHE OFF
+		LABELCACHE OFF
+		LABELITEM "nro_com"
+		MAXSCALE 15000.0
+		GROUP "COMERCIOS"
+                TEMPLATE "content_comercios_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+
+
+		CLASS
+			NAME "Comercios Ord 8869/2011"
+
+			LABEL
+				COLOR 0 0 0
+				TYPE TRUETYPE
+				ANGLE 0.0
+				ANTIALIAS OFF
+				FONT arialbd
+				SIZE 8
+				BUFFER 0
+				MAXSIZE 9
+				MINDISTANCE 0
+				PARTIALS OFF
+				POSITION CC
+				FORCE TRUE
+			END
+
+			STYLE 
+				SYMBOL "circle"
+				SIZE 3
+				OUTLINECOLOR 150 0 0
+				COLOR 150 0 0
+			END
+		END
+
+	END
+
+	 LAYER # usos on line 
+                NAME "101"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                    "wms_title"    "Usos online"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "the_geom from v_usos_online USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON
+                POSTLABELCACHE OFF
+                LABELCACHE ON
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 5
+                TRANSPARENCY 60
+
+                CLASS
+                        NAME "Usos Online"
+                        STYLE
+                                SIZE 2
+                                OUTLINECOLOR 0 0 0
+                                COLOR 0 255 0
+                        END
+                END
+
+	END
+
+        LAYER # Camaras 
+                NAME "200"
+                METADATA
+                    "wms_title"    "200"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "the_geom from camaras_seguridad USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POINT
+                
+                GROUP "Salud"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+		PROCESSING 'LABEL_NO_CLIP=ON'
+		
+                CLASS
+                        NAME "Camaras Seguridad"
+                        STYLE
+                                SYMBOL "square"
+                                SIZE 8
+                                OUTLINECOLOR 0 0 0
+                                COLOR 0 255 0
+                        END
+                END
+	END	
+	
+	
+
+	
+	LAYER
+		NAME "217"
+		METADATA
+            		"wms_title"    "217"  ##required
+  		        "wms_srs" "EPSG:4326 epsg:22185"
+            		"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+        	END
+	        PROJECTION
+                  "init=epsg:4326"
+                END
+  		TYPE POLYGON
+ 		STATUS OFF
+  		CONNECTIONTYPE OGR
+  		CONNECTION "/etc/mapserver/seguridad/ASENTAMIENTO_LA_LAGUNITA-ZR.kml"
+  		DATA "ASENTAMIENTO LA LAGUNITA-ZR.kmz"
+		TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+		PROCESSING 'LABEL_NO_CLIP=ON'
+
+		CLASS
+    			NAME "ASENTAMIENTO LA LAGUNITA-ZR.kmz"
+			TEXT "ASENTAMIENTO LA LAGUNITA"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+
+    			STYLE
+      				#COLOR 255 100 100  
+      				OUTLINECOLOR 255 100 100 
+				SIZE 5	 
+				symbol 'poligono_grueso'
+   	 		END
+		END
+  	END
+
+	LAYER
+                NAME "201"
+                METADATA
+                        "wms_title"    "201"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POLYGON
+                STATUS OFF 
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/ASENTAMIENTO_VILLA_HONDA_ICONO.kml"
+                DATA "ASENTAMIENTO VILLA HONDA-ICONO.kmz"
+		TEMPLATE "template_vacio.html"
+		TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+
+                CLASS
+                	NAME "ASENTAMIENTO VILLA HONDA-ICONO.kmz"
+                	TEXT "ASENTAMIENTO LA HONDA"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                	STYLE
+                        	#COLOR 255 100 100
+                        	OUTLINECOLOR 255 100 100
+                        	SIZE 5
+                        	symbol 'poligono_grueso'
+			END
+
+		END
+        END	
+	
+	LAYER
+                NAME "202"
+                METADATA
+                        "wms_title"    "202"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POLYGON
+                STATUS OFF 
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/ASENTAMIENTO_VILLA_HONDA-ZR.kml"
+                DATA "ASENTAMIENTO VILLA HONDA-ZR.kmz"
+                TEMPLATE "template_vacio.html"
+		TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "ASENTAMIENTO VILLA HONDA-ZR.kmz"
+                        TEXT "ASENTAMIENTO LA HONDA-ZR"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                #COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END     
+                END
+        END
+
+        LAYER
+                NAME "203"
+                METADATA
+                        "wms_title"    "203"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF 
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/BC_121.kml"
+                DATA "BC 121.kmz"
+                TEMPLATE "template_vacio.html"
+		TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "BC 121.kmz"
+                        TEXT "BC 121"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION UC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10 
+                                symbol 'triangle'
+                        END
+                END
+        END
+	
+        LAYER
+                NAME "204"
+                METADATA
+                        "wms_title"    "204"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/CENTRO_COMANDO.kml"
+                DATA "CENTRO COMANDO.kmz"
+                TEMPLATE "template_vacio.html"
+		TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "CENTRO COMANDO.kmz"
+                        TEXT "CENTRO COMANDO"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10
+                                symbol 'triangle'
+                        END
+                END
+        END
+
+        LAYER   
+                NAME "205"
+                METADATA
+                        "wms_title"    "205"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/DESTACIN-ICONO.kml"
+                DATA "DESTACIN-ICONO.kmz"
+                TEMPLATE "template_vacio.html"
+		TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "DESTACIN-ICONO.kmz"
+                        TEXT "DESTACIN-ICONO"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION UC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10
+                                symbol 'triangle'
+                        END
+                END
+        END
+	
+        LAYER
+                NAME "206"
+                METADATA
+                        "wms_title"    "206"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POLYGON
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/DESTACIN-ZR.kml"
+                DATA "DESTACIN-ZR.kmz"
+                TEMPLATE "template_vacio.html"
+		TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "DESTACIN-ZR.kmz"
+                        TEXT "DESTACIN-ZR"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+			STYLE
+                                #COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END
+
+                END
+        END
+
+	LAYER
+                NAME "207"
+                METADATA
+                        "wms_title"    "207"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/DESTACUATRO-ICONO.kml"
+                DATA "DESTACUATRO-ICONO.kmz"
+                TEMPLATE "template_vacio.html"
+		TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "DESTACUATRO-ICONO.kmz"
+                        TEXT "DESTACUATRO-ICONO"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION UC
+                    		FORCE  TRUE
+            		END
+			STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10
+                                symbol 'triangle'
+                        END
+                END     
+        END  
+
+	LAYER
+                NAME "208"
+                METADATA
+                        "wms_title"    "208"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POLYGON
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/DESTACUATRO-ZR.kml"
+                DATA "DESTACUATRO-ZR.kmz"
+                TEMPLATE "template_vacio.html"
+		TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "DESTACUATRO-ZR.kml"
+                        TEXT "DESTACUATRO-ZR"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                #COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END
+
+                END     
+        END   
+
+        LAYER
+                NAME "209"
+                METADATA
+                        "wms_title"    "209"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/DESTADOS-ICONO.kml"
+                DATA "DESTADOS-ICONO.kmz"
+                TEMPLATE "template_vacio.html"
+		TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "DESTADOS-ICONO.kmz"
+                        TEXT "DESTADOS-ICONO"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION UC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10
+                                symbol 'triangle'
+                        END
+
+                END
+        END	
+
+       LAYER
+                NAME "210"
+                METADATA
+                        "wms_title"    "210"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POLYGON
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/DESTADOS-ZR.kml"
+                DATA "DESTADOS-ZR.kmz"
+                TEMPLATE "template_vacio.html"
+		TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+		CLASS
+                        NAME "DESTACUATRO-ZR.kml"
+                        TEXT "DESTACUATRO-ZR"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                #COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END
+
+                END
+
+       END
+	
+       LAYER
+                NAME "211"
+                METADATA
+                        "wms_title"    "211"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/DESTATRES-ICONO.kml"
+                DATA "DESTATRES-ICONO.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+		CLASS
+                        NAME "DESTADOS-ICONO.kmz"
+                        TEXT "DESTADOS-ICONO"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION UC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10
+                                symbol 'triangle'
+                        END
+
+                END
+
+       END
+
+       LAYER
+                NAME "212"
+                METADATA
+                        "wms_title"    "212"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POLYGON 
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/DESTATRES-ZR.kml"
+                DATA "DESTATRES-ZR.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "DESTATRES-ZR.kmz"
+                        TEXT "DESTATRES-ZR"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                #COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END
+
+                END
+
+       END
+
+       LAYER
+                NAME "213"
+                METADATA
+                        "wms_title"    "213"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POLYGON 
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/galvez.kml"
+                DATA "galvez.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "galvez.kmz"
+                        TEXT "galvez"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                #COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END
+
+                END
+
+       END
+
+      LAYER
+                NAME "214"
+                METADATA
+                        "wms_title"    "214"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/LAS FLORES NOR-OESTE-ICONO.kml"
+                DATA "LAS FLORES NOR-OESTE-ICONO.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "DESTADOS-ICONO.kmz"
+                        TEXT "DESTADOS-ICONO"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION UC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10
+                                symbol 'triangle'
+                        END
+
+                END
+
+       END
+
+       LAYER
+                NAME "215"
+                METADATA
+                        "wms_title"    "215"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POLYGON
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/LAS FLORES NOR-OESTE-ZR.kml"
+                DATA "LAS FLORES NOR-OESTE-ZR.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "LAS FLORES NOR-OESTE-ZR.kmz"
+                        TEXT "LAS FLORES NOR-OESTE-ZR"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                #COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END
+
+                END
+
+       END
+
+       LAYER    
+                NAME "216"
+                METADATA
+                        "wms_title"    "216"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END             
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POLYGON 
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_LA_MANUELITA-ZR.kml"
+                DATA "VILLA LA MANUELITA-ZR.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA LA MANUELITA-ZR.kmz"
+                        TEXT "VILLA LA MANUELITA-ZR"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                #COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END
+                
+                END
+                
+	END   
+
+	LAYER   
+                NAME "249"
+                METADATA
+                        "wms_title"    "249"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/LAS_FLORES_SUR-ICONO.kml"
+                DATA "LAS FLORES SUR-ICONO.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "LAS FLORES SUR-ICONO.kmz"
+                        TEXT "LAS FLORES SUR-ICONO"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION UC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10
+                                symbol 'triangle'
+                        END
+                END
+	END
+
+	LAYER
+                NAME "248"
+                METADATA
+                        "wms_title"    "248"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POLYGON
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/LAS_FLORES_SUR-ZR.kml"
+                DATA "LAS FLORES SUR-ZR.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "LAS FLORES SUR-ZR.kmz"
+                        TEXT "LAS FLORES SUR-ZR"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                #COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END     
+                END
+	END
+
+	LAYER
+                NAME "247"
+                METADATA
+                        "wms_title"    "247"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE LINE 
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/ruta_galvez.kml"
+                DATA "ruta galvez.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "ruta galvez.kmz"
+                        TEXT "ruta galvez"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END
+                END
+	END
+
+	LAYER
+                NAME "246"
+                METADATA
+                        "wms_title"    "246"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END     
+                TYPE LINE
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/RUTA_VGG.kml"
+                DATA "RUTA VGG.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "RUTA VGG.kmz"
+                        TEXT "RUTA VGG"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END
+                END             
+	END
+
+	LAYER
+                NAME "245"
+                METADATA
+                        "wms_title"    "245"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END     
+                TYPE LINE
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/vgg-2.kml"
+                DATA "vgg-2.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "vgg-2.kmz"
+                        TEXT "vgg-2"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END
+                END             
+	END
+
+	LAYER
+                NAME "244"
+                METADATA
+                        "wms_title"    "244"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POLYGON
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/vgg-ZR.kml"
+                DATA "vgg-ZR.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "vgg-ZR.kmz"
+                        TEXT "vgg-ZR"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                #COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END     
+                END
+	END
+
+
+	LAYER   
+                NAME "243"
+                METADATA
+                        "wms_title"    "243"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_ALTO_VERDE-ICONO.kml"
+                DATA "VILLA ALTO VERDE-ICONO.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA ALTO VERDE-ICONO.kmz"
+                        TEXT "VILLA ALTO VERDE-ICONO"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION UC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10
+                                symbol 'triangle'
+                        END
+                END
+	END
+
+	LAYER
+                NAME "242"
+                METADATA
+                        "wms_title"    "242"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POLYGON
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_ALTO_VERDE-ZR.kml"
+                DATA "VILLA ALTO VERDE-ZR.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA ALTO VERDE-ZR.kmz"
+                        TEXT "VILLA ALTO VERDE-ZR"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                #COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END     
+                END
+	END
+
+	LAYER   
+                NAME "241"
+                METADATA
+                        "wms_title"    "241"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_BAIGORRIA-ICONO.kml"
+                DATA "VILLA BAIGORRIA-ICONO.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA BAIGORRIA-ICONO.kmz"
+                        TEXT "VILLA BAIGORRIA-ICONO"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION UC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10
+                                symbol 'triangle'
+                        END
+                END
+	END
+
+	LAYER
+                NAME "240"
+                METADATA
+                        "wms_title"    "240"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POLYGON
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_BAIGORRIA-ZR.kml"
+                DATA "VILLA BAIGORRIA-ZR.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA BAIGORRIA-ZR.kmz"
+                        TEXT "VILLA BAIGORRIA-ZR"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                #COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END     
+                END
+	END
+
+	LAYER   
+                NAME "239"
+                METADATA
+                        "wms_title"    "239"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_BANANA-ICONO.kml"
+                DATA "VILLA BANANA-ICONO.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA BANANA-ICONO.kmz"
+                        TEXT "VILLA BANANA-ICONO"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION UC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10
+                                symbol 'triangle'
+                        END
+                END
+	END
+
+	LAYER
+                NAME "238"
+                METADATA
+                        "wms_title"    "238"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POLYGON
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_BANANA-ZR.kml"
+                DATA "VILLA BANANA-ZR.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA BANANA-ZR.kmz"
+                        TEXT "VILLA BANANA-ZR"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                #COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END     
+                END
+	END
+
+	LAYER   
+                NAME "237"
+                METADATA
+                        "wms_title"    "237"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_BLOMBERG-ICONO.kml"
+                DATA "VILLA BLOMBERG-ICONO.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA BLOMBERG-ICONO.kmz"
+                        TEXT "VILLA BLOMBERG-ICONO"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION UC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10
+                                symbol 'triangle'
+                        END
+                END
+	END
+
+	LAYER
+                NAME "236"
+                METADATA
+                        "wms_title"    "236"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POLYGON
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_BLOMBERG-ZR.kml"
+                DATA "VILLA BLOMBERG-ZR.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA BLOMBERG-ZR.kmz"
+                        TEXT "VILLA BLOMBERG-ZR"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                #COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END     
+                END
+	END
+
+	LAYER   
+                NAME "235"
+                METADATA
+                        "wms_title"    "235"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_CIUDADELA-ICONO.kml"
+                DATA "VILLA CIUDADELA-ICONO.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA CIUDADELA-ICONO.kmz"
+                        TEXT "VILLA CIUDADELA-ICONO"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION UC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10
+                                symbol 'triangle'
+                        END
+                END
+	END
+
+	LAYER
+                NAME "234"
+                METADATA
+                        "wms_title"    "234"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POLYGON
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_CIUDADELA-ZR.kml"
+                DATA "VILLA CIUDADELA-ZR.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA CIUDADELA-ZR.kmz"
+                        TEXT "VILLA CIUDADELA-ZR"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                #COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END     
+                END
+	END
+
+	LAYER   
+                NAME "233"
+                METADATA
+                        "wms_title"    "233"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_DEL_TANQUE-ICONO.kml"
+                DATA "VILLA DEL TANQUE-ICONO.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA DEL TANQUE-ICONO.kmz"
+                        TEXT "VILLA DEL TANQUE-ICONO"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION UC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10
+                                symbol 'triangle'
+                        END
+                END
+	END
+
+	LAYER
+                NAME "232"
+                METADATA
+                        "wms_title"    "232"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POLYGON
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_DEL_TANQUE-ZR.kml"
+                DATA "VILLA DEL TANQUE-ZR.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA DEL TANQUE-ZR.kmz"
+                        TEXT "VILLA DEL TANQUE-ZR"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                #COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END     
+                END
+	END
+
+	LAYER   
+                NAME "231"
+                METADATA
+                        "wms_title"    "231"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_GOB_GALVEZ-ICONO.kml"
+                DATA "VILLA GOB GALVEZ-ICONO.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA GOB GALVEZ-ICONO.kmz"
+                        TEXT "VILLA GOB GALVEZ-ICONO"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION UC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10
+                                symbol 'triangle'
+                        END
+                END
+	END
+
+	LAYER   
+                NAME "230"
+                METADATA
+                        "wms_title"    "230"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_GOB_GALVEZ.kml"
+                DATA "VILLA GOB GALVEZ.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA GOB GALVEZ.kmz"
+                        TEXT "VILLA GOB GALVEZ"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION UC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10
+                                symbol 'triangle'
+                        END
+                END
+	END
+
+	LAYER   
+                NAME "229"
+                METADATA
+                        "wms_title"    "229"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_GRANEL-ICONO.kml"
+                DATA "VILLA GRANEL-ICONO.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA GRANEL-ICONO.kmz"
+                        TEXT "VILLA GRANEL-ICONO"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION UC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10
+                                symbol 'triangle'
+                        END
+                END
+	END
+
+	LAYER
+                NAME "228"
+                METADATA
+                        "wms_title"    "228"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POLYGON
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_GRANEL-ZR.kml"
+                DATA "VILLA GRANEL-ZR.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA GRANEL-ZR.kmz"
+                        TEXT "VILLA GRANEL-ZR"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                #COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END     
+                END
+	END
+
+
+	LAYER   
+                NAME "227"
+                METADATA
+                        "wms_title"    "227"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_HONDA-ICONO.kml"
+                DATA "VILLA HONDA-ICONO.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA HONDA-ICONO.kmz"
+                        TEXT "VILLA HONDA-ICONO"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION UC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10
+                                symbol 'triangle'
+                        END
+                END
+	END
+
+	LAYER   
+                NAME "226"
+                METADATA
+                        "wms_title"    "226"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_HONDA.kml"
+                DATA "VILLA HONDA.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA HONDA.kmz"
+                        TEXT "VILLA HONDA"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION UC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10
+                                symbol 'triangle'
+                        END
+                END
+	END
+
+	LAYER   
+                NAME "225"
+                METADATA
+                        "wms_title"    "225"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_LA MANUELITA-ICONO.kml"
+                DATA "VILLA LA MANUELITA-ICONO.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA LA MANUELITA-ICONO.kmz"
+                        TEXT "VILLA LA MANUELITA-ICONO"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION UC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10
+                                symbol 'triangle'
+                        END
+                END
+	END
+
+	LAYER
+                NAME "224"
+                METADATA
+                        "wms_title"    "224"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POLYGON
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_LA MANUELITA-ZR.kml"
+                DATA "VILLA LA MANUELITA-ZR.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA LA MANUELITA-ZR.kmz"
+                        TEXT "VILLA LA MANUELITA-ZR"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                #COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END     
+                END
+	END
+	
+	LAYER   
+                NAME "223"
+                METADATA
+                        "wms_title"    "223"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_LUDUENIA-ICONO.kml"
+                DATA "VILLA LUDUENIA-ICONO.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA LUDUENIA-ICONO.kmz"
+                        TEXT "VILLA LUDUENIA-ICONO"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION UC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10
+                                symbol 'triangle'
+                        END
+                END
+	END
+
+	LAYER
+                NAME "222"
+                METADATA
+                        "wms_title"    "222"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POLYGON
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_LUENIA-ZR.kml"
+                DATA "VILLA LUENIA-ZR.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA LUENIA-ZR.kmz"
+                        TEXT "VILLA LUENIA-ZR"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                #COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END     
+                END
+	END
+
+	LAYER   
+                NAME "221"
+                METADATA
+                        "wms_title"    "221"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_POLLEDO-ICONO.kml"
+                DATA "VILLA POLLEDO-ICONO.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA POLLEDO-ICONO.kmz"
+                        TEXT "VILLA POLLEDO-ICONO"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION UC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 10
+                                symbol 'triangle'
+                        END
+                END
+	END
+
+	LAYER
+                NAME "220"
+                METADATA
+                        "wms_title"    "220"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POLYGON
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_POLLEDO-ZR.kml"
+                DATA "VILLA POLLEDO-ZR.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA POLLEDO-ZR.kmz"
+                        TEXT "VILLA POLLEDO-ZR"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                #COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END     
+                END
+	END
+
+	LAYER
+                NAME "219"
+                METADATA
+                        "wms_title"    "219"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE LINE
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_VIA_HONDA.kml"
+                DATA "VILLA VIA HONDA.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA VIA HONDA.kmz"
+                        TEXT "VILLA VIA HONDA"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END
+                END
+	END
+
+	LAYER
+                NAME "218"
+                METADATA
+                        "wms_title"    "218"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE LINE
+                STATUS OFF
+                CONNECTIONTYPE OGR
+                CONNECTION "/etc/mapserver/seguridad/VILLA_VIA_HONDA-ZR.kml"
+                DATA "VILLA VIA HONDA-ZR.kmz"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS
+                        NAME "VILLA VIA HONDA-ZR.kmz"
+                        TEXT "VILLA VIA HONDA-ZR"
+		        LABEL
+       		        	COLOR 0 0 0
+				OUTLINECOLOR 255 255 255
+                    		TYPE TRUETYPE
+                    		ANGLE AUTO
+                    		ANTIALIAS ON
+                    		FONT lucida
+                    		SIZE 6 
+                    		BUFFER 200
+                    		MAXSIZE 7
+                    		PARTIALS OFF
+                    		POSITION CC
+                    		FORCE  TRUE
+            		END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END
+                END
+	END
+
+	LAYER
+                NAME "250"
+                METADATA
+                        "wms_title"    "250"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                TYPE LINE
+                STATUS OFF
+                DATA "/etc/mapserver/seguridad/Perimetro_Tablada.shp"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                CLASS   
+                        NAME "Perimetro Tablada"
+                        TEXT "Perimetro Tablada"
+                        LABEL   
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 6
+                                BUFFER 200
+                                MAXSIZE 7
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE  TRUE
+                        END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5 
+                                symbol 'poligono_grueso'
+                        END
+                END
+	END
+
+	LAYER
+                NAME "251"
+                METADATA
+                        "wms_title"    "251"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                TYPE LINE
+                STATUS OFF
+                DATA "/etc/mapserver/seguridad/Hitos_Santa_Lucia.shp"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+		LABELITEM detalle
+                CLASS
+                        NAME "Hitos_Santa_Lucia"
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 6
+                                BUFFER 200
+                                MAXSIZE 7
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE  TRUE
+                        END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END
+                END
+	END
+
+	LAYER
+                NAME "252"
+                METADATA
+                        "wms_title"    "252"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                TYPE LINE
+                STATUS OFF
+                DATA "/etc/mapserver/seguridad/Hitos_La_Palmera.shp"
+                TEMPLATE "template_vacio.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+		LABELITEM detalle
+                CLASS
+                        NAME "Hitos_La_Palmera"
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 6
+                                BUFFER 200
+                                MAXSIZE 7
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE  TRUE
+                        END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 255 100 100
+                                SIZE 5
+                                symbol 'poligono_grueso'
+                        END
+                END
+	END
+
+        LAYER
+                NAME "253"
+                METADATA
+                        "wms_title"    "253"  ##required
+                        "wms_srs" "EPSG:4326 epsg:22185"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:4326"
+                END
+                TYPE POINT 
+                STATUS OFF
+                DATA "/etc/mapserver/seguridad/homis2013_limpio_final.shp"
+                TEMPLATE "content_homicidios2013_lacapital.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+                PROCESSING 'LABEL_NO_CLIP=ON'
+                LABELITEM resumen 
+                CLASS
+                        NAME "Homicidios 2013 La Capital"
+                        LABEL
+                                COLOR 0 0 0
+                                OUTLINECOLOR 255 255 255
+                                TYPE TRUETYPE
+                                ANGLE AUTO
+                                ANTIALIAS ON
+                                FONT lucida
+                                SIZE 7 
+                                BUFFER 200
+                                MAXSIZE 7
+                                PARTIALS OFF
+                                POSITION UC 
+                                FORCE  TRUE
+                        END
+                        STYLE
+                                COLOR 255 100 100
+                                OUTLINECOLOR 0 0 0 
+                                SIZE 15 
+                                symbol 'star'
+                        END
+                END
+        END
+
+        LAYER # Homicidios 2013 
+                NAME "100"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                    "wms_title"    "Homicidios 2013"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                    "wms_include_items" "all"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from violencia2013 USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POINT
+                POSTLABELCACHE OFF
+                LABELCACHE OFF
+                FILTER "efecto = 'Fallecido'"
+                TEMPLATE "content_homicidios_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+
+                CLASS
+                        NAME "Arma blanca"
+                        EXPRESSION ('[mecanismo]'='AB')
+
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 8 
+                                OUTLINECOLOR 0 0 0 
+                                COLOR 255 102 0 
+                        END
+                END
+                
+                 CLASS
+                        NAME "Arma de fuego"
+                        EXPRESSION ('[mecanismo]'='AF')
+
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 8 
+                                OUTLINECOLOR 0 0 0
+                                COLOR 153 153 0
+                        END
+                END
+
+                 CLASS
+                        NAME "OTRO"
+                        EXPRESSION ('[mecanismo]'='OTRO')
+
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 9 
+                                OUTLINECOLOR 0 0 0
+                                COLOR 0 153 153 
+                        END
+		END
+	END
+
+        LAYER # Violencia Armada 2013 
+                NAME "102"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                    "wms_title"    "Violencia Armada 2013 - Consecuencia"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                    "wms_include_items" "all"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from violencia2013 USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POINT
+                POSTLABELCACHE OFF
+                LABELCACHE OFF
+                FILTER "mecanismo = 'AF'"
+                TEMPLATE "content_homicidios_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+
+                CLASS
+                        NAME "Fallecido"
+                        EXPRESSION ('[efecto]'='Fallecido')
+
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 8 
+                                OUTLINECOLOR 0 0 0
+                                COLOR 204 0 51 
+                        END
+                END
+
+                 CLASS
+                        NAME "Lesionado"
+                        EXPRESSION ('[efecto]'='Lesionado')
+
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 8 
+                                OUTLINECOLOR 0 0 0
+                                COLOR 0 102 204 
+                        END
+                END
+
+	END
+
+        LAYER # Violencia Armada 2013
+                NAME "103"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                    "wms_title"    "Violencia Armada 2013 - Genero"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                    "wms_include_items" "all"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from violencia2013 USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POINT
+                POSTLABELCACHE OFF
+                LABELCACHE OFF
+                FILTER "mecanismo = 'AF'"
+                TEMPLATE "content_homicidios_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+
+                CLASS
+                        NAME "Varon"
+                        EXPRESSION ('[id_sexo]'= '1')
+
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 8
+                                OUTLINECOLOR 0 0 0
+                                COLOR 102 204 0 
+                        END
+                END
+
+                 CLASS
+                        NAME "Mujer"
+                        EXPRESSION ('[id_sexo]'= '2')
+
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 8 
+                                OUTLINECOLOR 0 0 0
+                                COLOR 255 255 51 
+                        END
+                END
+
+        END
+	
+        LAYER # Violencia Armada 2013
+                NAME "104"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                    "wms_title"    "Violencia Armada 2013 - Edad"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                    "wms_include_items" "all"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from violencia2013 USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POINT
+                POSTLABELCACHE OFF
+                LABELCACHE OFF
+                FILTER "mecanismo = 'AF'"
+                TEMPLATE "content_homicidios_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+
+                CLASS
+                        NAME "Sin Especificar"
+                        EXPRESSION ([edad]= 0)
+
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 8
+                                OUTLINECOLOR 0 0 0
+                                COLOR 153 153 153 
+                        END
+                END
+
+                CLASS
+                        NAME "Menos de 15 años"
+                        EXPRESSION ([edad]> 0 AND [edad]<= 14 )
+
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 8
+                                OUTLINECOLOR 0 0 0
+                                COLOR 255 255 0 
+                        END
+                END
+
+
+                CLASS
+                        NAME "de 15 a 29"
+                        EXPRESSION ([edad]> 14 AND [edad]<= 29 )
+
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 8
+                                OUTLINECOLOR 0 0 0
+                                COLOR 51 204 0 
+                        END
+                END
+
+
+                CLASS
+                        NAME "de 30 a 44"
+                        EXPRESSION ([edad]> 29 AND [edad]<= 44 )
+
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 8
+                                OUTLINECOLOR 0 0 0
+                                COLOR 51 51 255 
+                        END
+                END
+
+                CLASS
+                        NAME "Mayores a 45"
+                        EXPRESSION ([edad]> 44)
+
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 8
+                                OUTLINECOLOR 0 0 0
+                                COLOR 255 0 0
+                        END
+                END
+
+
+
+        END
+	
+        LAYER # Violencia 2013 - comisarias 
+                NAME "105"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                    "wms_title"    "Tasas por comisarias de VA 2013"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                DATA "the_geom from violencia2013_comisarias USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON
+                POSTLABELCACHE OFF
+                LABELCACHE ON
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 5
+                TRANSPARENCY 80
+
+                CLASS
+                        NAME "Menos de 20"
+			EXPRESSION ([j_relc_tot] < 20)
+                        STYLE
+                                SIZE 2
+                                OUTLINECOLOR 0 0 0
+                                COLOR 255 255 204 
+                        END
+                END
+
+                CLASS
+                        NAME "20.0 a 39.9"
+                        EXPRESSION ([j_relc_tot] >= 20 AND [j_relc_tot] < 40)
+                        STYLE
+                                SIZE 2
+                                OUTLINECOLOR 0 0 0
+                                COLOR 238 213 170
+                        END
+                END
+
+                CLASS
+                        NAME "40.0 a 59.9"
+                        EXPRESSION ([j_relc_tot] >= 40 AND [j_relc_tot] < 60)
+                        STYLE
+                                SIZE 2
+                                OUTLINECOLOR 0 0 0
+                                COLOR 221 171 136 
+                        END
+                END
+
+                CLASS
+                        NAME "60.0 a 119.9"
+                        EXPRESSION ([j_relc_tot] >= 60 AND [j_relc_tot] < 120)
+                        STYLE
+                                SIZE 2
+                                OUTLINECOLOR 0 0 0
+                                COLOR 204 129 102 
+                        END
+                END
+
+                CLASS
+                        NAME "120.0 a 239.9" 
+			EXPRESSION ([j_relc_tot] >= 120 AND [j_relc_tot] < 240)
+                        STYLE
+                                SIZE 2
+                                OUTLINECOLOR 0 0 0
+                                COLOR 187 87 68 
+                        END
+                END
+
+                CLASS
+                        NAME "240.0 o mas"
+                        EXPRESSION ([j_relc_tot]>= 240)
+                        STYLE
+                                SIZE 2
+                                OUTLINECOLOR 0 0 0
+                                COLOR 170 45 34 
+                        END
+                END
+
+
+        END
+	
+        LAYER # Censo Arbolado 
+                NAME "106"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                    "wms_title"    "Censo Arbolado"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                    "wms_include_items" "all"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from arbolado_censo USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POINT
+                POSTLABELCACHE OFF
+                LABELCACHE OFF
+                #FILTER "mecanismo = 'AF'"
+                #TEMPLATE "content_homicidios_template.html"
+                #HEADER "header_lugaresinteres_template.html"
+                #FOOTER "footer_lugaresinteres_template.html"
+                #TOLERANCEUNITS PIXELS
+                #TOLERANCE 10
+
+                CLASS
+                        NAME "Arbol"
+                        EXPRESSION ('[LUGARDISPO]'= 'ARBOL')
+
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 8
+                                OUTLINECOLOR 0 0 0
+                                COLOR 0 255 0
+                        END
+                END
+
+                 CLASS
+                        NAME "Lugar Disponible"
+                        EXPRESSION ('[LUGARDISPO]'= 'LUGAR DISPONIBLE')
+
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 8
+                                OUTLINECOLOR 0 0 0
+                                COLOR 255 255 0
+                        END
+                END
+
+                CLASS
+                        NAME "No Disponible"
+                        EXPRESSION ('[LUGARDISPO]'= 'NO DISPONIBLE')
+
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 8
+                                OUTLINECOLOR 0 0 0
+                                COLOR 255 0 0
+                        END
+                END
+
+        END
+	
+        LAYER # Leptospirosis
+                NAME "107"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                    "wms_title"    "Leptospirosis"  ##required
+                    "wms_srs" "EPSG:4326 epsg:22185"
+                    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                    "wms_include_items" "all"
+                END
+                PROJECTION
+                  "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from leptospirosis USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POINT
+                POSTLABELCACHE OFF
+                LABELCACHE OFF
+                #FILTER "mecanismo = 'AF'"
+                TEMPLATE "content_leptospirosis_template.html"
+                HEADER "header_lugaresinteres_template.html"
+                FOOTER "footer_lugaresinteres_template.html"
+                TOLERANCEUNITS PIXELS
+                TOLERANCE 10
+
+                CLASS
+                        NAME "CONFIRMADO"
+                        EXPRESSION ('[DIAGNOST21]'= 'CONFIRMADO LEPTOSPIROSIS')
+
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 10 
+                                OUTLINECOLOR 0 0 0
+                                COLOR 255 0 0
+                        END
+                END
+
+                 CLASS
+                        NAME "PROBABLE"
+                        EXPRESSION ('[DIAGNOST21]'= 'PROBABLE LEPTOSPIROSIS')
+
+                        STYLE
+                                SYMBOL "circle"
+                                SIZE 10 
+                                OUTLINECOLOR 0 0 0
+                                COLOR 0 0 255 
+                        END
+                END
+
+        END
+ 
+       LAYER # Barrios SPV
+               NAME "400"
+               PROCESSING "CLOSE_CONNECTION=DEFER"
+               METADATA
+                       "wms_title"    "SPV Barrios"  ##required
+                       "wms_srs" "EPSG:4326 epsg:22185"
+                       "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+               END
+               PROJECTION
+                       "init=epsg:22185"
+               END
+               CONNECTION "@gis"
+               CONNECTIONTYPE INFORMIXSPATIAL
+               PROCESSING "CLOSE_CONNECTION=DEFER"
+               DATA "the_geom from spv_barrios USING UNIQUE SE_ROW_ID FILTER"
+               STATUS ON
+               TYPE POLYGON
+               TEMPLATE "content_barrios_spv_template.html"
+               HEADER "header_plano_base_template.html"
+               FOOTER "footer_template.html"
+               TOLERANCEUNITS PIXELS
+               TOLERANCE 5
+               POSTLABELCACHE OFF
+               TRANSPARENCY 60 
+		CLASS
+                        LABEL
+                                COLOR 0 0 0
+                                TYPE TRUETYPE
+                                ANGLE 0.0
+                                ANTIALIAS OFF
+                                FONT arialbd
+                                SIZE 7
+                                #BUFFER 0 
+                                MAXSIZE 9
+                                #MINDISTANCE 10  
+                                PARTIALS OFF
+                                POSITION CC
+                                FORCE FALSE 
+                        END
+                       NAME "Barrios"
+                       STYLE
+                              SIZE 3
+                              OUTLINECOLOR 0 0 255 
+                              COLOR 0 0 200 
+                      END
+              END
+      END
+
+	
+END
+

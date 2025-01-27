@@ -1,0 +1,1033 @@
+MAP
+NAME WMS-Rosario 
+EXTENT 5422163.0 6344000.0 5446837.0 6364000.0
+UNITS METERS
+FONTSET "/etc/mapserver/fonts.list.example"
+#IMAGECOLOR 255 255 255 
+#RESOLUTION 72
+TRANSPARENT ON 
+SHAPEPATH "/geodata/"
+#SYMBOLSET "/etc/mapserver/infomapas.sym"
+CONFIG  "MS_ERRORFILE" "stderr"
+DEBUG 0 #on map and layer level
+OUTPUTFORMAT
+  NAME "png"
+  DRIVER AGG/PNG
+  MIMETYPE "image/png"
+  IMAGEMODE RGBA
+  EXTENSION "png"
+  FORMATOPTION "GAMMA=0.75"
+END
+SYMBOL
+  NAME 'LineaGrosor'
+  TYPE ELLIPSE
+  POINTS 1 1 END
+  FILLED TRUE
+#  STYLE 10 5 5 10 END
+END
+Symbol 
+        NAME 'dcircle' 
+        TYPE Ellipse 
+        FILLED TRUE 
+        POINTS
+                1 1
+        END 
+#        STYLE
+#                1 3
+#        END
+END
+Symbol
+        NAME "poligono_transparente"
+        Type VECTOR
+        TRANSPARENT 0
+        Points
+                0 0
+                1 1
+        END
+END
+Symbol
+        NAME "poligono_grueso"
+        TYPE ELLIPSE
+        FILLED TRUE
+        POINTS 1 1 END
+END
+
+MAXSIZE 7000
+
+WEB
+	IMAGEPATH "/var/www/mapserver/"
+	#IMAGEURL "mapserver/"
+        METADATA
+            "wms_title"  "WMS-Rosario"  ##required
+            "wms_name"  "WMS-Rosario"		
+            "wms_abstract" "WMS-Rosario"	
+            "wms_onlineresource" "https://t-infomapa.rosario.gob.ar/wms/planobase?"
+	    "wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+	    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+	    'wms_feature_info_mime_type' "text/html"
+	    "ows_enable_request" "*"
+            "wms_enable_request" "*"
+        END
+
+	EMPTY "http://infomapa.rosario.gov.ar/emapa/datosUtiles.htm"
+	ERROR "http://infomapa.rosario.gov.ar/emapa/error.jsp"
+END
+
+#REFERENCE
+#        IMAGE "/etc/mapserver/keymap.png"
+#        EXTENT 5424500 6343900 5444610 6364000
+#        SIZE 100 100
+#        STATUS ON
+#        COLOR -1 -1 -1
+#        OUTLINECOLOR 0 0 255
+#END
+
+PROJECTION
+  "init=epsg:22185"   ##required
+END
+
+LAYER 
+     NAME "ImagenesSatelitales2011" 
+     METADATA
+         "wms_title"    "Imagenes Satelitales 2011"  ##required
+         "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+         "wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+         "wms_style"	"Default"
+     END
+     PROJECTION
+         "init=epsg:22185"
+     END     
+     STATUS ON 
+     TYPE RASTER 
+     OFFSITE 0 0 0
+     PROCESSING "RESAMPLE=BILINEAR"
+     TILEINDEX "/geodata/Img2011/rosario_2011.shp"
+     TILEITEM "location" 
+     MINSCALE 150 
+     CLASS
+			NAME "Segmentos de calle"
+			STYLE
+				SIZE 2
+				OUTLINECOLOR 255 0 0
+				COLOR 128 128 128
+			END
+		END
+END 
+
+	LAYER # Sin Manzanas
+		NAME "sin_manzanas"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               	"wms_title"    "Sin Manzanas"  ##required
+         	"wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+		"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		"gml_include_items" "seccion,manzana,grafico,sd,sp"
+		"wms_include_items" "seccion,manzana,grafico,sd,sp"
+       	END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "IDB:server=test_pri_pamuser=webjdbc pass=nigN2002 dbname=gis table=sinmanzana"
+		CONNECTIONTYPE OGR
+		DATA "sinmanzana"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		MINSCALE 0.0
+		#MAXSCALE 40000.0
+		DUMP TRUE
+		TEMPLATE "."
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+		SIZEUNITS meters
+		CLASS
+			NAME "Sin Manzanas"
+			STYLE
+				WIDTH 3
+				#OUTLINECOLOR 147 149 152
+				COLOR 233 233 233
+			END
+		END
+
+	END
+
+	LAYER # Canteros
+		NAME "canteros"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Canteros"  ##required
+          		"wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "IDB:server=test_pri_pamuser=webjdbc pass=nigN2002 dbname=gis table=canteros"
+		CONNECTIONTYPE OGR
+		DATA "canteros"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		MINSCALE 0.0
+		MAXSCALE 15000.0
+		SIZEUNITS meters
+		CLASS
+			NAME "Canteros"
+			STYLE
+			  WIDTH 1
+			  OUTLINECOLOR 90 130 85 
+			  COLOR 168 198 142 
+			END
+		END
+
+	END
+
+	LAYER # Av. Circunvalaci�n
+		NAME "av_circunvalacion"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Av. Circunvalaci�n"  ##required
+                        "wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "IDB:server=test_pri_pamuser=webjdbc pass=nigN2002 dbname=gis table=circunvalacion"
+		CONNECTIONTYPE OGR
+		DATA "circunvalacion"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		MINSCALE 0.0
+		CLASS
+			NAME "Av. Circunvalaci�n"
+			SIZE 0
+			OUTLINECOLOR 232 206 178 
+			COLOR 244 195 145 
+		END
+
+	END
+
+	LAYER # Manzanas
+		NAME "manzanas"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Manzanas"  ##required
+                        "wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_include_items" "seccion,muni_manza"
+			"wms_include_items" "seccion,muni_manza"
+		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=manzanas"
+		CONNECTIONTYPE OGR
+		DATA "manzanas"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		#MAXSCALE 40000.0
+	        SYMBOLSCALEDENOM 40000	
+	        DUMP TRUE
+	        TEMPLATE "content_manzanas_template.html"
+                HEADER "header_plano_base_template.html"
+		FOOTER "footer_plano_base_template.html"
+		TOLERANCEUNITS PIXELS
+	        TOLERANCE 5
+	        SIZEUNITS meters	
+		#GEOMTRANSFORM (simplifypt([shape], 20))	
+		CLASS
+			NAME "Manzanas"
+			STYLE 
+			  WIDTH 3 
+			  OUTLINECOLOR 208 208 208 
+			  COLOR 240 240 240
+			END
+
+		END
+
+	END
+
+	LAYER # Manzanas no Regularizada
+		NAME "manzanas_no_regularizada"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Manzanas no Regularizada"  ##required
+                        "wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=manzanas_no_regularizadas"
+		CONNECTIONTYPE OGR
+		DATA "manzanas_no_regularizadas"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		MINSCALE 0.0
+		MAXSCALE 30000.0
+		CLASS
+			NAME "Manzanas no Regularizada"
+			SIZE 5
+			OUTLINECOLOR 208 208 208 
+			COLOR 240 240 240 
+		END
+
+	END
+
+	LAYER # Parcelas
+		NAME "Parcelas"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Parcelas"  ##required
+                	"wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+			"gml_include_items" "seccion,manzana,grafico,sd,sp"
+			"wms_include_items" "all" #"seccion,manzana,grafico,sd,sp"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0" 
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=parcelas"
+		CONNECTIONTYPE OGR
+		DATA "parcelas"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		MAXSCALE 8000.0
+		DUMP TRUE
+		TEMPLATE "content_parcelas_template.html"
+		HEADER "header_plano_base_template.html"
+		FOOTER "footer_plano_base_template.html"
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+		SIZEUNITS meters
+		CLASS
+			NAME "Parcelas"
+			STYLE 
+			  WIDTH 0.3
+			  OUTLINECOLOR 192 192 192 
+			  COLOR 240 240 240
+			END
+
+			
+
+		END
+
+	END
+
+	LAYER # Espacios Verdes
+		NAME "espacios_verdes"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		PROCESSING "LABEL_NO_CLIP=ON"
+		METADATA
+               		"wms_title"    "Espacios Verdes"  ##required
+                        "wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=vespacios_verdes"
+		CONNECTIONTYPE OGR
+		DATA "vespacios_verdes"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		#MINSCALE 0.0
+		#MAXSCALE 50000.0
+		#PROCESSING "NATIVE_FILTER=etiqueta is not null"
+		CLASS
+			NAME "parques"
+			#EXPRESSION ('[tipo]' = 'PARQUE')
+			SIZE 3
+			#OUTLINECOLOR 90 130 85 
+			COLOR 212 234 179  
+			#TEXT '[etiqueta]'
+			LABEL
+				COLOR 0 0 0 
+				#OUTLINECOLOR 0 0 0 
+				TYPE TRUETYPE
+				ANGLE AUTO   
+				#ANTIALIAS ON
+				FONT lucida 
+				SIZE 7 
+				#BUFFER 1
+				MAXSIZE 7 
+				#MINDISTANCE 500
+				MINFEATURESIZE 1 
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE 
+			END
+
+		END
+
+
+	END
+
+	LAYER # Hidrograf�a
+		NAME "hidrografia"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Hidrograf�a"  ##required
+                        "wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=hidrografia"
+		CONNECTIONTYPE OGR
+		DATA "hidrografia"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		CLASS
+			NAME "Hidrograf�a"
+			SIZE 2
+			#OUTLINECOLOR 98 130 193
+			COLOR 114 187 224 
+		END
+
+	END
+
+	LAYER # Avenidas y Boulevares
+		NAME "avenidas_y_boulevares"		
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		PROCESSING 'LABEL_NO_CLIP=ON'
+		METADATA
+               		"wms_title"    "Avenidas y Boulevares"  ##required
+               		"wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		#CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=v_centro_de_manzanas2"
+		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=vejes"
+		CONNECTIONTYPE OGR
+			#DATA "v_centro_de_manzanas2"
+			DATA "vejes"
+			STATUS ON
+			TYPE LINE
+			#POSTLABELCACHE OFF
+			#LABELCACHE ON
+			#LABELITEM "[nombre_abrev]"
+			#FILTERITEM "tipo"
+			#PROCESSING "NATIVE_FILTER=se_row_id>0"
+			PROCESSING "NATIVE_FILTER=tipo='AV' OR tipo='BV'"
+			MINSCALE 20000.0
+			MAXSCALE 0
+			#SIZEUNITS pixels 
+			CLASS
+				NAME "centro" #SYMBOL "LineaGrosor"
+				TEXT "[nombre_abrev]"
+				#TEXT "[valor]"
+				STYLE
+				  WIDTH 2
+				  COLOR 255 255 255 
+				END
+				
+			LABEL
+				COLOR 128 128 128 
+				OUTLINECOLOR 255 255 255 
+				TYPE TRUETYPE
+				ANGLE AUTO #[ANGULO]  
+				#ANTIALIAS ON
+				FONT lucida 
+				SIZE 6 
+				BUFFER 1
+				MAXSIZE 7 
+				MINDISTANCE 500
+				MINFEATURESIZE 2
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE 
+				END
+			END
+			
+		END
+
+		LAYER # Segmentos de calle
+			NAME "segmentos_de_calle"
+			PROCESSING "CLOSE_CONNECTION=DEFER"
+			METADATA
+				"wms_title"    "Segmentos de calle"  ##required
+				"wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+				"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+				"gml_include_items" "nombre,codigo,altdesizq,althasizq,altdesder,althasder,letra,bis,proyecto,numeracion,categoria"
+				"wms_include_items" "nombre,codigo,altdesizq,althasizq,altdesder,althasder,letra,bis,proyecto,numeracion,categoria"
+			END
+			PROJECTION
+			"init=epsg:22185"
+			END
+			CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=vejes"
+			CONNECTIONTYPE OGR
+			DATA "vejes"
+		STATUS ON
+		TYPE LINE
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		MAXSCALE 15000.0
+		DUMP TRUE
+		TEMPLATE "content_ejes_template.html"
+		HEADER "header_plano_base_template.html"
+		FOOTER "footer_plano_base_template.html"
+		TOLERANCEUNITS PIXELS
+		TOLERANCE 5
+		CLASS
+			NAME "Segmentos de calle"
+			STYLE
+				WIDTH 0 # 2
+				OUTLINECOLOR 255 255 255
+				COLOR 255 255 255 
+			END
+		END
+
+	END
+
+	LAYER # Sentidos de calle
+                NAME "sentidos_de_calle"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+		      "wms_title"    "Sentidos de calles"  ##required
+		      "wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+		      "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		END
+                CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=sentidos"
+                CONNECTIONTYPE OGR
+                DATA "sentidos"
+                STATUS ON
+                TYPE LINE
+                POSTLABELCACHE OFF
+                LABELCACHE ON
+                CLASSITEM "norsen1"
+                MAXSCALE 15000.0
+                CLASS
+                        NAME "Doble"
+                       # EXPRESSION ('[norsen1]' = '3')
+                       # SYMBOL "arrowdoble"
+			STYLE
+                        WIDTH 0
+                        COLOR 45 45 255
+			END
+                END
+
+
+                CLASS
+                        NAME "Descendente"
+                     #   EXPRESSION ('[norsen1]' = '2')
+                     #   SYMBOL "arrowdesc"
+                        SIZE 14
+                        COLOR 45 45 255
+                END
+
+
+                CLASS
+                        NAME "Ascendente"
+                      #  EXPRESSION ('[norsen1]' = '1')
+                      #  SYMBOL "arrowasc"
+                        SIZE 14
+                        COLOR 45 45 255
+                END
+
+
+                CLASS
+                        NAME "Peatonal"
+                      #  EXPRESSION ('[norsen1]' = '0')
+                      #  SYMBOL "peatonal"
+                        SIZE 0
+                        COLOR 0 0 255
+                END
+
+        END
+
+
+	LAYER # V�a Ferroviaria
+		NAME "via_ferroviaria"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "V�a Ferroviaria"  ##required
+                        "wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=vias_ffcc"
+		CONNECTIONTYPE OGR
+		DATA "vias_ffcc"
+		STATUS ON
+		TYPE LINE
+		POSTLABELCACHE OFF
+		MINSCALE 0.0
+		MAXSCALE 50000.0
+		CLASS
+			NAME "V�a Ferroviaria"
+			STYLE
+				SYMBOL "poligono_transparente"
+				SIZE 1
+				COLOR 215 215 215   
+			END
+
+		END
+
+	END
+
+	LAYER # Puentes
+		NAME "puentes"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Puentes"  ##required
+                        "wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=puentes_y_aliviadores"
+		CONNECTIONTYPE OGR
+		DATA "puentes_y_aliviadores"
+		STATUS ON
+		TYPE LINE
+		POSTLABELCACHE OFF
+		MINSCALE 0.0
+		MAXSCALE 20000.0
+		CLASS
+			NAME "Puentes"
+			STYLE
+				SYMBOL "LineaGrosor"
+				SIZE 2
+				COLOR 255 204 153 
+			END
+			STYLE
+				SYMBOL "LineaGrosor"
+				SIZE 1
+				COLOR 255 204 153 
+			END
+		END
+
+	END
+
+	LAYER # Islas del Paran�
+		NAME "islas_del_parana"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Islas del Paran�"  ##required
+                        "wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=islas"
+		CONNECTIONTYPE OGR
+		DATA "islas"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		#GROUP ""
+
+		CLASS
+			NAME "Islas del Paran�"
+			SIZE 2
+			OUTLINECOLOR 184 169 143
+			COLOR 239 235 225
+		END
+
+	END
+
+	LAYER # Bancos de Arena
+		NAME "bancos_de_arena"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Bancos de Arena"  ##required
+                        "wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=bancos_de_arena"
+		CONNECTIONTYPE OGR
+		DATA "bancos_de_arena"
+		STATUS ON
+		TYPE POLYGON
+		#GROUP ""
+
+		CLASS
+			NAME "Bancos de Arena"
+			SIZE 0
+			OUTLINECOLOR 153 153 0
+			COLOR 255 255 204
+		END
+
+	END
+
+	LAYER # Autopistas
+		NAME "autopistas"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Autopistas"  ##required
+                        "wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=autopistas"
+		CONNECTIONTYPE OGR
+		DATA "autopistas"
+		STATUS ON
+		TYPE POLYGON
+		MINSCALE 0.0
+		CLASS
+			NAME "Autopistas"
+			SIZE 0
+			OUTLINECOLOR 232 206 145 
+			COLOR 244 195 145 
+		END
+
+	END
+
+	LAYER # nombres_de calles 
+		NAME "nombres_de_calles"		
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		PROCESSING 'LABEL_NO_CLIP=ON'
+		METADATA
+               		"wms_title"    "nombres_de_calles"  ##required
+               		"wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=vejes"
+		CONNECTIONTYPE OGR
+			DATA "vejes"
+			STATUS ON
+			TYPE LINE
+			#POSTLABELCACHE OFF
+			#LABELCACHE ON
+			#LABELITEM "[nombre_abrev]"
+			#FILTERITEM "tipo"
+			PROCESSING "NATIVE_FILTER=se_row_id>0"
+			#PROCESSING "NATIVE_FILTER=tipo='AV' OR tipo='BV'"
+			#MINSCALE 10000.0
+			MAXSCALE 20000
+			#SIZEUNITS pixels 
+			CLASS
+				NAME "centro" #SYMBOL "LineaGrosor"
+				TEXT "[nombre_abrev]"
+				#TEXT "[valor]"
+				STYLE
+				  WIDTH 0
+				  COLOR 255 255 255 
+				END
+				
+			LABEL
+				COLOR 128 128 128 
+				OUTLINECOLOR 255 255 255 
+				TYPE TRUETYPE
+				ANGLE AUTO #[ANGULO]  
+				#ANTIALIAS ON
+				FONT lucida 
+				SIZE 7 
+				BUFFER 1
+				MAXSIZE 7 
+				MINDISTANCE 500
+				MINFEATURESIZE 2
+				PARTIALS OFF
+				POSITION CC
+				FORCE FALSE 
+				END
+			END
+			
+	END
+
+
+	LAYER # Numeraci�n de Calles
+		NAME "numeracion_de_calles"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+                PROCESSING 'LABEL_NO_CLIP=ON'
+		METADATA
+               		"wms_title"    "Numeraci�n de Calles"  ##required
+                        "wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=numeracion_calles"
+		CONNECTIONTYPE OGR
+		DATA "numeracion_calles"
+		STATUS ON
+		TYPE LINE
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		#LABELITEM "etiqueta"
+		MINSCALE 0.0
+		MAXSCALE 20000.0
+		#SIZEUNITS meters
+		CLASS
+			TEXT '[etiqueta]'
+			STYLE
+			WIDTH 0
+			COLOR 255 255 255 
+			#GROUP "default"
+			END
+
+		LABEL
+			COLOR 92 92 92 
+			OUTLINECOLOR 255 255 255
+			TYPE TRUETYPE
+			ANGLE AUTO
+			ANTIALIAS ON
+			FONT lucida
+			SIZE 6
+			BUFFER 0
+			MAXSIZE 6
+			MINDISTANCE 800
+			PARTIALS OFF
+			POSITION UC
+			FORCE FALSE
+			END
+		END
+		
+
+	END
+
+	LAYER # N�meros de Manzana
+		NAME "numeros_de_manzana"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		PROCESSING 'LABEL_NO_CLIP=ON'
+		METADATA
+               		"wms_title"    "N�meros de Manzana"  ##required
+                        "wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+	      	PROJECTION
+      		"init=epsg:22185"
+		END
+		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=manzanas"
+		CONNECTIONTYPE OGR
+		DATA "manzanas"
+		STATUS ON
+		TYPE POLYGON
+		POSTLABELCACHE OFF
+		LABELCACHE ON
+		#LABELITEM "seccion"
+		MINSCALE 0.0
+		MAXSCALE 8000.0
+		CLASS
+			NAME "N�meros de Manzana"
+			SIZE 0
+			COLOR 255 204 153
+		LABEL
+			COLOR 0 0 0
+			OUTLINECOLOR 255 255 255
+			TYPE TRUETYPE
+			ANGLE AUTO
+			ANTIALIAS ON
+			FONT lucida
+			SIZE 7
+			BUFFER 0
+			MAXSIZE 7
+			MINDISTANCE 0
+			PARTIALS OFF
+			POSITION CC
+			FORCE FALSE
+			END
+		END
+
+	END
+
+
+	LAYER # Limite Municipio
+		DEBUG 0
+        	NAME "limite_municipio"
+		PROCESSING "CLOSE_CONNECTION=DEFER"
+		METADATA
+               		"wms_title"    "Limite Municipio"  ##required
+			"wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187" 
+			"wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+       		END
+        	PROJECTION
+               		"init=epsg:22185"
+        	END
+		#CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=limite_rosario"
+		#CONNECTIONTYPE OGR
+		DATA "/home/aricagn0/limite_rosario_polygon.shp"
+		STATUS ON
+		TYPE POLYGON 
+		CLASS
+			NAME "Limite Municipio"
+			STYLE
+			   WIDTH 1
+			   SIZE 3
+			   OUTLINECOLOR 192 192 192 
+			   COLOR 255 255 255 
+			END
+		END
+	END
+
+LAYER # Distritos Descentralizados
+    NAME "distritos_descentralizados"
+    #DEBUG 5
+    METADATA
+	    "wms_title"    "Distritos Descentralizados"  ##required
+	    "wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+	    "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+    END
+    PROJECTION
+	    "init=epsg:22185"
+    END
+    CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=distritos_descentralizados"
+    CONNECTIONTYPE OGR
+    PROCESSING "CLOSE_CONNECTION=DEFER" 
+    PROCESSING 'LABEL_NO_CLIP=ON'
+    DATA "distritos_descentralizados"
+    STATUS ON
+    TYPE POLYGON
+    POSTLABELCACHE OFF
+    LABELCACHE ON
+    #LABELITEM "distrito"
+
+    CLASS
+	    NAME "Distrito Oeste"
+	    #EXPRESSION ('[mslink_odb]'='6')
+
+	    LABEL
+		    COLOR 0 0 0
+		    #BACKGROUNDCOLOR 192 192 192
+		    TYPE TRUETYPE
+		    ANGLE AUTO
+		    ANTIALIAS ON
+		    FONT lucida
+		    SIZE 7
+		    BUFFER 0
+		    MAXSIZE 7
+		    #MINDISTANCE 150
+		    #MINFEATURESIZE 25
+		    PARTIALS OFF
+		    POSITION CC
+		    FORCE TRUE
+	    END
+
+	    STYLE 
+		    SIZE 0
+		    OUTLINECOLOR 192 192 192 
+		    COLOR 255 255 255 
+	    END
+    END
+
+  
+
+END
+ 
+        LAYER # Limite Metropolitana 
+                NAME "limites_metropolitana"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                        "wms_title"    "Limites Metropolitana"  ##required
+                        "wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                #CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=metro_limite"
+                #CONNECTIONTYPE OGR
+                DATA "/home/aricagn0/metropolitana/limites.shp"
+                STATUS ON
+                TYPE LINE
+                CLASS
+                        NAME "Limites Metropolitana"
+			STYLE
+                           WIDTH 0
+                           OUTLINECOLOR 193 193 193 
+                           COLOR 193 193 193 
+			END
+                END
+        END
+
+        LAYER # Manzanas Metropolitana
+                NAME "manzanas_metropolitana"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                        "wms_title"    "Manzanas Metropolitana2"  ##required
+                        "wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                #CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=metro_manzanas"
+                #CONNECTIONTYPE OGR
+                DATA "/home/aricagn0/metropolitana/manzanas.shp"
+                STATUS ON
+                TYPE LINE
+		#SIZEUNITS meters
+                CLASS
+                        NAME "Manzanas Metropolitana"
+                        STYLE
+				WIDTH 0.6
+                        	OUTLINECOLOR 192 192 192 
+                        	#COLOR 192 192 192 
+			END
+                END
+        END
+
+        LAYER # Rural Metropolitana
+                NAME "rural_metropolitana"
+                PROCESSING "CLOSE_CONNECTION=DEFER"
+                METADATA
+                        "wms_title"    "Rural Metropolitana"  ##required
+                        "wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+                        "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                #CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=metro_rural"
+                #CONNECTIONTYPE OGR
+                DATA "/home/aricagn0/metropolitana/rural.shp"
+                STATUS ON
+                TYPE LINE
+                CLASS
+                      NAME "Rural Metropolitana "
+                        STYLE
+				WIDTH 0.5
+                        	OUTLINECOLOR 204 204 204 
+                        	#COLOR 192 192 192 
+			END
+
+                END
+        END
+
+
+
+
+ 
+LAYER
+  NAME "OSM"
+  TYPE RASTER
+  STATUS ON
+  CONNECTION "http://ows.terrestris.de/osm/service?VERSION=1.1.1&layers=OSM-Overlay-WMS&styles=default&format=image/png&"
+  CONNECTIONTYPE WMS
+  METADATA
+    "wms_srs"             "EPSG:3857"
+    "wms_name"            "OSM-Overlay-WMS"
+    "wms_server_version"  "1.1.1"
+    "wms_format"          "image/png"
+  END
+END
+
+END

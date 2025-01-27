@@ -1,0 +1,386 @@
+SYMBOL
+	NAME 'triangle'
+	TYPE VECTOR
+	FILLED TRUE
+	POINTS
+		0 1
+		.5 0
+		1 1
+		0 1
+	END
+END
+
+SYMBOL
+	NAME 'square'
+	TYPE VECTOR
+	FILLED TRUE
+	POINTS
+		0 1
+		0 0
+		1 0
+		1 1
+		0 1
+	END
+END
+
+SYMBOL
+	NAME "star"
+	TYPE vector
+	FILLED TRUE
+	POINTS
+		81 48
+		66 0
+		50 48
+		0 48
+		41 77
+		25 125
+		66 96
+		106 125
+		91 77
+		131 48
+		81 48
+	END 
+END
+
+SYMBOL
+  NAME 'LineaGrosor'
+  TYPE ELLIPSE
+  POINTS 1 1 END
+  FILLED TRUE
+#  STYLE 10 5 5 10 END
+END
+
+SYMBOL
+  NAME 'Dashed_r'
+  TYPE ELLIPSE
+  POINTS 1 1 END
+  FILLED TRUE
+  STYLE 7 7 END
+END
+SYMBOL
+  NAME 'Dashed'
+  TYPE ELLIPSE
+  POINTS 1 1 END
+  FILLED TRUE
+  STYLE 7 7 END
+END
+
+SYMBOL   
+  NAME "ddfill"
+  TYPE vector
+  TRANSPARENT 0
+	FILLED false
+  POINTS
+    0 1
+    1 0
+  END   
+END
+
+SYMBOL
+  NAME "estrellaRoja"
+  TYPE PIXMAP
+  IMAGE "sol.png"
+END
+
+SYMBOL
+  NAME "geocode"
+  TYPE PIXMAP
+  IMAGE "punto8.png"
+END
+
+SYMBOL
+  NAME "consulta1" # Aire Libre
+  TYPE PIXMAP
+  IMAGE "ico_1.png"
+END
+
+SYMBOL
+  NAME "consulta1_r" # Aire Libre
+  TYPE PIXMAP
+  IMAGE "ico_1_r.png"
+END
+
+SYMBOL
+  NAME 'consulta24' # TIP
+  TYPE ELLIPSE
+  POINTS 1 1 END
+  FILLED TRUE
+#  STYLE 10 5 5 10 END
+END
+
+SYMBOL
+  NAME 'consulta24_r' # TIP
+  TYPE ELLIPSE
+  POINTS 1 1 END
+  FILLED TRUE
+#  STYLE 10 5 5 10 END
+END
+
+SYMBOL
+  NAME 'consulta2' # TUP
+  TYPE ELLIPSE
+  POINTS 1 1 END
+  FILLED TRUE
+#  STYLE 10 5 5 10 END
+END
+
+SYMBOL
+  NAME 'consulta2_r' # TUP
+  TYPE ELLIPSE
+  POINTS 1 1 END
+  FILLED TRUE
+#  STYLE 10 5 5 10 END
+END
+
+SYMBOL
+  NAME "consulta3" # Salud
+  TYPE PIXMAP
+  IMAGE "ico_3.png"
+END
+
+SYMBOL
+  NAME "consulta3_r" # Salud
+  TYPE PIXMAP
+  IMAGE "ico_3_r.png"
+END
+
+SYMBOL
+  NAME "consulta4" # Recreacion y Deportes
+  TYPE PIXMAP
+  IMAGE "ico_4.png"
+END
+
+SYMBOL
+  NAME "consulta4_r" # Recreacion y Deportes
+  TYPE PIXMAP
+  IMAGE "ico_4_r.png"
+END
+
+SYMBOL
+  NAME "consulta5" # Cultura
+  TYPE PIXMAP
+  IMAGE "ico_5.png"
+END
+
+SYMBOL
+  NAME "consulta5_r" # Cultura
+  TYPE PIXMAP
+  IMAGE "ico_5_r.png"
+END
+
+SYMBOL
+  NAME "consulta6" # Distraccion
+  TYPE PIXMAP
+  IMAGE "ico_6.png"
+END
+
+SYMBOL
+  NAME "consulta6_r" # Distraccion
+  TYPE PIXMAP
+  IMAGE "ico_6_r.png"
+END
+
+SYMBOL
+  NAME "consulta7" # Entes Municipales Descentralizados
+  TYPE PIXMAP
+  IMAGE "ico_7.png"
+END
+
+SYMBOL
+  NAME "consulta7_r" # Entes Municipales Descentralizados
+  TYPE PIXMAP
+  IMAGE "ico_7_r.png"
+END
+
+SYMBOL
+  NAME "consulta8" # Educacion
+  TYPE PIXMAP
+  IMAGE "ico_8.png"
+END
+
+SYMBOL
+  NAME "consulta8_r" # Educacion
+  TYPE PIXMAP
+  IMAGE "ico_8_r.png"
+END
+
+SYMBOL
+  NAME "consulta9" # Hospedaje
+  TYPE PIXMAP
+  IMAGE "ico_9.png"
+END
+
+SYMBOL
+  NAME "consulta9_r" # Hospedaje
+  TYPE PIXMAP
+  IMAGE "ico_9_r.png"
+END
+
+SYMBOL
+  NAME "consulta11" # Justicia
+  TYPE PIXMAP
+  IMAGE "ico_11.png"
+END
+
+SYMBOL
+  NAME "consulta11_r" # Justicia
+  TYPE PIXMAP
+  IMAGE "ico_11_r.png"
+END
+
+SYMBOL
+  NAME "consulta12" # Seguridad
+  TYPE PIXMAP
+  IMAGE "ico_12.png"
+END
+
+SYMBOL
+  NAME "consulta12_r" # Seguridad
+  TYPE PIXMAP
+  IMAGE "ico_12_r.png"
+END
+
+SYMBOL
+  NAME "consulta13" # Servicio
+  TYPE PIXMAP
+  IMAGE "ico_13.png"
+END
+
+SYMBOL
+  NAME "consulta13_r" # Servicio
+  TYPE PIXMAP
+  IMAGE "ico_13_r.png"
+END
+SYMBOL   
+  NAME "infoPoligono"
+  TYPE vector
+  TRANSPARENT 0
+  FILLED FALSE
+  POINTS
+    0 1
+    1 0
+  END   
+END
+
+SYMBOL
+  NAME 'infoLinea'
+  TYPE ELLIPSE
+  POINTS 1 1 END
+  FILLED TRUE
+#  STYLE 10 5 5 10 END
+END
+
+Symbol 
+	NAME 'circle' 
+	TYPE ellipse 
+	FILLED true 
+	POINTS 
+		1 1 
+	END 
+END 
+
+Symbol 
+	NAME 'circle0' 
+	TYPE ellipse 
+	FILLED true 
+	POINTS 
+		0 1 
+		1 0 
+	END 
+END 
+
+Symbol 
+	NAME 'dcircle' 
+	TYPE Ellipse 
+	FILLED TRUE 
+	POINTS
+		1 1
+	END 
+	STYLE
+		1 3
+	END 
+END 
+
+
+SYMBOL
+	NAME 'cross'
+	TYPE VECTOR
+	POINTS
+		2 0
+		2 4
+		-99 -99
+		0 2
+		4 2
+	END
+	STYLE 1 16 END
+END
+
+Symbol
+	NAME "poligono_transparente"
+	Type VECTOR
+	TRANSPARENT 0
+	Points
+		0 0
+		1 1
+	END
+END
+
+SYMBOL 
+	NAME "star"
+	TYPE vector
+	FILLED TRUE
+	POINTS
+		81 48
+		66 0
+		50 48
+		0 48
+		41 77
+		25 125
+		66 96
+		106 125
+		91 77
+		131 48
+		81 48
+	END 
+END 
+
+SYMBOL
+	ANTIALIAS true
+	FILLED true
+	NAME "arrow"
+	TYPE truetype
+	FONT wd
+	CHARACTER "&#61672;"
+	GAP -100
+	#TRANSPARENT OFF
+END
+Symbol 
+	NAME "poligono_grueso" 
+	TYPE ELLIPSE 
+	FILLED TRUE 
+	POINTS 1 1 END
+END
+Symbol 
+	NAME "arrowasc" 
+	TYPE truetype 
+	FONT lucida GAP -60 
+	CHARACTER ">" 
+END
+Symbol 
+	NAME "arrowdesc" 
+	TYPE truetype 
+	FONT lucida GAP -60 
+	CHARACTER "<" 
+END
+Symbol 
+	NAME "arrowdoble" 
+	TYPE truetype 
+	FONT lucida GAP -60 
+	CHARACTER "<->" 
+END
+Symbol 
+	NAME "peatonal" 
+	TYPE truetype 
+	FONT lucida GAP -2 
+	CHARACTER "#" 
+END

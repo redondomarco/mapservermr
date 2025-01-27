@@ -1,0 +1,73 @@
+ <!-- MapServer Template -->
+
+      <tr style='background-color: #00ACEC;'>
+        <td colspan="2" style='color:#FFFFFF;'>[metadata_wms_title] : [lrn]</td>
+      </tr>
+      <tr style='background-color: #666666;'>
+        <td colspan="2" style='color:#FFFFFF;'>Datos Pesonales</td>
+      </tr>
+      
+      <tr>
+       <td>Nombre:</td>
+       <td> [item name=APELL format=$value escape=none]</td>
+      </tr>
+      
+      <tr>
+       <td>Documento:</td>
+       <td> [item name=DOC  format=$value escape=none] - [item name=NDO  format=$value escape=none]</td>
+      </tr>
+    
+      <tr>
+       <td>Domicilio de Residencia:</td>
+       <td> [item name=Name format=$value escape=none]&nbsp;[item name=RES_LOCALI format=$value escape=nome]</td>
+      </tr>
+     
+      <tr>
+       <td>Edad:[item name=EDAD format=$value escape=none]</td>
+       <td>Sexo: [item name=ID_SEXO pattern="1" format="V" nullformat="M"  escape="none"]</td>
+      </tr>
+
+      <tr style='background-color: #666666;'>
+        <td colspan="2" style='color:#FFFFFF;'>Datos del Hecho</td>
+      </tr>
+
+      <tr>
+       <td>Domicilio del hecho:</td><td>[item name=LUG format=$value escape=none]</td>
+      </tr>
+
+      <tr>
+       <td>Fecha defunci&oacute;n:</td><td>[item name=FDEF format=$value escape=none]</td>
+      </tr>
+
+      <tr>
+       <td>Mecanismo:</td><td>[item name=MECANISMO format=$value escape=none]</td>
+      </tr>
+
+      <tr>
+       <td>Noticias:</td><td><a href="[item name=LINK format=$value escape=none]" target="_blank">[item name=LINK format="LINK" nullformat="" scape=none]</a> <a href="[item name=LINK2 format=$value escape=none]" target="_blank">[item name=LINK2 format="LINK2" nullformat="" scape=none]</a> <a href="[item name=LINK3 format=$value escape=none]" target="_blank">[item name=LINK3 format="LINK3" nullformat="" scape=none]</a> <a href="[item name=LINK4 format=$value escape=none]" target="_blank">[item name=LINK4 format="LINK4" nullformat="" scape=none]</a></td>
+      </tr>
+      
+      <tr>
+       <td>Motivo:</td><td>[item name=MOTIVO_APA format=$value escape=none]</td>
+      </tr>
+
+      <tr style='background-color: #666666;'>
+        <td colspan="2" style='color:#FFFFFF;'>Contactos institucionales</td>
+      </tr>
+
+      <tr>
+        <td>Inclusi&oacute;n:[item name=INCLUSION pattern="1" format="Si" nullformat="No"  escape="none"]</td>
+       <td>Intervenci&oacute;n Directa:[item name=INTERVDIRE pattern="1" format="Si" nullformat="No"  escape="none"]</td>
+      </tr>
+       <tr>
+        <td>Seg. Alimentaria:[item name=SEG_ALIMEN pattern="1" format="Si" nullformat="No"  escape="none"]</td>
+      </tr>
+
+      <tr>
+        <td>Capacitaci&oacute;n:[item name=CAPAC pattern="1" format="Si" nullformat="No"  escape="none"]</td><td> [item name=DES_CAPAC  format=$value escape="none"]</td>
+      </tr>
+
+     <tr>
+        <td>Empleo:[item name=EMPLEO pattern="1" format="Si" nullformat="No"  escape="none"]</td><td> [item name=DES_EMPLEO  format=$value escape="none"]</td>
+      </tr>
+<!-- Fin del templata -->

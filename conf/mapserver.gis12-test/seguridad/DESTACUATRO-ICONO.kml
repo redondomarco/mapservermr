@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+	<name>DESTACUATRO-ICONO.kmz</name>
+	<Style id="sh_polygon">
+		<IconStyle>
+			<color>ffffff55</color>
+			<scale>1.4</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/polygon.png</href>
+			</Icon>
+		</IconStyle>
+	</Style>
+	<Style id="sn_polygon">
+		<IconStyle>
+			<color>ffffff55</color>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/polygon.png</href>
+			</Icon>
+		</IconStyle>
+	</Style>
+	<StyleMap id="msn_polygon">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_polygon</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_polygon</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark>
+		<name>DESTACUATRO</name>
+		<LookAt>
+			<longitude>-60.63580510478754</longitude>
+			<latitude>-33.03069899622003</latitude>
+			<altitude>0</altitude>
+			<range>5460.415567144425</range>
+			<tilt>29.07867619175845</tilt>
+			<heading>-3.588071718785092</heading>
+			<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+		</LookAt>
+		<styleUrl>#msn_polygon</styleUrl>
+		<Point>
+			<coordinates>-60.62410673959854,-33.03261789782857,0</coordinates>
+			<gx:drawOrder>1</gx:drawOrder>
+		</Point>
+	</Placemark>
+</Document>
+</kml>

@@ -1,0 +1,557 @@
+MAP
+NAME WFS-Rosario 
+#EXTENT 5422163.0 6344000.0 5446837.0 6364000.0
+EXTENT -180 -90 180 90
+UNITS METERS
+FONTSET "/etc/mapserver/fonts.list.example"
+IMAGECOLOR 255 255 255 
+RESOLUTION 72
+TRANSPARENT ON
+SHAPEPATH "/geodata/"
+SYMBOLSET "/etc/mapserver/infomapas.sym"
+
+WEB
+	IMAGEPATH "/var/www/mapserver/"
+	
+	IMAGEURL "mapserver/"
+        METADATA
+            "wfs_title"  "WFS-Rosario DKAN"  ##required
+            "wfs_abstract" "WFS-Rosario DKAN"	
+            "wfs_onlineresource" "http://127.0.0.1/wfs/dkanm&"
+	    "wfs_srs" "EPSG:4326"
+	    "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+	    "wfs_getfeature_formatlist" "gml"
+	    "wfs_encoding" "UTF-8"
+        END
+
+END
+
+PROJECTION
+  "init=epsg:22185"   ##required
+END	
+
+
+        #################################################################################
+	### LUGARES DE INETERES
+	#################################################################################
+	LAYER  #COMUNICACION lugares de interes
+                NAME "lugares_de_interes_todos"
+                METADATA
+                        "wfs_title"    "lugares_de_interes_todos" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+		DATA "SELECT * FROM lugares_gis" # where id_lugar_tipo = 1 and id_lugar_sub_tipo in (1,2,5)
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+
+	LAYER  #COMUNICACION lugares de interes
+                NAME "parques_parques_tematicos_y_paseos"
+                METADATA
+                        "wfs_title"    "parques_parques_tematicos_y_paseos" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 1 and id_lugar_sub_tipo in (1,2,5)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+
+	LAYER  #COMUNICACION lugares de interes
+                NAME "plazas"
+                METADATA
+                        "wfs_title"    "plazas" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 1 and id_lugar_sub_tipo in (33)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "centros_municipales_de_distrito"
+                METADATA
+                        "wfs_title"    "centros_municipales_de_distrito" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 2 and id_lugar_sub_tipo in (34)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "areas_de_servicios_urbanos"
+                METADATA
+                        "wfs_title"    "areas_de_servicios_urbanos" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 2 and id_lugar_sub_tipo in (35)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "centros_culturales"
+                METADATA
+                        "wfs_title"    "centros_culturales" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 3 and id_lugar_sub_tipo in (16)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "museos"
+                METADATA
+                        "wfs_title"    "museos" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 3 and id_lugar_sub_tipo in (39)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "teatros_y_cines"
+                METADATA
+                        "wfs_title"    "teatros_y_cines" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 3 and id_lugar_sub_tipo in (14,40)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "clubes"
+                METADATA
+                        "wfs_title"    "clubes" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 4 and id_lugar_sub_tipo in (7)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "predios_de_recreacion"
+                METADATA
+                        "wfs_title"    "predios_de_recreacion" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 4 and id_lugar_sub_tipo in (42)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "asociaciones_deportivas"
+                METADATA
+                        "wfs_title"    "asociaciones_deportivas" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 4 and id_lugar_sub_tipo in (125)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "espacios_de_movimiento_deportivo"
+                METADATA
+                        "wfs_title"    "espacios_de_movimiento_deportivo" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 4 and id_lugar_sub_tipo in (138)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "hospitales_y_centros_de_salud"
+                METADATA
+                        "wfs_title"    "hospitales_y_centros_de_salud" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 10 and id_lugar_sub_tipo in (22,80,94)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "vecinales"
+                METADATA
+                        "wfs_title"    "vecinales" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 8 and id_lugar_sub_tipo in (53)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "policias_denuncias_guardias_bomberos_y_otros"
+                METADATA
+                        "wfs_title"    "policias_denuncias_guardias_bomberos_y_otros" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 11" # and id_lugar_sub_tipo in (87,28)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "centros_de_convivencia_barrial"
+                METADATA
+                        "wfs_title"    "centros_de_convivencia_barrial" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 12 and id_lugar_sub_tipo in (100)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "organismos_judiciales"
+                METADATA
+                        "wfs_title"    "organismos_judiciales" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where (id_lugar_tipo = 9 and id_lugar_sub_tipo in (25,74)) #or (id_lugar_tipo = 11 and id_lugar_sub_tipo in (141)) "
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+
+
+
+        #################################################################################
+	###  EQUIPAMIETO URBANO - GESU
+	#################################################################################
+
+
+   
+	LAYER  #EQUIPAMIENTO 
+                NAME "wifi"
+                METADATA
+                        "wfs_title"    "wifi" ## REQUIRED
+                        "gml_featureid" "id" ## REQUIRED
+                        "wfs_featureid" "id"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:gesu,host=lamp1-test,user=dmapserver,password=dmap1234,tables=equipamiento_gis'
+		DATA "SELECT id,tipo,clasificacion,descripcionresumida,responsable,calle,altura,letra,bis,coordenadax,coordenaday,the_geom FROM equipamiento_gis where idtipo = 37" 
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes1
+                NAME "islas_de_separacion"
+                METADATA
+                        "wfs_title"    "islas_de_separacion" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:gesu,host=lamp1-test,user=dmapserver,password=dmap1234,tables=equipamiento_gis'
+		DATA "SELECT id,tipo,clasificacion,descripcionresumida,responsable,calle,altura,letra,bis,coordenadax,coordenaday,the_geom FROM equipamiento_gis where idtipo = 14 AND idclasificacion=4 AND estado = 5" 
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END	
+	LAYER  #COMUNICACION lugares de interes2
+                NAME "centros_de_recepcion"
+                METADATA
+                        "wfs_title"    "centros_de_recepcion" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:gesu,host=lamp1-test,user=dmapserver,password=dmap1234,tables=equipamiento_gis'
+		DATA "SELECT id,tipo,clasificacion,descripcionresumida,responsable,calle,altura,letra,bis,coordenadax,coordenaday,the_geom FROM equipamiento_gis where idtipo = 14 AND idclasificacion in (3,10) AND estado = 5" 
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes3
+                NAME "contenedores_de_residuos_domiciliarios"
+                METADATA
+                        "wfs_title"    "contenedores_de_residuos_domiciliarios" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:gesu,host=lamp1-test,user=dmapserver,password=dmap1234,tables=equipamiento_gis'
+		DATA "SELECT id,tipo,clasificacion,descripcionresumida,responsable,calle,altura,letra,bis,coordenadax,coordenaday,the_geom FROM equipamiento_gis where idtipo = 14 AND idclasificacion NOT IN (3,4,10) AND estado = 5" 
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+
+	LAYER  #COMUNICACION lugares de interes
+                NAME "mercados_y_ferias"
+                METADATA
+                        "wfs_title"    "mercados_y_ferias" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+            		"gml_geometries" "the_geom"
+            		"gml_the_geom_type" "point"
+            		"wfs_srs" "EPSG:4326"    
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+        	DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 3 and id_lugar_sub_tipo in (134)"
+                STATUS ON
+                TYPE point
+                DUMP TRUE
+	END
+
+
+END

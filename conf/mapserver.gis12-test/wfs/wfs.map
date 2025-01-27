@@ -1,0 +1,1846 @@
+MAP
+NAME WFS-Rosario 
+#EXTENT 5422163.0 6344000.0 5446837.0 6364000.0
+EXTENT -180 -90 180 90
+UNITS METERS
+FONTSET "/etc/mapserver/fonts.list.example"
+IMAGECOLOR 255 255 255 
+RESOLUTION 72
+TRANSPARENT ON
+SHAPEPATH "/geodata/"
+SYMBOLSET "/etc/mapserver/infomapas.sym"
+
+WEB
+	IMAGEPATH "/var/www/mapserver/"
+	
+	IMAGEURL "mapserver/"
+        METADATA
+            "wfs_title"  "WFS-Rosario DKAN"  ##required
+            "wfs_abstract" "WFS-Rosario DKAN"	
+            "wfs_onlineresource" "http://gis2-test.pm.rosario.gov.ar/wfs/dkan&"
+	    "wfs_srs" "EPSG:4326"
+	    "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+	    "wfs_getfeature_formatlist" "gml"
+	    #"wfs_encoding" "UTF-8"
+        END
+
+END
+
+PROJECTION
+  "init=epsg:22185"   ##required
+END	
+
+        #################################################################################
+	### MOVILIDAD
+	#################################################################################
+	LAYER #MOVILIDAD
+		NAME "bicicleteros_playa_de_estacionamiento"
+		METADATA
+			"wfs_title"    "bicicleteros_playa_de_estacionamiento" ## REQUIRED
+	        	"gml_featureid" "se_row_id" ## REQUIRED
+			"wfs_featureid" "se_row_id"
+			"gml_include_items" "all"
+			"wfs_include_items" "all"
+			"wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+                        "gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"
+  	     	END
+	      	PROJECTION
+      			"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from emr_bicicleteros_playa USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE point 
+		DUMP TRUE
+		#FILTER "red_jerarq = 1"
+	END
+	LAYER #MOVILIDAD
+		NAME "carriles_exclusivos"
+		METADATA
+			"wfs_title"    "carriles_exclusivos" ## REQUIRED
+	        	"gml_featureid" "se_row_id" ## REQUIRED
+			"wfs_featureid" "se_row_id"
+			"gml_include_items" "all"
+			"wfs_include_items" "all"
+			"wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+                        "gml_the_geom_type" "line"
+			"wfs_srs" "EPSG:4326"
+  	     	END
+	      	PROJECTION
+      			"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from emr_carriles_exclusivos USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE line 
+		DUMP TRUE
+		#FILTER "red_jerarq = 1"
+	END
+	LAYER #MOVILIDAD
+		NAME "ciclovias_y_bicisendas"
+		METADATA
+			"wfs_title"    "ciclovias_y_bicisendas" ## REQUIRED
+	        	"gml_featureid" "se_row_id" ## REQUIRED
+			"wfs_featureid" "se_row_id"
+			"gml_include_items" "all"
+			"wfs_include_items" "all"
+			"wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+                        "gml_the_geom_type" "line"
+			"wfs_srs" "EPSG:4326"
+  	     	END
+	      	PROJECTION
+      			"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from emr_ciclovias USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE line 
+		DUMP TRUE
+		#FILTER "CLASE = 'CICLOVIA'"
+	END
+	LAYER #MOVILIDAD
+		NAME "emr_bicisendas"
+		METADATA
+			"wfs_title"    "emr_bicisendas" ## REQUIRED
+	        	"gml_featureid" "se_row_id" ## REQUIRED
+			"wfs_featureid" "se_row_id"
+			"gml_include_items" "all"
+			"wfs_include_items" "all"
+			"wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+                        "gml_the_geom_type" "line"
+			"wfs_srs" "EPSG:4326"
+  	     	END
+	      	PROJECTION
+      			"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from emr_ciclovias USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE line 
+		DUMP TRUE
+		FILTER "CLASE = 'BICISENDA'"
+	END
+	LAYER #MOVILIDAD
+		NAME "estaciones_de_bicicletas_publica"
+		METADATA
+			"wfs_title"    "estaciones_de_bicicletas_publica" ## REQUIRED
+	        	"gml_featureid" "se_row_id" ## REQUIRED
+			"wfs_featureid" "se_row_id"
+			"gml_include_items" "all"
+			"wfs_include_items" "all"
+			"wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+                        "gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"
+  	     	END
+	      	PROJECTION
+      			"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from emr_estaciones_sbp USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE point 
+		DUMP TRUE
+		#FILTER "CLASE = 'BICISENDA'"
+	END
+	LAYER #MOVILIDAD
+		NAME "puntos_recarga_tarjeta_movi"
+		METADATA
+			"wfs_title"    "puntos_recarga_tarjeta_movi" ## REQUIRED
+	        	"gml_featureid" "se_row_id" ## REQUIRED
+			"wfs_featureid" "se_row_id"
+			"gml_include_items" "all"
+			"wfs_include_items" "all"
+			"wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+                        "gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"
+  	     	END
+	      	PROJECTION
+      			"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from emr_puntos_recarga USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE point 
+		DUMP TRUE
+		#FILTER "CLASE = 'BICISENDA'"
+	END
+	LAYER #MOVILIDAD
+		NAME "recorridos_tup"
+		METADATA
+			"wfs_title"    "recorridos_tup" ## REQUIRED
+	        	"gml_featureid" "se_row_id" ## REQUIRED
+			"wfs_featureid" "se_row_id"
+			"gml_include_items" "all"
+			"wfs_include_items" "all"
+			"wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+                        "gml_the_geom_type" "line"
+			"wfs_srs" "EPSG:4326"
+  	     	END
+	      	PROJECTION
+      			"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from tup USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE line 
+		DUMP TRUE
+		#FILTER "CLASE = 'BICISENDA'"
+	END
+	LAYER #MOVILIDAD
+		NAME "paradas_tup"
+		METADATA
+			"wfs_title"    "paradas_tup" ## REQUIRED
+	        	"gml_featureid" "se_row_id" ## REQUIRED
+			"wfs_featureid" "se_row_id"
+			"gml_include_items" "all"
+			"wfs_include_items" "all"
+			"wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+                        "gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"
+  	     	END
+	      	PROJECTION
+      			"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from tup_paradas_ramal USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE point 
+		DUMP TRUE
+		#FILTER "CLASE = 'BICISENDA'"
+	END
+
+
+        #################################################################################
+	### PLANEAMIENTO
+	#################################################################################
+	LAYER #PLANEAMIENTO
+		NAME "red_jerarquica"
+		METADATA
+			"wfs_title"    "red_jerarquica" ## REQUIRED
+	        	"gml_featureid" "se_row_id" ## REQUIRED
+			"wfs_featureid" "se_row_id"
+			"gml_include_items" "all"
+			"wfs_include_items" "all"
+			"wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+                        "gml_the_geom_type" "line"
+			"wfs_srs" "EPSG:4326"
+  	     	END
+	      	PROJECTION
+      			"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from ejes USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE LINE 
+		DUMP TRUE
+		FILTER "red_jerarq = 1"
+	END
+	LAYER #PLANEAMIENTO
+		NAME "zonas_inundables_saladillo"
+		METADATA
+			"wfs_title"    "zonas_inundables_saladillo" ## REQUIRED
+	        	"gml_featureid" "se_row_id" ## REQUIRED
+			"wfs_featureid" "se_row_id"
+			"gml_include_items" "ZONA,SECTOR"
+			"wfs_include_items" "ZONA,SECTOR"
+			"wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+                        "gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"
+  	     	END
+	      	PROJECTION
+      			"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from zona_inundacion USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POLYGON 
+		DUMP TRUE
+	END
+	LAYER #PLANEAMIENTO   #Distritos Urbanos
+		NAME "clasificacion_urbanistica"
+		METADATA
+			"wfs_title"    "clasificacion_urbanistica" ## REQUIRED
+	        	"gml_featureid" "se_row_id" ## REQUIRED
+			"wfs_featureid" "se_row_id"
+			"gml_include_items" "NOMBRE,ETIQUETA,REFERENCIA,NORMA,TIPO"
+			"wfs_include_items" "NOMBRE,ETIQUETA,REFERENCIA,NORMA,TIPO"
+			"wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+                        "gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"
+  	     	END
+	      	PROJECTION
+      			"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from v_codigo_urbano USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POLYGON 
+		DUMP TRUE
+	END
+	LAYER #PLANEAMIENTO  -Zonas Urbanísticas-
+		NAME "areas_urbanisticas"
+		METADATA
+			"wfs_title"    "areas_urbanisticas" ## REQUIRED
+	        	"gml_featureid" "se_row_id" ## REQUIRED
+			"wfs_featureid" "se_row_id"
+			"gml_include_items" "NOMBRE_ZON"
+			"wfs_include_items" "NOMBRE_ZON"
+			"wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+                        "gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"
+  	     	END
+	      	PROJECTION
+      			"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from zonas_urbanisticas USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POLYGON 
+		DUMP TRUE
+	END
+        LAYER  #PLANEAMIENTO
+		NAME "arbolado"
+		METADATA
+			"wfs_title"    "arbolado" ## REQUIRED
+	        	"gml_featureid" "se_row_id" ## REQUIRED
+			"wfs_featureid" "se_row_id"
+			"gml_include_items" "all"
+			"wfs_include_items" "all"
+			"wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+                        "gml_the_geom_type" "line"
+			"wfs_srs" "EPSG:4326"
+  	     	END
+	      	PROJECTION
+      			"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from arbolado_censo USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE LINE 
+		DUMP TRUE
+		#FILTER "red_jerarq = 1"
+
+	END
+	LAYER # PLANEAMIENTO  #"Catálogo de Patrimonio"
+		NAME "valor_patrimonial" #"catalogo_e_inventario"		
+		METADATA
+               	"wms_title"    "valor_patrimonial"  ##required
+	        	"gml_featureid" "se_row_id" ## REQUIRED
+			"wfs_featureid" "se_row_id"
+			"gml_include_items" "APH,GRADO,CATEGORIA,DENOMINA,DIRECCION,UCRONOLOGIA,PERIODOARQ,PROYECTISTA,FECPROYECTO,CONSTRUCTOR,FECCONST"
+			"wfs_include_items" "APH,GRADO,CATEGORIA,DENOMINA,DIRECCION,UCRONOLOGIA,PERIODOARQ,PROYECTISTA,FECPROYECTO,CONSTRUCTOR,FECCONST"
+			"wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+                        "gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"
+       		END
+	      	PROJECTION
+	      		"init=epsg:22195"
+		END
+		CONNECTION "@gis"
+		CONNECTIONTYPE INFORMIXSPATIAL
+		DATA "the_geom from catalogo_cu USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE POLYGON
+		DUMP TRUE
+	END
+	LAYER #PLANEAMIENTO # Zonas Urbanizacion y Subdivision de la tierra (ORD. N<BA>6492/97)
+                NAME "urbanizacion_subdivision_tierra"
+                METADATA
+                    "wms_title"    "Urbanizacion_Subdivision_tierra"  ##required
+	            "gml_featureid" "se_row_id" ## REQUIRED
+		    "wfs_featureid" "se_row_id"
+		    "gml_include_items" "ZONA_DISTR"
+		    "wfs_include_items" "ZONA_DISTR"
+		    "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+		    "gml_geometries" "the_geom"
+                    "gml_the_geom_type" "polygon"
+		    "wfs_srs" "EPSG:4326"
+                END
+                PROJECTION
+                    "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from zonas_urbanizacion USING FILTER"
+                STATUS ON
+                TYPE POLYGON
+		DUMP TRUE
+	END
+
+
+
+        #################################################################################
+	### CATASTRO
+	#################################################################################
+
+        LAYER  #CATASTRO
+                NAME "centros_de_manzanas" 
+                METADATA
+                        "wfs_title"    "centros_de_manzanas" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,VALOR,ETIQUETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,VALOR,ETIQUETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "multiline"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from v_centro_de_manzanas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE LINE 
+                DUMP TRUE
+		#FILTER "seccion = 21"
+        END
+	LAYER #CATASTRO
+		NAME "canteros"
+		METADATA
+			"wfs_title"    "canteros" ## REQUIRED
+	        	"gml_featureid" "se_row_id" ## REQUIRED
+			"wfs_featureid" "se_row_id"
+			"gml_include_items" "MSLINK"
+			"wfs_include_items" "MSLINK"
+			"wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+                        "gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"
+  	     	END
+	      	PROJECTION
+      			"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from canteros USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE polygon
+		DUMP TRUE
+		#FILTER "red_jerarq = 1"
+	END
+	LAYER #CATASTRO
+		NAME "ejes_de_calles"
+		METADATA
+			"wfs_title"    "ejes_de_calles" ## REQUIRED
+	        	"gml_featureid" "se_row_id" ## REQUIRED
+			"wfs_featureid" "se_row_id"
+			"gml_include_items" "MSLINK,NOMBRE,CODCALLE,ALTDESIZQ,ALTHASIZQ,ALTDESDER,ALTHASDER,ALTLETRA,BIS,NUMERACION,CATEGORIA,ANCHO_OF_1,ANCHO_OF_2,PARCIALES_1,PARCIALES_2,RED_JERARQ"
+			"wfs_include_items" "MSLINK,NOMBRE,CODCALLE,ALTDESIZQ,ALTHASIZQ,ALTDESDER,ALTHASDER,ALTLETRA,BIS,NUMERACION,CATEGORIA,ANCHO_OF_1,ANCHO_OF_2,PARCIALES_1,PARCIALES_2,RED_JERARQ"
+			"wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+                        "gml_the_geom_type" "line"
+			"wfs_srs" "EPSG:4326"
+  	     	END
+	      	PROJECTION
+      			"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from ejes USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE LINE 
+		DUMP TRUE
+		#FILTER "nombre = 'CORDOBA'"
+	END
+	LAYER #CATASTRO
+		NAME "nomenclador_de_calles"
+		METADATA
+			"wfs_title"    "nomenclador_de_calles" ## REQUIRED
+	        	"gml_featureid" "se_row_id" ## REQUIRED
+			"wfs_featureid" "se_row_id"
+			"gml_include_items" "ID_CALLE,NOMBRE,ORIENTACION,TIPO,UBICACION,OBSERVACIONES,NOMBRE_ABREV"
+			"wfs_include_items" "ID_CALLE,NOMBRE,ORIENTACION,TIPO,UBICACION,OBSERVACIONES,NOMBRE_ABREV"
+			"wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+                        "gml_the_geom_type" "multiline"
+			"wfs_srs" "EPSG:4326"
+  	     	END
+	      	PROJECTION
+      			"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from calles USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE LINE 
+		DUMP TRUE
+		#FILTER "nombre = 'CORDOBA'"
+	END
+	LAYER #CATASTRO
+		NAME "avenidas"
+		METADATA
+			"wfs_title"    "avenidas" ## REQUIRED
+	        	"gml_featureid" "se_row_id" ## REQUIRED
+			"wfs_featureid" "se_row_id"
+			"gml_include_items" "MSLINK,NOMBRE,CODCALLE,ALTDESIZQ,ALTHASIZQ,ALTDESDER,ALTHASDER,ALTLETRA,BIS,NUMERACION,CATEGORIA,ANCHO_OF_1,ANCHO_OF_2,PARCIALES_1,PARCIALES_2,RED_JERARQ"
+			"wfs_include_items" "MSLINK,NOMBRE,CODCALLE,ALTDESIZQ,ALTHASIZQ,ALTDESDER,ALTHASDER,ALTLETRA,BIS,NUMERACION,CATEGORIA,ANCHO_OF_1,ANCHO_OF_2,PARCIALES_1,PARCIALES_2,RED_JERARQ"
+			"wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+                        "gml_the_geom_type" "line"
+			"wfs_srs" "EPSG:4326"
+  	     	END
+	      	PROJECTION
+      			"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from ejes USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE LINE 
+		DUMP TRUE
+		FILTER "categoria in ('Avenida','Boulevard')"
+	END
+        LAYER  #CATASTRO
+                NAME "manzanas"
+                METADATA
+                        "wfs_title"    "manzanas" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MUNI_MANZA"
+                        "wfs_include_items" "MSLINK,SECCION,MUNI_MANZA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from manzanas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		#FILTER "seccion = 21"
+        END
+        LAYER  #CATASTRO
+                NAME "espacios_verdes_plazas"
+                METADATA
+                        "wfs_title"    "espacios_verdes_plazas" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,COD_EV_PL,NOMBRE_EV,TIPO,OBSERVACIO"
+                        "wfs_include_items" "MSLINK,COD_EV_PL,NOMBRE_EV,TIPO,OBSERVACIO"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from espacios_verdes_plazas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON
+                DUMP TRUE
+		#FILTER ""
+                CLASS
+                        NAME "espacios_verdes_plazas"
+                        SIZE 5
+                        OUTLINECOLOR 147 149 152
+                        COLOR 233 233 233
+			symbol "poligono_grueso"
+                END
+        END
+        LAYER  #CATASTRO
+                NAME "espacios_verdes_parques"
+                METADATA
+                        "wfs_title"    "espacios_verdes_parques" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,COD_EV_PL,NOMBRE_EV,TIPO,OBSERVACIO"
+                        "wfs_include_items" "MSLINK,COD_EV_PL,NOMBRE_EV,TIPO,OBSERVACIO"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from espacios_verdes_parques USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON
+                DUMP TRUE
+		#FILTER ""
+         END
+         LAYER  #CATASTRO
+                NAME "hidrografia"
+                METADATA
+                        "wfs_title"    "hidrografia" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,DETALLE,OBSERVACIO"
+                        "wfs_include_items" "MSLINK,DETALLE,OBSERVACIO"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from hidrografia USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE LINE
+                DUMP TRUE
+		#FILTER ""
+          END
+          LAYER  #CATASTRO
+                NAME "vias_ffcc"
+                METADATA
+                        "wfs_title"    "vias_ffcc" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK"
+                        "wfs_include_items" "MSLINK"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "line"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from vias_ffcc USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE LINE
+                DUMP TRUE
+		#FILTER ""
+        END
+        LAYER   #CATASTRO   #Precios basicos de la tierra
+                NAME "precios_basicos_de_la_tierra" #"frentes_manzanas"
+                METADATA
+                        "wfs_title"    "precios_basicos_de_la_tierra" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "multiline"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from frentes_manzanas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE LINE
+                DUMP TRUE
+		FILTER "seccion = 21"
+        END
+        LAYER  #CATASTRO
+                NAME "puentes_y_aliviadores"
+                METADATA
+                        "wfs_title"    "puentes_y_aliviadores" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "line"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from puentes_y_aliviadores USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE LINE
+                DUMP TRUE
+		#FILTER "seccion = 21"
+        END
+        LAYER  #CATASTRO
+                NAME "islas_del_parana"
+                METADATA
+                        "wfs_title"    "islas_del_parana" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK"
+                        "wfs_include_items" "MSLINK"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from islas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		#FILTER "seccion = 21"
+        END
+        LAYER  #CATASTRO
+                NAME "distritos_descentralizados"
+                METADATA
+                        "wfs_title"    "distritos_descentralizados" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,DISTRITO,OBSERVACIO"
+                        "wfs_include_items" "MSLINK,DISTRITO,OBSERVACIO"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from distritos_descentralizados USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		#FILTER "seccion = 21"
+        END
+        LAYER  #CATASTRO
+                NAME "secciones_catastrales"
+                METADATA
+                        "wfs_title"    "secciones_catastrales" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,OBSERVACIO"
+                        "wfs_include_items" "MSLINK,SECCION,OBSERVACIO"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from secciones_catastrales USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		#FILTER "seccion = 21"
+        END
+        LAYER  #CATASTRO
+                NAME "barrios"
+                METADATA
+                        "wfs_title"    "barrios" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,BARRIO,OBSERVACIO"
+                        "wfs_include_items" "MSLINK,BARRIO,OBSERVACIO"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from barrios USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		#FILTER "seccion = 21"
+        END
+        LAYER  #CATASTRO
+                NAME "radios_tributarios"
+                METADATA
+                        "wfs_title"    "radios_tributarios" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "all" #"MSLINK,RADIO,OBSERVACIO"
+                        "wfs_include_items" "all" #"MSLINK,RADIO,OBSERVACIO"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from radios_tributarios USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE polygon 
+                DUMP TRUE
+		#FILTER "seccion = 21"
+        END
+	LAYER #CATASTRO
+		NAME "limites_municipio"
+		METADATA
+			"wfs_title"    "limites_municipio" ## REQUIRED
+	        	"gml_featureid" "se_row_id" ## REQUIRED
+			"wfs_featureid" "se_row_id"
+			"gml_include_items" "SE_ROW_ID"
+			"wfs_include_items" "SE_ROW_ID"
+			"wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+                        "gml_the_geom_type" "line"
+			"wfs_srs" "EPSG:4326"
+  	     	END
+	      	PROJECTION
+      			"init=epsg:22185"
+		END
+		CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from limite_rosario USING UNIQUE SE_ROW_ID FILTER"
+		STATUS ON
+		TYPE LINE 
+		DUMP TRUE
+	END
+        LAYER  #CATASTRO
+                NAME "autopistas"
+                METADATA
+                        "wfs_title"    "autopistas" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK"
+                        "wfs_include_items" "MSLINK"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from autopistas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		#FILTER "seccion = 21"
+        END
+        LAYER  #CATASTRO
+                NAME "circunvalacion"
+                METADATA
+                        "wfs_title"    "circunvalacion" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK"
+                        "wfs_include_items" "MSLINK"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from circunvalacion USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		#FILTER "seccion = 21"
+        END
+        LAYER  #CATASTRO
+                NAME "parcelas_seccion1"
+                METADATA
+                        "wfs_title"    "parcelas_seccion1" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		FILTER "(seccion = 1)"
+        END
+        LAYER  #CATASTRO
+                NAME "parcelas_seccion2"
+                METADATA
+                        "wfs_title"    "parcelas_seccion2" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		FILTER "(seccion = 2)"
+        END
+	LAYER  #CATASTRO
+                NAME "parcelas_seccion3"
+                METADATA
+                        "wfs_title"    "parcelas_seccion3" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		FILTER "(seccion = 3)"
+        END
+        LAYER  #CATASTRO
+                NAME "parcelas_seccion4"
+                METADATA
+                        "wfs_title"    "parcelas_seccion4" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		FILTER "(seccion = 4)"
+        END
+        LAYER  #CATASTRO
+                NAME "parcelas_seccion5"
+                METADATA
+                        "wfs_title"    "parcelas_seccion5" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		FILTER "(seccion = 5)"
+        END
+        LAYER  #CATASTRO
+                NAME "parcelas_seccion6"
+                METADATA
+                        "wfs_title"    "parcelas_seccion6" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		FILTER "(seccion = 6)"
+        END
+       	LAYER  #CATASTRO
+                NAME "parcelas_seccion7"
+                METADATA
+                        "wfs_title"    "parcelas_seccion7" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		FILTER "(seccion = 7)"
+        END
+       	LAYER  #CATASTRO
+                NAME "parcelas_seccion8"
+                METADATA
+                        "wfs_title"    "parcelas_seccion8" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		FILTER "(seccion = 8)"
+        END
+       	LAYER  #CATASTRO
+                NAME "parcelas_seccion9"
+                METADATA
+                        "wfs_title"    "parcelas_seccion9" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		FILTER "(seccion = 9)"
+        END
+       	LAYER  #CATASTRO
+                NAME "parcelas_seccion10"
+                METADATA
+                        "wfs_title"    "parcelas_seccion10" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		FILTER "(seccion = 10)"
+        END
+       	LAYER  #CATASTRO
+                NAME "parcelas_seccion11"
+                METADATA
+                        "wfs_title"    "parcelas_seccion11" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		FILTER "(seccion = 11)"
+        END
+       	LAYER  #CATASTRO
+                NAME "parcelas_seccion12"
+                METADATA
+                        "wfs_title"    "parcelas_seccion12" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		FILTER "(seccion = 12)"
+        END
+       	LAYER  #CATASTRO
+                NAME "parcelas_seccion13"
+                METADATA
+                        "wfs_title"    "parcelas_seccion13" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		FILTER "(seccion = 13)"
+        END
+        LAYER  #CATASTRO
+                NAME "parcelas_seccion14"
+                METADATA
+                        "wfs_title"    "parcelas_seccion14" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		FILTER "(seccion = 14)"
+        END
+        LAYER  #CATASTRO
+                NAME "parcelas_seccion15"
+                METADATA
+                        "wfs_title"    "parcelas_seccion15" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		FILTER "(seccion = 15)"
+        END
+	LAYER  #CATASTRO
+                NAME "parcelas_seccion16"
+                METADATA
+                        "wfs_title"    "parcelas_seccion16" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		FILTER "(seccion = 16)"
+        END
+        LAYER  #CATASTRO
+                NAME "parcelas_seccion17"
+                METADATA
+                        "wfs_title"    "parcelas_seccion17" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		FILTER "(seccion = 17)"
+        END
+        LAYER  #CATASTRO
+                NAME "parcelas_seccion18"
+                METADATA
+                        "wfs_title"    "parcelas_seccion18" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		FILTER "(seccion = 18)"
+        END
+        LAYER  #CATASTRO
+                NAME "parcelas_seccion19"
+                METADATA
+                        "wfs_title"    "parcelas_seccion19" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		FILTER "(seccion = 19)"
+        END
+        LAYER  #CATASTRO
+                NAME "parcelas_seccion20"
+                METADATA
+                        "wfs_title"    "parcelas_seccion20" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		FILTER "(seccion = 20)"
+        END
+        LAYER  #CATASTRO
+                NAME "parcelas_seccion21"
+                METADATA
+                        "wfs_title"    "parcelas_seccion21" ## REQUIRED
+                        "gml_featureid" "se_row_id" ## REQUIRED
+                        "wfs_featureid" "se_row_id"
+                        "gml_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_include_items" "MSLINK,SECCION,MANZANA,GRAFICO,SD,SP,PASILLO,CARPETA"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "polygon"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTION "@gis"
+                CONNECTIONTYPE INFORMIXSPATIAL
+                DATA "the_geom from parcelas USING UNIQUE SE_ROW_ID FILTER"
+                STATUS ON
+                TYPE POLYGON 
+                DUMP TRUE
+		FILTER "(seccion = 21)"
+        END
+
+
+
+        #################################################################################
+	###  EQUIPAMIETO URBANO - GESU
+	#################################################################################
+	LAYER  #EQUIPAMIENTO 
+                NAME "wifi"
+                METADATA
+                        "wfs_title"    "wifi" ## REQUIRED
+                        "gml_featureid" "id" ## REQUIRED
+                        "wfs_featureid" "id"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:gesu,host=lamp1-test,user=dmapserver,password=dmap1234,tables=equipamiento_gis'
+		DATA "SELECT * FROM equipamiento_gis" # where idtipo = 4" #and id_lugar_sub_tipo in (1,2,5)
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+
+        #################################################################################
+	### LUGARES DE INETERES
+	#################################################################################
+	LAYER  #COMUNICACION lugares de interes
+                NAME "lugares_de_interes_todos"
+                METADATA
+                        "wfs_title"    "lugares_de_interes_todos" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+		DATA "SELECT * FROM lugares_gis" # where id_lugar_tipo = 1 and id_lugar_sub_tipo in (1,2,5)
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+
+	LAYER  #COMUNICACION lugares de interes
+                NAME "parques_parques_tematicos_y_paseos"
+                METADATA
+                        "wfs_title"    "parques_parques_tematicos_y_paseos" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 1 and id_lugar_sub_tipo in (1,2,5)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+
+	LAYER  #COMUNICACION lugares de interes
+                NAME "plazas"
+                METADATA
+                        "wfs_title"    "plazas" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 1 and id_lugar_sub_tipo in (33)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "centros_municipales_de_distrito"
+                METADATA
+                        "wfs_title"    "centros_municipales_de_distrito" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 2 and id_lugar_sub_tipo in (34)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "areas_de_servicios_urbanos"
+                METADATA
+                        "wfs_title"    "areas_de_servicios_urbanos" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 2 and id_lugar_sub_tipo in (35)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "centros_culturales"
+                METADATA
+                        "wfs_title"    "centros_culturales" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 3 and id_lugar_sub_tipo in (16)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "museos"
+                METADATA
+                        "wfs_title"    "museos" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 3 and id_lugar_sub_tipo in (39)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "teatros_y_cines"
+                METADATA
+                        "wfs_title"    "teatros_y_cines" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 3 and id_lugar_sub_tipo in (14,40)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "clubes"
+                METADATA
+                        "wfs_title"    "clubes" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 4 and id_lugar_sub_tipo in (7)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "predios_de_recreacion"
+                METADATA
+                        "wfs_title"    "predios_de_recreacion" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 4 and id_lugar_sub_tipo in (42)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "asociaciones_deportivas"
+                METADATA
+                        "wfs_title"    "asociaciones_deportivas" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 4 and id_lugar_sub_tipo in (125)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "espacios_de_movimiento_deportivo"
+                METADATA
+                        "wfs_title"    "espacios_de_movimiento_deportivo" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 4 and id_lugar_sub_tipo in (138)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "hospitales_y_centros_de_salud"
+                METADATA
+                        "wfs_title"    "hospitales_y_centros_de_salud" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 10 and id_lugar_sub_tipo in (22,80)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "vecinales"
+                METADATA
+                        "wfs_title"    "vecinales" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 8 and id_lugar_sub_tipo in (53)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "policias_denuncias_guardias_bomberos_y_otros"
+                METADATA
+                        "wfs_title"    "policias_denuncias_guardias_bomberos_y_otros" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 11" # and id_lugar_sub_tipo in (87,28)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "centros_de_convivencia_barrial"
+                METADATA
+                        "wfs_title"    "centros_de_convivencia_barrial" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 12 and id_lugar_sub_tipo in (100)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "organismos_judiciales"
+                METADATA
+                        "wfs_title"    "organismos_judiciales" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where (id_lugar_tipo = 9 and id_lugar_sub_tipo in (25,74)) #or (id_lugar_tipo = 11 and id_lugar_sub_tipo in (141)) "
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+	LAYER  #COMUNICACION lugares de interes
+                NAME "islas_de_reciclaje"
+                METADATA
+                        "wfs_title"    "islas_de_reciclaje" ## REQUIRED
+                        "gml_featureid" "id_lugar" ## REQUIRED
+                        "wfs_featureid" "id_lugar"
+                        "gml_include_items" "all"
+                        "wfs_include_items" "all"
+                        "wfs_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+			"gml_geometries" "the_geom"
+			"gml_the_geom_type" "point"
+			"wfs_srs" "EPSG:4326"	
+                END
+                PROJECTION
+                        "init=epsg:22185"
+                END
+                CONNECTIONTYPE OGR
+                CONNECTION 'MYSQL:sitio,host=db16-test,user=dmapserver,password=dmap1234,tables=lugares_gis'
+                DATA "SELECT * FROM lugares_gis where id_lugar_tipo = 12 and id_lugar_sub_tipo in (143)"
+                STATUS ON
+                TYPE point 
+                DUMP TRUE
+	END
+
+
+END
+
