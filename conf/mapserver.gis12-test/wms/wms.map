@@ -2,12 +2,12 @@ MAP
 NAME WMS-Rosario 
 EXTENT 5422163.0 6344000.0 5446837.0 6364000.0
 UNITS METERS
-FONTSET "/etc/mapserver/fonts.list.example"
+FONTSET "/opt/etc/mapserver/fonts.list.example"
 #IMAGECOLOR 255 255 255 
 #RESOLUTION 72
-TRANSPARENT ON 
+#TRANSPARENT ON 
 SHAPEPATH "/geodata/"
-#SYMBOLSET "/etc/mapserver/infomapas.sym"
+#SYMBOLSET "/opt/etc/mapserver/infomapas.sym"
 CONFIG  "MS_ERRORFILE" "stderr"
 DEBUG 0 #on map and layer level
 OUTPUTFORMAT
@@ -55,7 +55,7 @@ END
 MAXSIZE 7000
 
 WEB
-	IMAGEPATH "/var/www/mapserver/"
+	IMAGEPATH "/tmp/"
 	#IMAGEURL "mapserver/"
         METADATA
             "wms_title"  "WMS-Rosario"  ##required
@@ -127,7 +127,7 @@ END
 	      	PROJECTION
       		"init=epsg:22185"
 		END
-		CONNECTION "IDB:server=test_pri_pamuser=webjdbc pass=nigN2002 dbname=gis table=sinmanzana"
+		CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=sinmanzana"
 		CONNECTIONTYPE OGR
 		DATA "sinmanzana"
 		STATUS ON
@@ -136,7 +136,7 @@ END
 		LABELCACHE ON
 		MINSCALE 0.0
 		#MAXSCALE 40000.0
-		DUMP TRUE
+		#DUMP TRUE
 		TEMPLATE "."
 		TOLERANCEUNITS PIXELS
 		TOLERANCE 5
@@ -163,7 +163,7 @@ END
 	      	PROJECTION
       		"init=epsg:22185"
 		END
-		CONNECTION "IDB:server=test_pri_pamuser=webjdbc pass=nigN2002 dbname=gis table=canteros"
+		CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=canteros"
 		CONNECTIONTYPE OGR
 		DATA "canteros"
 		STATUS ON
@@ -194,7 +194,7 @@ END
 	      	PROJECTION
       		"init=epsg:22185"
 		END
-		CONNECTION "IDB:server=test_pri_pamuser=webjdbc pass=nigN2002 dbname=gis table=circunvalacion"
+		CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=circunvalacion"
 		CONNECTIONTYPE OGR
 		DATA "circunvalacion"
 		STATUS ON
@@ -203,9 +203,11 @@ END
 		MINSCALE 0.0
 		CLASS
 			NAME "Av. Circunvalaci�n"
-			SIZE 0
-			OUTLINECOLOR 232 206 178 
-			COLOR 244 195 145 
+			STYLE
+				SIZE 1
+				OUTLINECOLOR 232 206 178 
+				COLOR 244 195 145 
+			END
 		END
 
 	END
@@ -223,7 +225,7 @@ END
 	      	PROJECTION
       		"init=epsg:22185"
 		END
-		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=manzanas"
+		CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=manzanas"
 		CONNECTIONTYPE OGR
 		DATA "manzanas"
 		STATUS ON
@@ -232,7 +234,7 @@ END
 		LABELCACHE ON
 		#MAXSCALE 40000.0
 	        SYMBOLSCALEDENOM 40000	
-	        DUMP TRUE
+	        #DUMP TRUE
 	        TEMPLATE "content_manzanas_template.html"
                 HEADER "header_plano_base_template.html"
 		FOOTER "footer_plano_base_template.html"
@@ -263,7 +265,7 @@ END
 	      	PROJECTION
       		"init=epsg:22185"
 		END
-		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=manzanas_no_regularizadas"
+		CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=manzanas_no_regularizadas"
 		CONNECTIONTYPE OGR
 		DATA "manzanas_no_regularizadas"
 		STATUS ON
@@ -274,9 +276,11 @@ END
 		MAXSCALE 30000.0
 		CLASS
 			NAME "Manzanas no Regularizada"
-			SIZE 5
-			OUTLINECOLOR 208 208 208 
-			COLOR 240 240 240 
+			STYLE
+				SIZE 5
+				OUTLINECOLOR 208 208 208 
+				COLOR 240 240 240 
+			END
 		END
 
 	END
@@ -294,14 +298,14 @@ END
 	      	PROJECTION
       		"init=epsg:22185"
 		END
-		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=parcelas"
+		CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=parcelas"
 		CONNECTIONTYPE OGR
 		DATA "parcelas"
 		STATUS ON
 		TYPE POLYGON
 		POSTLABELCACHE OFF
 		MAXSCALE 8000.0
-		DUMP TRUE
+		#DUMP TRUE
 		TEMPLATE "content_parcelas_template.html"
 		HEADER "header_plano_base_template.html"
 		FOOTER "footer_plano_base_template.html"
@@ -334,7 +338,7 @@ END
 	      	PROJECTION
       		"init=epsg:22185"
 		END
-		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=vespacios_verdes"
+		CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=vespacios_verdes"
 		CONNECTIONTYPE OGR
 		DATA "vespacios_verdes"
 		STATUS ON
@@ -346,9 +350,11 @@ END
 		CLASS
 			NAME "parques"
 			#EXPRESSION ('[tipo]' = 'PARQUE')
-			SIZE 3
-			#OUTLINECOLOR 90 130 85 
-			COLOR 212 234 179  
+			STYLE
+				SIZE 3
+				#OUTLINECOLOR 90 130 85 
+				COLOR 212 234 179  
+			END
 			#TEXT '[etiqueta]'
 			LABEL
 				COLOR 0 0 0 
@@ -383,7 +389,8 @@ END
 	      	PROJECTION
       		"init=epsg:22185"
 		END
-		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=hidrografia"
+		CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=hidrografia"
+		
 		CONNECTIONTYPE OGR
 		DATA "hidrografia"
 		STATUS ON
@@ -391,9 +398,11 @@ END
 		POSTLABELCACHE OFF
 		CLASS
 			NAME "Hidrograf�a"
-			SIZE 2
-			#OUTLINECOLOR 98 130 193
-			COLOR 114 187 224 
+			STYLE
+				SIZE 2
+				#OUTLINECOLOR 98 130 193
+				COLOR 114 187 224 
+			END
 		END
 
 	END
@@ -410,8 +419,8 @@ END
 	      	PROJECTION
       		"init=epsg:22185"
 		END
-		#CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=v_centro_de_manzanas2"
-		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=vejes"
+		#CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=v_centro_de_manzanas2"
+		CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=vejes"
 		CONNECTIONTYPE OGR
 			#DATA "v_centro_de_manzanas2"
 			DATA "vejes"
@@ -468,7 +477,7 @@ END
 			PROJECTION
 			"init=epsg:22185"
 			END
-			CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=vejes"
+			CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=vejes"
 			CONNECTIONTYPE OGR
 			DATA "vejes"
 		STATUS ON
@@ -476,7 +485,7 @@ END
 		POSTLABELCACHE OFF
 		LABELCACHE ON
 		MAXSCALE 15000.0
-		DUMP TRUE
+		#DUMP TRUE
 		TEMPLATE "content_ejes_template.html"
 		HEADER "header_plano_base_template.html"
 		FOOTER "footer_plano_base_template.html"
@@ -493,63 +502,6 @@ END
 
 	END
 
-	LAYER # Sentidos de calle
-                NAME "sentidos_de_calle"
-		PROCESSING "CLOSE_CONNECTION=DEFER"
-		METADATA
-		      "wms_title"    "Sentidos de calles"  ##required
-		      "wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
-		      "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
-		END
-                CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=sentidos"
-                CONNECTIONTYPE OGR
-                DATA "sentidos"
-                STATUS ON
-                TYPE LINE
-                POSTLABELCACHE OFF
-                LABELCACHE ON
-                CLASSITEM "norsen1"
-                MAXSCALE 15000.0
-                CLASS
-                        NAME "Doble"
-                       # EXPRESSION ('[norsen1]' = '3')
-                       # SYMBOL "arrowdoble"
-			STYLE
-                        WIDTH 0
-                        COLOR 45 45 255
-			END
-                END
-
-
-                CLASS
-                        NAME "Descendente"
-                     #   EXPRESSION ('[norsen1]' = '2')
-                     #   SYMBOL "arrowdesc"
-                        SIZE 14
-                        COLOR 45 45 255
-                END
-
-
-                CLASS
-                        NAME "Ascendente"
-                      #  EXPRESSION ('[norsen1]' = '1')
-                      #  SYMBOL "arrowasc"
-                        SIZE 14
-                        COLOR 45 45 255
-                END
-
-
-                CLASS
-                        NAME "Peatonal"
-                      #  EXPRESSION ('[norsen1]' = '0')
-                      #  SYMBOL "peatonal"
-                        SIZE 0
-                        COLOR 0 0 255
-                END
-
-        END
-
-
 	LAYER # V�a Ferroviaria
 		NAME "via_ferroviaria"
 		PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -561,7 +513,7 @@ END
 	      	PROJECTION
       		"init=epsg:22185"
 		END
-		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=vias_ffcc"
+		CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=vias_ffcc"
 		CONNECTIONTYPE OGR
 		DATA "vias_ffcc"
 		STATUS ON
@@ -592,7 +544,7 @@ END
 	      	PROJECTION
       		"init=epsg:22185"
 		END
-		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=puentes_y_aliviadores"
+		CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=puentes_y_aliviadores"
 		CONNECTIONTYPE OGR
 		DATA "puentes_y_aliviadores"
 		STATUS ON
@@ -627,7 +579,7 @@ END
 	      	PROJECTION
       		"init=epsg:22185"
 		END
-		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=islas"
+		CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=islas"
 		CONNECTIONTYPE OGR
 		DATA "islas"
 		STATUS ON
@@ -637,9 +589,11 @@ END
 
 		CLASS
 			NAME "Islas del Paran�"
-			SIZE 2
-			OUTLINECOLOR 184 169 143
-			COLOR 239 235 225
+			STYLE
+				SIZE 2
+				OUTLINECOLOR 184 169 143
+				COLOR 239 235 225
+			END
 		END
 
 	END
@@ -655,7 +609,7 @@ END
 	      	PROJECTION
       		"init=epsg:22185"
 		END
-		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=bancos_de_arena"
+		CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=bancos_de_arena"
 		CONNECTIONTYPE OGR
 		DATA "bancos_de_arena"
 		STATUS ON
@@ -664,9 +618,11 @@ END
 
 		CLASS
 			NAME "Bancos de Arena"
-			SIZE 0
-			OUTLINECOLOR 153 153 0
-			COLOR 255 255 204
+			STYLE
+				SIZE 1
+				OUTLINECOLOR 153 153 0
+				COLOR 255 255 204
+			END
 		END
 
 	END
@@ -682,7 +638,7 @@ END
 	      	PROJECTION
       		"init=epsg:22185"
 		END
-		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=autopistas"
+		CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=autopistas"
 		CONNECTIONTYPE OGR
 		DATA "autopistas"
 		STATUS ON
@@ -690,9 +646,11 @@ END
 		MINSCALE 0.0
 		CLASS
 			NAME "Autopistas"
-			SIZE 0
-			OUTLINECOLOR 232 206 145 
-			COLOR 244 195 145 
+			STYLE
+				SIZE 1
+				OUTLINECOLOR 232 206 145 
+				COLOR 244 195 145 
+			END
 		END
 
 	END
@@ -709,7 +667,7 @@ END
 	      	PROJECTION
       		"init=epsg:22185"
 		END
-		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=vejes"
+		CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=vejes"
 		CONNECTIONTYPE OGR
 			DATA "vejes"
 			STATUS ON
@@ -765,7 +723,7 @@ END
 	      	PROJECTION
       		"init=epsg:22185"
 		END
-		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=numeracion_calles"
+		CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=numeracion_calles"
 		CONNECTIONTYPE OGR
 		DATA "numeracion_calles"
 		STATUS ON
@@ -816,7 +774,7 @@ END
 	      	PROJECTION
       		"init=epsg:22185"
 		END
-		CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=manzanas"
+		CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=manzanas"
 		CONNECTIONTYPE OGR
 		DATA "manzanas"
 		STATUS ON
@@ -828,8 +786,10 @@ END
 		MAXSCALE 8000.0
 		CLASS
 			NAME "N�meros de Manzana"
-			SIZE 0
-			COLOR 255 204 153
+			STYLE
+				SIZE 1
+				COLOR 255 204 153
+			END 
 		LABEL
 			COLOR 0 0 0
 			OUTLINECOLOR 255 255 255
@@ -840,7 +800,7 @@ END
 			SIZE 7
 			BUFFER 0
 			MAXSIZE 7
-			MINDISTANCE 0
+			MINDISTANCE 1
 			PARTIALS OFF
 			POSITION CC
 			FORCE FALSE
@@ -862,9 +822,10 @@ END
         	PROJECTION
                		"init=epsg:22185"
         	END
-		#CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=limite_rosario"
-		#CONNECTIONTYPE OGR
-		DATA "/home/aricagn0/limite_rosario_polygon.shp"
+		CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=limite_rosario"
+		CONNECTIONTYPE OGR
+		#DATA "/home/aricagn0/limite_rosario_polygon.shp"
+		DATA "limite_rosario"
 		STATUS ON
 		TYPE POLYGON 
 		CLASS
@@ -889,7 +850,7 @@ LAYER # Distritos Descentralizados
     PROJECTION
 	    "init=epsg:22185"
     END
-    CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=distritos_descentralizados"
+    CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=distritos_descentralizados"
     CONNECTIONTYPE OGR
     PROCESSING "CLOSE_CONNECTION=DEFER" 
     PROCESSING 'LABEL_NO_CLIP=ON'
@@ -922,7 +883,7 @@ LAYER # Distritos Descentralizados
 	    END
 
 	    STYLE 
-		    SIZE 0
+		    SIZE 1
 		    OUTLINECOLOR 192 192 192 
 		    COLOR 255 255 255 
 	    END
@@ -943,7 +904,7 @@ END
                 PROJECTION
                         "init=epsg:22185"
                 END
-                #CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=metro_limite"
+                #CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=metro_limite"
                 #CONNECTIONTYPE OGR
                 DATA "/home/aricagn0/metropolitana/limites.shp"
                 STATUS ON
@@ -969,7 +930,7 @@ END
                 PROJECTION
                         "init=epsg:22185"
                 END
-                #CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=metro_manzanas"
+                #CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=metro_manzanas"
                 #CONNECTIONTYPE OGR
                 DATA "/home/aricagn0/metropolitana/manzanas.shp"
                 STATUS ON
@@ -996,7 +957,7 @@ END
                 PROJECTION
                         "init=epsg:22185"
                 END
-                #CONNECTION "IDB:server=test_pri_pam user=webjdbc pass=nigN2002 dbname=gis table=metro_rural"
+                #CONNECTION "IDB:server=test_pri_pam user=aricagn0 pass=rikiAtest88 dbname=gis table=metro_rural"
                 #CONNECTIONTYPE OGR
                 DATA "/home/aricagn0/metropolitana/rural.shp"
                 STATUS ON

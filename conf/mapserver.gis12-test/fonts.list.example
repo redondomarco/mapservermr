@@ -1,3 +1,3 @@
-lucida  /etc/mapserver/verdana.ttf 
-wd      /etc/mapserver/WINGDING.TTF
-arialbd /etc/mapserver/arialbd.ttf
+lucida  /opt/etc/mapserver/verdana.ttf 
+wd      /opt//etc/mapserver/WINGDING.TTF
+arialbd /opt/etc/mapserver/arialbd.ttf
