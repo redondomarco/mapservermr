@@ -9,3 +9,5 @@ conf/informix/sqlhosts
 # virtualenv
 venv/
 ENV/
+
+conf/informix/installclientsdk

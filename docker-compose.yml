@@ -17,5 +17,6 @@ services:
             - /etc/localtime:/etc/localtime:ro
             - ./data/root:/root
             - ./conf/mapserver.conf:/opt/etc/mapserver.conf
-            - ./conf/mapserver.gis12-test:/opt/etc/mapserver
+            - ./conf/mapserver:/opt/etc/mapserver
             - ./conf/apache2.conf:/etc/apache2/apache2.conf
+            - /home/marco/disco/Img2022:/geodata/Img2022
