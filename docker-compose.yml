@@ -19,4 +19,6 @@ services:
             - ./conf/mapserver.conf:/opt/etc/mapserver.conf
             - ./conf/mapserver:/opt/etc/mapserver
             - ./conf/apache2.conf:/etc/apache2/apache2.conf
-            - /home/marco/disco/Img2022:/geodata/Img2022
+            - $DIR_MAPSERVER/Img2022:/geodata/Img2022
+            - $DIR_MAPSERVER/Img2011:/geodata/Img2011
+            - $DIR_MAPSERVER/fotos2005:/datos/geodata/fotos2005

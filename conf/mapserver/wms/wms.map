@@ -86,33 +86,6 @@ PROJECTION
   "init=epsg:22185"   ##required
 END
 
-LAYER 
-     NAME "ImagenesSatelitales2011" 
-     METADATA
-         "wms_title"    "Imagenes Satelitales 2011"  ##required
-         "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
-         "wms_srs" "epsg:4326 EPSG:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
-         "wms_style"	"Default"
-     END
-     PROJECTION
-         "init=epsg:22185"
-     END     
-     STATUS ON 
-     TYPE RASTER 
-     OFFSITE 0 0 0
-     PROCESSING "RESAMPLE=BILINEAR"
-     TILEINDEX "/geodata/Img2011/rosario_2011.shp"
-     TILEITEM "location" 
-     MINSCALE 150 
-     CLASS
-			NAME "Segmentos de calle"
-			STYLE
-				SIZE 2
-				OUTLINECOLOR 255 0 0
-				COLOR 128 128 128
-			END
-		END
-END 
 
 	LAYER # Sin Manzanas
 		NAME "sin_manzanas"
@@ -990,5 +963,108 @@ LAYER
     "wms_format"          "image/png"
   END
 END
+
+LAYER #Img2022
+     NAME "Img2022"
+     METADATA
+         "wms_title"    "Im<E1>genes 2022"  ##required
+         "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+         "wms_srs" "EPSG:4326 epsg:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+     END
+     PROJECTION
+         "init=epsg:5347"
+     END
+     STATUS ON
+     TYPE RASTER
+     OFFSITE 0 0 0
+     PROCESSING "RESAMPLE=BILINEAR"
+     TILEINDEX /geodata/Img2022/Img2022.shp
+     TILEITEM "location"
+     MINSCALE 150
+END #layer Img2022
+
+
+LAYER #Img2011
+     NAME "ImagenesSatelitales2011"
+     METADATA
+         "wms_title"    "Imagenes 2011"  ##required
+         "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+         "wms_srs" "EPSG:4326 epsg:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+     END
+     PROJECTION
+         "init=epsg:5347"
+     END
+     STATUS ON
+     TYPE RASTER
+     OFFSITE 0 0 0
+     PROCESSING "RESAMPLE=BILINEAR"
+	 TILEINDEX /geodata/Img2011/rosario_2011.shp 
+     TILEITEM "location"
+     MINSCALE 150
+END #layer Img2011
+
+
+LAYER #Fotos 2005
+      NAME "FotosAereas2005"
+      GROUP "FotosAreas2005"
+        METADATA
+          "wms_title"    "Fotos Aereas"  ##required
+          "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+          "wms_srs" "EPSG:4326 epsg:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+       END
+       PROJECTION
+          "init=epsg:22185"
+       END
+    STATUS ON
+    TYPE RASTER
+    TILEINDEX "/opt/etc/mapserver/fotos2005/fotos2005.shp"
+    #PHOTOINDEX "/opt/etc/mapserver/fotos2005/center.txt"
+    TILEITEM "location"
+    MAXSCALE 2800
+    MINSCALE 150
+    #OFFSITE 0 0 0
+END
+
+LAYER #Fotos 2005
+     NAME "FotosAereas2005-overwiew10"
+     GROUP "FotosAreas2005"
+     METADATA
+           "wms_title"    "Fotos Aereas - overview10"  ##required
+           "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+           "wms_srs" "EPSG:4326 epsg:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+     END
+     PROJECTION
+          "init=epsg:22185"
+     END
+     STATUS ON
+     TYPE RASTER
+     TILEINDEX "/opt/etc/mapserver/fotos2005/fotos2005_10.shp"
+     TILEITEM "location"
+     MINSCALE 12000 
+     OFFSITE 0 0 0      
+END
+
+
+LAYER #Fotos 2005
+     NAME "FotosAereas2005-overwiew20"
+     GROUP "FotosAreas2005"
+     METADATA
+          "wms_title"    "Fotos Aereas - overview20"  ##required
+          "wms_extent" "5422163.0 6344000.0 5446837.0 6364000.0"
+          "wms_srs" "EPSG:4326 epsg:3857 epsg:22181 epsg:22182 epsg:22183 epsg:22184 epsg:22185 epsg:22186 epsg:22187"
+     END
+     PROJECTION
+          "init=epsg:22185"
+     END
+     STATUS ON
+     TYPE RASTER
+     TILEINDEX "/opt/etc/mapserver/fotos2005/fotos2005_20.shp"
+     TILEITEM "location"
+     MAXSCALE 12000
+     MINSCALE 2800
+     OFFSITE 0 0 0
+END
+
+
 
 END
