@@ -19,6 +19,13 @@ services:
             - ./conf/mapserver.conf:/opt/etc/mapserver.conf
             - ./conf/mapserver:/opt/etc/mapserver
             - ./conf/apache2.conf:/etc/apache2/apache2.conf
-            - $DIR_MAPSERVER/Img2022:/geodata/Img2022
-            - $DIR_MAPSERVER/Img2011:/geodata/Img2011
-            - $DIR_MAPSERVER/fotos2005:/datos/geodata/fotos2005
+            - "sshfsdata:/geodata:ro"
+            - "sshfsdata:/datos/geodata:ro"
+
+volumes:
+  sshfsdata:
+    driver: vieux/sshfs:latest
+    driver_opts:
+      sshcmd: "$SSHFS_DATA_USER@$SSHFS_DATA_HOST:$SSHFS_DATA_DIR"
+      password: $SSHFS_DATA_PASS
+      allow_other: ""
