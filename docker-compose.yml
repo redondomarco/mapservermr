@@ -19,8 +19,8 @@ services:
             - ./conf/mapserver.conf:/opt/etc/mapserver.conf
             - ./conf/mapserver:/opt/etc/mapserver
             - ./conf/apache2.conf:/etc/apache2/apache2.conf
-            - "sshfsdata:/geodata:ro"
-            - "sshfsdata:/datos/geodata:ro"
+            - "sshfsdata:/geodata:rw"
+            - "sshfsdata:/datos/geodata:rw"
 
 volumes:
   sshfsdata:
