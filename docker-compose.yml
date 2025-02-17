@@ -19,6 +19,7 @@ services:
             - ./conf/mapserver.conf:/opt/etc/mapserver.conf
             - ./conf/mapserver:/opt/etc/mapserver
             - ./conf/apache2.conf:/etc/apache2/apache2.conf
+            - ./conf/mapcache.xml:/var/www/mapcache/mapcache.xml
             - "sshfsdata:/geodata:rw"
             - "sshfsdata:/datos/geodata:rw"
 
